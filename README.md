@@ -1,7 +1,8 @@
-<div style="text-align: center">
+<p align="center">
   <img src="./docs/logo.svg" />
-  <h1>relati</h1>
-</div>
+</p>
+
+<h1 align="center">relati</h1>
 
 瀏覽以下玩法說明：
 * [經典玩法](./docs/how-to-play/relati-classic.md)
