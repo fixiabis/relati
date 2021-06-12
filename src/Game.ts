@@ -10,7 +10,7 @@ class Game {
 
   constructor(public board: Board, public players: Player[], public judge: Judge) {
     this.currentPlayer = players[0];
-    this.currentPlayer.actionsRemaining++;
+    this.currentPlayer.actionsRemaining = 1;
   }
 
   protected getPlayersAfterCurrentPlayer(): Player[] {
@@ -35,6 +35,8 @@ class Game {
     const { coordinate, mark } = placement;
     const isRootMark = !(mark in this.board.rootCoordinates);
 
+    this.currentPlayer!.actionsRemaining--;
+
     if (isRootMark) {
       const [x, y] = coordinate;
       this.board.extraMarks[x][y].isRoot = true;
@@ -54,7 +56,12 @@ class Game {
       return this.end(nextPlayer);
     }
 
+    if (this.currentPlayer!.actionsRemaining) {
+      return;
+    }
+
     this.currentPlayer = nextPlayer;
+    this.currentPlayer!.actionsRemaining = 1;
   }
 
   public end(winner: Player | null): void {
