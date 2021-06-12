@@ -2,6 +2,8 @@ import Placement from './interfaces/Placement';
 import Board from './Board';
 import Player from './Player';
 import Judge from './Judge';
+import CannonChange from './interfaces/CannonChange';
+import CannonAttack from './interfaces/CannonAttack';
 
 class Game {
   public currentPlayer: Player | null;
@@ -44,6 +46,32 @@ class Game {
     }
 
     this.updateBoardAndPlayerState();
+  }
+
+  public handleCannonChange(cannonChange: CannonChange): void {
+    const isCannonChangeAllowed =
+      cannonChange.mark === this.currentPlayer?.mark &&
+      this.judge.checkCannonChangeConditionReached(cannonChange);
+
+    if (isCannonChangeAllowed) {
+      this.board.addExtraMark(cannonChange.coordinate, 'isCannonNode');
+      this.updateBoardAndPlayerState();
+      this.endOrChangeToNextPlayer();
+    }
+  }
+
+  public handleCannonAttack(cannonAttack: CannonAttack): void {
+    const targetCoordinate = this.judge.getCannonAttackTargetCoordinate(cannonAttack);
+
+    const isCannonAttackAllowed =
+      cannonAttack.mark === this.currentPlayer?.mark && targetCoordinate !== null;
+
+    if (isCannonAttackAllowed) {
+      this.board.addExtraMark(cannonAttack.coordinate, 'isUsedCannonNode');
+      this.board.addExtraMark(targetCoordinate!, 'isDeadNode');
+      this.updateBoardAndPlayerState();
+      this.endOrChangeToNextPlayer();
+    }
   }
 
   protected updateBoardAndPlayerState() {

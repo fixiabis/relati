@@ -3,7 +3,8 @@ type LinkMode = 'classic' | 'modern';
 interface JudgeOptions {
   linkMode: LinkMode;
   canUseComboAction: boolean;
-  // canUseCannon: boolean;
+  canUseCannon: boolean;
+  // canUseComboCannon: boolean;
   // canMoveRoot: boolean;
 }
 
