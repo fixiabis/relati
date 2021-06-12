@@ -172,6 +172,8 @@ class Judge {
   }
 
   public updatePlayerActionsRemaining(board: Board, prevBoard: Board, player: Player): void {
+    player.actionsRemaining--;
+
     if (!this.options.canUseComboAction) {
       return;
     }
@@ -179,7 +181,7 @@ class Judge {
     const missingNodesChanged = this.getMissingNodesChanged(board, prevBoard);
     const extraActionsRemaining = this.calcExtraActionsRemaining(missingNodesChanged, player.mark);
 
-    player.actionsRemaining += -1 + extraActionsRemaining;
+    player.actionsRemaining += extraActionsRemaining;
   }
 
   public calcExtraActionsRemaining(missingNodesChanged: Record<Mark, number>, playerMark: Mark) {
