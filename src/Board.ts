@@ -29,6 +29,10 @@ class Board {
     this.marks[x][y] = mark;
   }
 
+  public addExtraMark([x, y]: Coordinate, name: string) {
+    this.extraMarks[x][y][name] = true;
+  }
+
   public clone() {
     const clonedBoard = new Board(this.width, this.height);
 
