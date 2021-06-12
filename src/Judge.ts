@@ -132,8 +132,33 @@ class Judge {
     }
 
     const marks = players.map(({ mark }) => mark);
-    const playerMark = player.mark;
+    const missingNodesChanged = this.getMissingNodesChanged(board, prevBoard, marks);
+    const extraActionsRemaining = this.calcExtraActionsRemaining(missingNodesChanged, player.mark);
 
+    player.actionsRemaining += extraActionsRemaining;
+  }
+
+  public calcExtraActionsRemaining(missingNodesChanged: Record<Mark, number>, playerMark: Mark) {
+    let extraActionsRemaining = 0;
+
+    for (const mark in missingNodesChanged) {
+      if (mark !== playerMark && missingNodesChanged[mark] > 0) {
+        extraActionsRemaining++;
+      }
+    }
+
+    if (missingNodesChanged[playerMark] < 0) {
+      extraActionsRemaining++;
+    }
+
+    return extraActionsRemaining;
+  }
+
+  public getMissingNodesChanged(
+    prevBoard: Board,
+    board: Board,
+    marks: Mark[]
+  ): Record<Mark, number> {
     const missingNodesChanged: Record<Mark, number> = {};
 
     for (const mark of marks) {
@@ -156,19 +181,7 @@ class Judge {
       missingNodesChanged[mark] += +isMissingNode;
     }
 
-    let extraActionsRemaining = 0;
-
-    for (const mark of marks) {
-      if (mark !== playerMark && missingNodesChanged[mark] > 0) {
-        extraActionsRemaining++;
-      }
-    }
-
-    if (missingNodesChanged[playerMark] < 0) {
-      extraActionsRemaining++;
-    }
-
-    player.actionsRemaining += extraActionsRemaining;
+    return missingNodesChanged;
   }
 }
 
