@@ -7,7 +7,7 @@ class Board {
   constructor(public readonly width: number, public readonly height: number) {
     this.marks = Array<null[]>(width)
       .fill(Array<null>(height).fill(null))
-      .map((marks) => [...marks]);
+      .map(([...marks]) => marks);
 
     this.extraMarks = this.marks.map((marks) => marks.map(() => ({})));
 
@@ -27,6 +27,20 @@ class Board {
 
   public setMark([x, y]: Coordinate, mark: Mark): void {
     this.marks[x][y] = mark;
+  }
+
+  public clone() {
+    const clonedBoard = new Board(this.width, this.height);
+
+    clonedBoard.extraMarks = this.extraMarks.map((extraMarks) =>
+      extraMarks.map(({ ...extraMark }) => extraMark)
+    );
+
+    clonedBoard.rootCoordinates = { ...this.rootCoordinates };
+
+    clonedBoard.marks = this.marks.map(([...marks]) => marks);
+
+    return clonedBoard;
   }
 }
 
