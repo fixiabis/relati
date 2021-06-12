@@ -151,7 +151,7 @@ class Judge {
   public getMissingNodesChanged(board: Board, prevBoard: Board): Record<Mark, number> {
     const missingNodesChanged: Record<Mark, number> = {};
 
-    for (const mark in board) {
+    for (const mark in board.rootCoordinates) {
       missingNodesChanged[mark] = 0;
     }
 
