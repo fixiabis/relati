@@ -44,6 +44,10 @@ class Game {
       return;
     }
 
+    this.updateBoardAndPlayerState();
+  }
+
+  protected updateBoardAndPlayerState() {
     const prevBoard = this.board.clone();
 
     this.judge.updateBoardExtraMarks(this.board);
