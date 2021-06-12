@@ -47,7 +47,7 @@ class Game {
     const prevBoard = this.board.clone();
 
     this.judge.updateBoardExtraMarks(this.board);
-    this.judge.updatePlayerActionsRemaining(prevBoard, this.board, this.players, this.currentPlayer!);
+    this.judge.updatePlayerActionsRemaining(this.board, prevBoard, this.currentPlayer!);
   }
 
   protected endOrChangeToNextPlayer(): void {

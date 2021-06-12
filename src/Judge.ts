@@ -121,18 +121,12 @@ class Judge {
     return sourceCoordinates;
   }
 
-  public updatePlayerActionsRemaining(
-    prevBoard: Board,
-    board: Board,
-    players: Player[],
-    player: Player
-  ): void {
+  public updatePlayerActionsRemaining(board: Board, prevBoard: Board, player: Player): void {
     if (!this.options.canUseComboAction) {
       return;
     }
 
-    const marks = players.map(({ mark }) => mark);
-    const missingNodesChanged = this.getMissingNodesChanged(prevBoard, board, marks);
+    const missingNodesChanged = this.getMissingNodesChanged(board, prevBoard);
     const extraActionsRemaining = this.calcExtraActionsRemaining(missingNodesChanged, player.mark);
 
     player.actionsRemaining += extraActionsRemaining;
@@ -154,14 +148,10 @@ class Judge {
     return extraActionsRemaining;
   }
 
-  public getMissingNodesChanged(
-    prevBoard: Board,
-    board: Board,
-    marks: Mark[]
-  ): Record<Mark, number> {
+  public getMissingNodesChanged(board: Board, prevBoard: Board): Record<Mark, number> {
     const missingNodesChanged: Record<Mark, number> = {};
 
-    for (const mark of marks) {
+    for (const mark in board) {
       missingNodesChanged[mark] = 0;
     }
 
