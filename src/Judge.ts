@@ -115,6 +115,56 @@ class Judge {
       delete board.extraMarks[x][y].isMissingNodeMaybe;
     }
   }
+
+  public updatePlayerActionsRemaining(
+    prevBoard: Board,
+    board: Board,
+    players: Player[],
+    player: Player
+  ): void {
+    if (!this.options.canUseComboAction) {
+      return;
+    }
+
+    const marks = players.map(({ mark }) => mark);
+    const playerMark = player.mark;
+
+    const missingNodesChanged: Record<Mark, number> = {};
+
+    for (const mark of marks) {
+      missingNodesChanged[mark] = 0;
+    }
+
+    const prevMarkedCoordinates = this.getMarkedCoordinates(prevBoard);
+
+    for (const [x, y] of prevMarkedCoordinates) {
+      const mark = prevBoard.marks[x][y]!;
+      const isMissingNode = prevBoard.extraMarks[x][y].isMissingNode;
+      missingNodesChanged[mark] += -isMissingNode;
+    }
+
+    const markedCoordinates = this.getMarkedCoordinates(board);
+
+    for (const [x, y] of markedCoordinates) {
+      const mark = board.marks[x][y]!;
+      const isMissingNode = board.extraMarks[x][y].isMissingNode;
+      missingNodesChanged[mark] += +isMissingNode;
+    }
+
+    let extraActionsRemaining = 0;
+
+    for (const mark of marks) {
+      if (mark !== playerMark && missingNodesChanged[mark] > 0) {
+        extraActionsRemaining++;
+      }
+    }
+
+    if (missingNodesChanged[playerMark] < 0) {
+      extraActionsRemaining++;
+    }
+
+    player.actionsRemaining += extraActionsRemaining;
+  }
 }
 
 export default Judge;

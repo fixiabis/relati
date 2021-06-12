@@ -44,7 +44,10 @@ class Game {
       return;
     }
 
+    const prevBoard = this.board.clone();
+
     this.judge.updateBoardExtraMarks(this.board);
+    this.judge.updatePlayerActionsRemaining(prevBoard, this.board, this.players, this.currentPlayer!);
   }
 
   protected endOrChangeToNextPlayer(): void {
