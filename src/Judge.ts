@@ -73,6 +73,10 @@ class Judge {
     return this.paths.map(toMovedPath).filter(isPathValid).filter(isPathAvailable);
   }
 
+  public getMarkedCoordinates(board: Board): Coordinate[] {
+    return board.coordinates.filter(([x, y]) => board.marks[x][y] !== null);
+  }
+
   public updateBoardExtraMarks(board: Board): void {
     if (this.options.linkMode === 'classic') {
       return;
@@ -85,7 +89,7 @@ class Judge {
       sourceCoordinates.push(sourceCoordinate);
     }
 
-    const markedCoordinates = board.coordinates.filter(([x, y]) => board.marks[x][y] !== null);
+    const markedCoordinates = this.getMarkedCoordinates(board);
 
     for (const [x, y] of markedCoordinates) {
       board.extraMarks[x][y].isMissingNode = false;
