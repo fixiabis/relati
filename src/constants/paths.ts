@@ -1,5 +1,3 @@
-import directions from '../../classic/definitions/directions';
-
 const F: Coordinate = [+0, -1];
 const B: Coordinate = [+0, +1];
 const L: Coordinate = [-1, +0];
@@ -25,8 +23,10 @@ const FFRR: Coordinate = [+2, -2];
 const BBLL: Coordinate = [-2, +2];
 const BBRR: Coordinate = [+2, +2];
 
-const paths = [
-  ...directions.map((direction) => [direction]),
+export const CLASSIC_PATHS = [F, B, L, R, FL, FR, BL, BR].map((direction) => [direction]);
+
+export const MODERN_PATHS = [
+  ...CLASSIC_PATHS,
 
   [FF, F],
   [BB, B],
@@ -68,5 +68,3 @@ const paths = [
   [BBL, BL, L],
   [BBR, BR, R],
 ];
-
-export default paths;

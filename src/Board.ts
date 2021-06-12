@@ -1,11 +1,15 @@
 class Board {
   public coordinates: Coordinate[];
+  public extraMarks: Record<string, boolean>[][];
   public marks: (Mark | null)[][];
+  public rootCoordinates: Record<Mark, Coordinate> = {};
 
   constructor(public readonly width: number, public readonly height: number) {
     this.marks = Array<null[]>(width)
       .fill(Array<null>(height).fill(null))
       .map((marks) => [...marks]);
+
+    this.extraMarks = this.marks.map((marks) => marks.map(() => ({})));
 
     this.coordinates = this.marks.reduce<Coordinate[]>(
       (coordinates, marks, x) => coordinates.concat(marks.map((_, y) => [x, y])),
