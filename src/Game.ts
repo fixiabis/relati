@@ -35,12 +35,11 @@ class Game {
     const { coordinate, mark } = placement;
     const isRootMark = !(mark in this.board.rootCoordinates);
 
-    this.currentPlayer!.actionsRemaining--;
-
     if (isRootMark) {
       const [x, y] = coordinate;
       this.board.extraMarks[x][y].isRoot = true;
       this.board.rootCoordinates[mark] = coordinate;
+      this.currentPlayer!.actionsRemaining--;
       return;
     }
 

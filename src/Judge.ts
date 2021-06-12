@@ -129,7 +129,7 @@ class Judge {
     const missingNodesChanged = this.getMissingNodesChanged(board, prevBoard);
     const extraActionsRemaining = this.calcExtraActionsRemaining(missingNodesChanged, player.mark);
 
-    player.actionsRemaining += extraActionsRemaining;
+    player.actionsRemaining += -1 + extraActionsRemaining;
   }
 
   public calcExtraActionsRemaining(missingNodesChanged: Record<Mark, number>, playerMark: Mark) {
