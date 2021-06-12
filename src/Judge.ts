@@ -132,7 +132,7 @@ class Judge {
     }
 
     const marks = players.map(({ mark }) => mark);
-    const missingNodesChanged = this.getMissingNodesChanged(board, prevBoard, marks);
+    const missingNodesChanged = this.getMissingNodesChanged(prevBoard, board, marks);
     const extraActionsRemaining = this.calcExtraActionsRemaining(missingNodesChanged, player.mark);
 
     player.actionsRemaining += extraActionsRemaining;
@@ -170,7 +170,10 @@ class Judge {
     for (const [x, y] of prevMarkedCoordinates) {
       const mark = prevBoard.marks[x][y]!;
       const isMissingNode = prevBoard.extraMarks[x][y].isMissingNode;
-      missingNodesChanged[mark] += -isMissingNode;
+
+      if (isMissingNode) {
+        missingNodesChanged[mark]--;
+      }
     }
 
     const markedCoordinates = this.getMarkedCoordinates(board);
@@ -178,7 +181,10 @@ class Judge {
     for (const [x, y] of markedCoordinates) {
       const mark = board.marks[x][y]!;
       const isMissingNode = board.extraMarks[x][y].isMissingNode;
-      missingNodesChanged[mark] += +isMissingNode;
+
+      if (isMissingNode) {
+        missingNodesChanged[mark]++;
+      }
     }
 
     return missingNodesChanged;
