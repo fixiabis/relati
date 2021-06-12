@@ -82,13 +82,7 @@ class Judge {
       return;
     }
 
-    const sourceCoordinates = [];
-
-    for (const mark in board.rootCoordinates) {
-      const sourceCoordinate = board.rootCoordinates[mark];
-      sourceCoordinates.push(sourceCoordinate);
-    }
-
+    const sourceCoordinates = this.getInitialSourceCoordinates(board);
     const markedCoordinates = this.getMarkedCoordinates(board);
 
     for (const [x, y] of markedCoordinates) {
@@ -114,6 +108,17 @@ class Judge {
       board.extraMarks[x][y].isMissingNode = board.extraMarks[x][y].isMissingNodeMaybe;
       delete board.extraMarks[x][y].isMissingNodeMaybe;
     }
+  }
+
+  public getInitialSourceCoordinates(board: Board): Coordinate[] {
+    const sourceCoordinates = [];
+
+    for (const mark in board.rootCoordinates) {
+      const sourceCoordinate = board.rootCoordinates[mark];
+      sourceCoordinates.push(sourceCoordinate);
+    }
+
+    return sourceCoordinates;
   }
 
   public updatePlayerActionsRemaining(
