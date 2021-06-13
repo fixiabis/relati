@@ -23,6 +23,8 @@ const FFRR: Coordinate = [+2, -2];
 const BBLL: Coordinate = [-2, +2];
 const BBRR: Coordinate = [+2, +2];
 
+export const CANNON_ATTACK_DIRECTIONS = [F, B, L, R];
+
 export const CLASSIC_PATHS = [F, B, L, R, FL, FR, BL, BR].map((direction) => [direction]);
 
 export const MODERN_PATHS = [
