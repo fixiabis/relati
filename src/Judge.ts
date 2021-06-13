@@ -1,5 +1,5 @@
 import Board from './Board';
-import { CLASSIC_PATHS, MODERN_PATHS } from './constants/paths';
+import { CANNON_ATTACK_DIRECTIONS, CLASSIC_PATHS, MODERN_PATHS } from './constants/directional';
 import CannonAttack from './interfaces/CannonAttack';
 import CannonChange from './interfaces/CannonChange';
 import JudgeOptions from './interfaces/JudgeOptions';
@@ -57,7 +57,33 @@ class Judge {
   public checkPlayerCanTakeAction(board: Board, player: Player): boolean {
     const toPlacement = player.takePlacement.bind(player, board);
     const isPlacementConditionReached = this.checkPlacementConditionReached.bind(this);
-    return board.coordinates.map(toPlacement).some(isPlacementConditionReached);
+
+    const isPlayerCanTakePlacement = board.coordinates
+      .map(toPlacement)
+      .some(isPlacementConditionReached);
+
+    const toCannonChange = player.makeCannonMark.bind(player, board);
+    const isCannonChangeConditionReached = this.checkCannonChangeConditionReached.bind(this);
+
+    const isPlayerCanMakeCannonMark = () =>
+      board.coordinates.map(toCannonChange).some(isCannonChangeConditionReached);
+
+    const toCannonAttack = player.fireCannonMark.bind(player, board);
+
+    const isCannonAttackHasTarget = (cannonAttack: CannonAttack) =>
+      this.getCannonAttackTargetCoordinate(cannonAttack) !== null;
+
+    const isPlayerCanFireCannonMark = () =>
+      board.coordinates
+        .map((coordinate) =>
+          CANNON_ATTACK_DIRECTIONS.map((direction) => toCannonAttack(coordinate, direction))
+        )
+        .some((cannonAttacks) => cannonAttacks.some(isCannonAttackHasTarget));
+
+    return (
+      isPlayerCanTakePlacement ||
+      (this.options.canUseCannon && (isPlayerCanMakeCannonMark() || isPlayerCanFireCannonMark()))
+    );
   }
 
   public getMovedCoordinate([x, y]: Coordinate, [dx, dy]: Coordinate): Coordinate {
