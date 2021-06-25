@@ -6,7 +6,7 @@
     l 3 3
     m 0 -3
     l -3 3"
-    stroke="#808080"
+    stroke="rgb(128, 128, 128)"
     stroke-width="0.6"
     fill="none"
   />

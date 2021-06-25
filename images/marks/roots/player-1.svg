@@ -10,7 +10,7 @@
     m  0 -1.875
     a 1.875 1.875 0 0 1 0 3.75
     a 1.875 1.875 0 0 1 0 -3.75"
-    stroke="crimson"
+    stroke="rgb(220, 20, 60)"
     stroke-width="0.25"
     fill="none"
   />

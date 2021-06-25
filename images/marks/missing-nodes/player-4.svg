@@ -7,7 +7,7 @@
     l 3 0
     l 0 -3
     z"
-    stroke="#808080"
+    stroke="rgb(128, 128, 128)"
     stroke-width="0.6"
     fill="none"
   />

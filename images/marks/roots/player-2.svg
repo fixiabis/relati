@@ -32,7 +32,7 @@
     m -0.25 0.25
     l -1.25 -1.25
     l -1.25 1.25"
-    stroke="royalblue"
+    stroke="rgb(65, 105, 225)"
     stroke-width="0.25"
     fill="none"
   />
