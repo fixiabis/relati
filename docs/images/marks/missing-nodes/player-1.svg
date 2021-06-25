@@ -1,0 +1,13 @@
+<svg width="5" height="5" viewBox="0 0 5 5" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="
+    M 0 0
+    m 2.5 2.5
+    m  0 -1.5
+    a 1.5 1.5 0 0 1 0 3
+    a 1.5 1.5 0 0 1 0 -3"
+    stroke="#808080"
+    stroke-width="0.6"
+    fill="none"
+  />
+</svg>
