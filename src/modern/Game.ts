@@ -54,9 +54,9 @@ class Game extends ClassicGame {
       for (const square of squaresOfReceiver) {
         square.stateOfMark.isMissingNode = false;
 
-        const isSenderOfSquare = this.judge.judgeSquareCanBeSender(square, mark);
+        const isSquareOfSender = this.judge.judgeSquareCanBeSender(square, mark);
 
-        if (isSenderOfSquare) {
+        if (isSquareOfSender) {
           squaresOfSender.push(square);
         }
       }
