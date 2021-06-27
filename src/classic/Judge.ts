@@ -4,7 +4,7 @@ import SquareOfBoard from '../shared/Board/SquareOfBoard';
 import Player from './Player';
 
 class Judge {
-  public getSquaresOfBoard(board: Board): SquareOfBoard[] {
+  public getSquares(board: Board): SquareOfBoard[] {
     return board.coordinates.map(([x, y]) => board.squares[x][y]);
   }
 
@@ -28,7 +28,7 @@ class Judge {
   }
 
   public judgePlayerCanPlace(player: Player, board: Board): boolean {
-    const squares = this.getSquaresOfBoard(board);
+    const squares = this.getSquares(board);
     return squares.some((square) => this.judgeSquareCanBePlace(square, player.mark));
   }
 }
