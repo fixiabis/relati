@@ -34,12 +34,13 @@ class Game extends ClassicGame {
 
   public updateStateOfMarkOfSquares() {
     const squaresOfSender = this.judge.getSquaresOfRoot(this.marks, this.board);
-    const squares = this.judge.getSquaresOfBoard(this.board);
 
-    for (const square of squares) {
-      if (square.mark !== ' ' && !square.stateOfMark.isRoot) {
-        square.stateOfMark.isMissingNode = true;
-      }
+    const squaresMayBeMissingNode = this.judge
+      .getSquaresOfBoard(this.board)
+      .filter((square) => square.mark !== ' ' && !square.stateOfMark.isRoot);
+
+    for (const square of squaresMayBeMissingNode) {
+      square.stateOfMark.isMissingNode = true;
     }
 
     for (const square of squaresOfSender) {
