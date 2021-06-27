@@ -11,7 +11,9 @@ class Judge extends ClassicJudge {
   }
 
   public getSquaresOfRoot(marks: Mark[], board: Board): SquareOfBoard[] {
-    return marks.map((mark) => board.marks[mark].squareOfRoot);
+    return marks
+      .map((mark) => board.marks[mark].squareOfRoot)
+      .filter((squareOfRoot) => squareOfRoot);
   }
 
   public judgeSquareCanBeSender(square: SquareOfBoard, mark: Mark): boolean {

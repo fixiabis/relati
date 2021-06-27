@@ -37,7 +37,7 @@ class Game extends ClassicGame {
     const squares = this.judge.getSquaresOfBoard(this.board);
 
     for (const square of squares) {
-      if (square.mark !== ' ') {
+      if (square.mark !== ' ' && !square.stateOfMark.isRoot) {
         square.stateOfMark.isMissingNode = true;
       }
     }
@@ -52,8 +52,9 @@ class Game extends ClassicGame {
         .filter((square) => square.stateOfMark.isMissingNode);
 
       for (const square of squaresOfReceiver) {
-        const isSenderOfSquare = this.judge.judgeSquareCanBeSender(square, mark);
         square.stateOfMark.isMissingNode = false;
+
+        const isSenderOfSquare = this.judge.judgeSquareCanBeSender(square, mark);
 
         if (isSenderOfSquare) {
           squaresOfSender.push(square);
