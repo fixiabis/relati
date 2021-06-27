@@ -1,6 +1,6 @@
-import { MARKS } from './constants';
-import Board from './Board/Board';
-import SquareOfBoard from './Board/SquareOfBoard';
+import { MARKS } from '../shared/constants/marks';
+import Board from '../shared/Board/Board';
+import SquareOfBoard from '../shared/Board/SquareOfBoard';
 import Judge from './Judge';
 import Player from './Player';
 

@@ -1,4 +1,4 @@
-import SquareOfBoard from './Board/SquareOfBoard';
+import SquareOfBoard from '../shared/Board/SquareOfBoard';
 
 class Player {
   constructor(public readonly mark: Mark) {}

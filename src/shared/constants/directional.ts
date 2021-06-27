@@ -8,5 +8,3 @@ const BL: Coordinate = [-1, +1];
 const BR: Coordinate = [+1, +1];
 
 export const DIRECTIONS: readonly Coordinate[] = [F, B, L, R, FL, FR, BL, BR];
-
-export const MARKS: readonly Mark[] = ['O', 'X', 'A', 'H'];

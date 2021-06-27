@@ -1,6 +1,6 @@
-import { DIRECTIONS } from './constants';
-import Board from './Board/Board';
-import SquareOfBoard from './Board/SquareOfBoard';
+import { DIRECTIONS } from '../shared/constants/directional';
+import Board from '../shared/Board/Board';
+import SquareOfBoard from '../shared/Board/SquareOfBoard';
 import Player from './Player';
 
 class Judge {
