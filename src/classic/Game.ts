@@ -6,6 +6,7 @@ import Player from './Player';
 
 class Game {
   public readonly board: Board;
+  public readonly marks: Mark[];
   public readonly players: Player[];
   public currentPlayer: Player;
   public winner: Player | null = null;
@@ -13,20 +14,24 @@ class Game {
 
   constructor(public readonly numberOfPlayers: number, public readonly judge: Judge) {
     const boardSize = this.judge.calcBoardSize(numberOfPlayers);
-    const marks = MARKS.slice(0, numberOfPlayers);
+    this.marks = MARKS.slice(0, numberOfPlayers);
     this.board = new Board(boardSize, boardSize);
-    this.players = marks.map((mark) => new Player(mark));
+    this.players = this.marks.map((mark) => new Player(mark));
     this.currentPlayer = this.players[0];
-    marks.forEach((mark) => (this.board.marks[mark] = {}));
+    this.marks.forEach((mark) => (this.board.marks[mark] = {}));
   }
 
   public handleSquareChoose(square: SquareOfBoard): void {
     const isSquareCanBePlace = this.judge.judgeSquareCanBePlace(square, this.currentPlayer.mark);
 
     if (isSquareCanBePlace) {
-      this.currentPlayer.placeMark(square!);
+      this.handleSquarePlace(square);
       this.handleAfterCurrentPlayerPlaceMark();
     }
+  }
+
+  public handleSquarePlace(square: SquareOfBoard) {
+    this.currentPlayer.placeMark(square);
   }
 
   public handleAfterCurrentPlayerPlaceMark(): void {
