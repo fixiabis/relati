@@ -17,7 +17,7 @@ class Judge extends ClassicJudge {
   }
 
   public judgeSquareCanBeSender(square: SquareOfBoard, mark: Mark): boolean {
-    return square.mark === mark && !square.stateOfMark.isMissingNode;
+    return square.mark === mark && !square.stateOfMark.isUnlinked;
   }
 
   public judgeSquareCanBeReceiver(square: SquareOfBoard, mark: Mark): boolean {

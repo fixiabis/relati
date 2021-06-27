@@ -37,12 +37,12 @@ class Game extends ClassicGame {
   public updateStateOfMarkOfSquares(board: Board) {
     const squaresOfSender = this.judge.getSquaresOfRoot(board);
 
-    const squaresMayBeMissingNode = this.judge
+    const squaresMayBeUnlinked = this.judge
       .getSquares(board)
       .filter((square) => square.mark !== ' ' && !square.stateOfMark.isRoot);
 
-    for (const square of squaresMayBeMissingNode) {
-      square.stateOfMark.isMissingNode = true;
+    for (const square of squaresMayBeUnlinked) {
+      square.stateOfMark.isUnlinked = true;
     }
 
     for (const square of squaresOfSender) {
@@ -52,10 +52,10 @@ class Game extends ClassicGame {
       const squaresOfReceiver = this.judge
         .findSquaresOfPathCanReceive(squaresOfPath, mark)
         .map(([square]) => square)
-        .filter((square) => square.stateOfMark.isMissingNode);
+        .filter((square) => square.stateOfMark.isUnlinked);
 
       for (const square of squaresOfReceiver) {
-        square.stateOfMark.isMissingNode = false;
+        square.stateOfMark.isUnlinked = false;
 
         const isSquareOfSender = this.judge.judgeSquareCanBeSender(square, mark);
 
