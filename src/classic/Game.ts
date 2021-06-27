@@ -5,19 +5,26 @@ import Judge from './Judge';
 import Player from './Player';
 
 class Game {
-  public readonly board: Board;
   public readonly marks: Mark[];
-  public readonly players: Player[];
-  public currentPlayer: Player;
+  public currentPlayer!: Player;
   public winner: Player | null = null;
   public isOver: boolean = false;
 
-  constructor(public readonly numberOfPlayers: number, public readonly judge: Judge) {
-    const boardSize = this.judge.calcBoardSize(numberOfPlayers);
-    this.marks = MARKS.slice(0, numberOfPlayers);
-    this.board = new Board(boardSize, boardSize);
-    this.players = this.marks.map((mark) => new Player(mark));
+  static create(numberOfPlayers: number) {
+    const judge = new Judge();
+    const players = MARKS.slice(0, numberOfPlayers).map((mark) => new Player(mark));
+    const size = numberOfPlayers * 2 + 1;
+    const board = new Board(size, size);
+    return new this(players, board, judge);
+  }
+
+  constructor(
+    public readonly players: Player[],
+    public readonly board: Board,
+    public readonly judge: Judge
+  ) {
     this.currentPlayer = this.players[0];
+    this.marks = this.players.map((player) => player.mark);
     this.marks.forEach((mark) => (this.board.marks[mark] = {}));
   }
 

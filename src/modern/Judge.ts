@@ -4,10 +4,6 @@ import SquareOfBoard from '../shared/Board/SquareOfBoard';
 import { PATHS } from '../shared/constants/directional';
 
 class Judge extends ClassicJudge {
-  public calcBoardSize(numberOfPlayers: number): number {
-    return numberOfPlayers * 4 + 1;
-  }
-
   public getSquaresOfPath(square: SquareOfBoard): SquareOfBoard[][] {
     return PATHS.map((path) => path.map((coordinate) => square.to(coordinate))).filter(
       (squares): squares is SquareOfBoard[] => squares.every((square) => square !== null)

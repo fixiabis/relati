@@ -1,10 +1,19 @@
 import ClassicGame from '../classic/Game';
+import Player from '../classic/Player';
+import { MARKS } from '../shared/constants/marks';
+import Board from '../shared/Board/Board';
 import SquareOfBoard from '../shared/Board/SquareOfBoard';
 import Judge from './Judge';
 
 class Game extends ClassicGame {
-  constructor(public readonly numberOfPlayers: number, public readonly judge: Judge) {
-    super(numberOfPlayers, judge);
+  public readonly judge!: Judge;
+
+  static create(numberOfPlayers: number) {
+    const judge = new Judge();
+    const players = MARKS.slice(0, numberOfPlayers).map((mark) => new Player(mark));
+    const size = numberOfPlayers * 4 + 1;
+    const board = new Board(size, size);
+    return new this(players, board, judge);
   }
 
   public handleSquarePlace(square: SquareOfBoard): void {

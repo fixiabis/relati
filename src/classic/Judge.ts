@@ -4,10 +4,6 @@ import SquareOfBoard from '../shared/Board/SquareOfBoard';
 import Player from './Player';
 
 class Judge {
-  public calcBoardSize(numberOfPlayers: number): number {
-    return numberOfPlayers * 2 + 1;
-  }
-
   public getSquaresOfBoard(board: Board): SquareOfBoard[] {
     return board.coordinates.map(([x, y]) => board.squares[x][y]);
   }
