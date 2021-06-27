@@ -1,3 +1,3 @@
 type Coordinate = readonly [number, number];
 
-type Mark = string;
+type Mark = 'O' | 'X' | 'A' | 'H';

@@ -1,107 +1,55 @@
-import Placement from './interfaces/Placement';
-import Board from './Board';
-import Player from './Player';
+import { MARKS } from './constants';
+import Board from './Board/Board';
+import SquareOfBoard from './Board/SquareOfBoard';
 import Judge from './Judge';
-import CannonChange from './interfaces/CannonChange';
-import CannonAttack from './interfaces/CannonAttack';
+import Player from './Player';
 
 class Game {
-  public currentPlayer: Player | null;
-  public isOver: boolean = false;
+  public readonly board: Board;
+  public readonly players: Player[];
+  public currentPlayer: Player;
   public winner: Player | null = null;
+  public isOver: boolean = false;
 
-  constructor(public board: Board, public players: Player[], public judge: Judge) {
-    this.currentPlayer = players[0];
-    this.currentPlayer.actionsRemaining = 1;
+  constructor(public readonly numberOfPlayers: number, public readonly judge: Judge) {
+    const boardSize = this.judge.calcBoardSize(numberOfPlayers);
+    this.board = new Board(boardSize, boardSize);
+    this.players = MARKS.slice(0, numberOfPlayers).map((mark) => new Player(mark));
+    this.currentPlayer = this.players[0];
   }
 
-  protected getPlayersAfterCurrentPlayer(): Player[] {
-    const playerIndex = this.players.indexOf(this.currentPlayer!);
-    const nextPlayerIndex = playerIndex + 1;
-    return this.players.slice(nextPlayerIndex).concat(this.players.slice(0, nextPlayerIndex));
-  }
+  public handleSquareChoose(square: SquareOfBoard): void {
+    const isSquareCanBePlace = this.judge.judgeSquareCanBePlace(square, this.currentPlayer.mark);
 
-  public handlePlacement(placement: Placement): void {
-    const isPlacementAllowed =
-      placement.mark === this.currentPlayer?.mark &&
-      this.judge.checkPlacementConditionReached(placement);
-
-    if (isPlacementAllowed) {
-      this.board.setMark(placement.coordinate, placement.mark);
-      this.handleAfterPlacement(placement);
-      this.endOrChangeToNextPlayer();
+    if (isSquareCanBePlace) {
+      this.currentPlayer.placeMark(square!);
+      this.handleAfterCurrentPlayerPlaceMark();
     }
   }
 
-  protected handleAfterPlacement(placement: Placement): void {
-    const { coordinate, mark } = placement;
-    const isRootMark = !(mark in this.board.rootCoordinates);
+  public handleAfterCurrentPlayerPlaceMark(): void {
+    const nextPlayer = this.findNextPlayerWhoCanPlace();
 
-    if (isRootMark) {
-      const [x, y] = coordinate;
-      this.board.extraMarks[x][y].isRoot = true;
-      this.board.rootCoordinates[mark] = coordinate;
-      this.currentPlayer!.actionsRemaining--;
-      return;
-    }
-
-    this.updateBoardAndPlayerState();
-  }
-
-  public handleCannonChange(cannonChange: CannonChange): void {
-    const isCannonChangeAllowed =
-      cannonChange.mark === this.currentPlayer?.mark &&
-      this.judge.checkCannonChangeConditionReached(cannonChange);
-
-    if (isCannonChangeAllowed) {
-      this.board.addExtraMark(cannonChange.coordinate, 'isCannonNode');
-      this.updateBoardAndPlayerState();
-      this.endOrChangeToNextPlayer();
-    }
-  }
-
-  public handleCannonAttack(cannonAttack: CannonAttack): void {
-    const targetCoordinate = this.judge.getCannonAttackTargetCoordinate(cannonAttack);
-
-    const isCannonAttackAllowed =
-      cannonAttack.mark === this.currentPlayer?.mark && targetCoordinate !== null;
-
-    if (isCannonAttackAllowed) {
-      this.board.addExtraMark(cannonAttack.coordinate, 'isUsedCannonNode');
-      this.board.addExtraMark(targetCoordinate!, 'isDeadNode');
-      this.updateBoardAndPlayerState();
-      this.endOrChangeToNextPlayer();
-    }
-  }
-
-  protected updateBoardAndPlayerState() {
-    const prevBoard = this.board.clone();
-
-    this.judge.updateBoardExtraMarks(this.board);
-    this.judge.updatePlayerActionsRemaining(this.board, prevBoard, this.currentPlayer!);
-  }
-
-  protected endOrChangeToNextPlayer(): void {
-    const players = this.getPlayersAfterCurrentPlayer();
-    const isPlayerCanTakeAction = this.judge.checkPlayerCanTakeAction.bind(this.judge, this.board);
-    const nextPlayer = players.find(isPlayerCanTakeAction) || null;
-
-    if (nextPlayer === null || nextPlayer === this.currentPlayer) {
-      return this.end(nextPlayer);
-    }
-
-    if (this.currentPlayer!.actionsRemaining) {
+    if (nextPlayer === this.currentPlayer || nextPlayer === null) {
+      this.winner = nextPlayer;
+      this.isOver = true;
       return;
     }
 
     this.currentPlayer = nextPlayer;
-    this.currentPlayer!.actionsRemaining = 1;
   }
 
-  public end(winner: Player | null): void {
-    this.currentPlayer = null;
-    this.winner = winner;
-    this.isOver = true;
+  public findNextPlayerWhoCanPlace(): Player | null {
+    const indexOfCurrentPlayer = this.players.indexOf(this.currentPlayer);
+    const indexOfNextPlayer = (indexOfCurrentPlayer + 1) % this.players.length;
+
+    const playersStartByNextPlayer = this.players
+      .slice(indexOfNextPlayer)
+      .concat(this.players.slice(0, indexOfNextPlayer));
+
+    const isPlayerCanPlace = (player: Player) => this.judge.judgePlayerCanPlace(player, this.board);
+
+    return playersStartByNextPlayer.find(isPlayerCanPlace) || null;
   }
 }
 
