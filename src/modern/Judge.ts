@@ -4,7 +4,7 @@ import SquareOfBoard from '../shared/Board/SquareOfBoard';
 import { PATHS } from '../shared/constants/directional';
 
 class Judge extends ClassicJudge {
-  public getSquaresOfPath(square: SquareOfBoard): SquareOfBoard[][] {
+  public getSquaresByPaths(square: SquareOfBoard): SquareOfBoard[][] {
     return PATHS.map((path) => path.map((coordinate) => square.to(coordinate))).filter(
       (squares): squares is SquareOfBoard[] => squares.every((square) => square !== null)
     );
@@ -29,7 +29,7 @@ class Judge extends ClassicJudge {
   }
 
   public judgeSquareCanLink(square: SquareOfBoard, mark: Mark): boolean {
-    const squares = this.getSquaresOfPath(square);
+    const squares = this.getSquaresByPaths(square);
     return squares.some((squares) => this.judgeSquaresOfPathCanSend(squares, mark));
   }
 

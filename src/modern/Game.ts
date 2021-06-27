@@ -44,7 +44,7 @@ class Game extends ClassicGame {
 
     for (const square of squaresOfSender) {
       const mark = square.mark as Mark;
-      const squaresOfPath = this.judge.getSquaresOfPath(square);
+      const squaresOfPath = this.judge.getSquaresByPaths(square);
 
       const squaresOfReceiver = this.judge
         .findSquaresOfPathCanReceive(squaresOfPath, mark)

@@ -8,14 +8,14 @@ class Judge {
     return board.coordinates.map(([x, y]) => board.squares[x][y]);
   }
 
-  public getSquaresOfDirection(square: SquareOfBoard): SquareOfBoard[] {
+  public getSquaresByDirections(square: SquareOfBoard): SquareOfBoard[] {
     return DIRECTIONS.map((coordinate) => square.to(coordinate)).filter(
       (square): square is SquareOfBoard => square !== null
     );
   }
 
   public judgeSquareCanLink(square: SquareOfBoard, mark: Mark): boolean {
-    const squares = this.getSquaresOfDirection(square);
+    const squares = this.getSquaresByDirections(square);
     return squares.some((square) => square.mark === mark);
   }
 
