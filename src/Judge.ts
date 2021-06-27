@@ -21,7 +21,7 @@ class Judge {
       return false;
     }
 
-    return !square.board.isMarkPlaced[mark] || this.judgeSquareCanLink(square, mark);
+    return !square.board.marks[mark].isPlaced || this.judgeSquareCanLink(square, mark);
   }
 
   public judgePlayerCanPlace(player: Player, board: Board): boolean {

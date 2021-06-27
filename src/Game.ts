@@ -13,9 +13,11 @@ class Game {
 
   constructor(public readonly numberOfPlayers: number, public readonly judge: Judge) {
     const boardSize = this.judge.calcBoardSize(numberOfPlayers);
+    const marks = MARKS.slice(0, numberOfPlayers);
     this.board = new Board(boardSize, boardSize);
-    this.players = MARKS.slice(0, numberOfPlayers).map((mark) => new Player(mark));
+    this.players = marks.map((mark) => new Player(mark));
     this.currentPlayer = this.players[0];
+    marks.forEach((mark) => (this.board.marks[mark] = {}));
   }
 
   public handleSquareChoose(square: SquareOfBoard): void {

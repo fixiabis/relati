@@ -5,7 +5,7 @@ class Player {
 
   public placeMark(square: SquareOfBoard): void {
     square.mark = this.mark;
-    square.board.isMarkPlaced[this.mark] = true;
+    square.board.marks[this.mark].isPlaced = true;
   }
 }
 
