@@ -9,10 +9,12 @@ class Game extends ClassicGame {
   public readonly judge!: Judge;
 
   static create(numberOfPlayers: number) {
+    const marks = MARKS.slice(0, numberOfPlayers);
     const judge = new Judge();
-    const players = MARKS.slice(0, numberOfPlayers).map((mark) => new Player(mark));
+    const players = marks.map((mark) => new Player(mark));
     const size = numberOfPlayers * 4 + 1;
     const board = new Board(size, size);
+    marks.forEach((mark) => (board.marks[mark] = {}));
     return new this(players, board, judge);
   }
 
@@ -27,16 +29,16 @@ class Game extends ClassicGame {
     }
   }
 
-  public handleAfterCurrentPlayerPlaceMark() {
-    this.updateStateOfMarkOfSquares();
-    super.handleAfterCurrentPlayerPlaceMark();
+  public handleAfterSquarePlace(square: SquareOfBoard) {
+    this.updateStateOfMarkOfSquares(square.board);
+    super.handleAfterSquarePlace(square);
   }
 
-  public updateStateOfMarkOfSquares() {
-    const squaresOfSender = this.judge.getSquaresOfRoot(this.marks, this.board);
+  public updateStateOfMarkOfSquares(board: Board) {
+    const squaresOfSender = this.judge.getSquaresOfRoot(board);
 
     const squaresMayBeMissingNode = this.judge
-      .getSquaresOfBoard(this.board)
+      .getSquaresOfBoard(board)
       .filter((square) => square.mark !== ' ' && !square.stateOfMark.isRoot);
 
     for (const square of squaresMayBeMissingNode) {

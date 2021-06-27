@@ -5,16 +5,17 @@ import Judge from './Judge';
 import Player from './Player';
 
 class Game {
-  public readonly marks: Mark[];
   public currentPlayer!: Player;
   public winner: Player | null = null;
   public isOver: boolean = false;
 
   static create(numberOfPlayers: number) {
+    const marks = MARKS.slice(0, numberOfPlayers);
     const judge = new Judge();
-    const players = MARKS.slice(0, numberOfPlayers).map((mark) => new Player(mark));
+    const players = marks.map((mark) => new Player(mark));
     const size = numberOfPlayers * 2 + 1;
     const board = new Board(size, size);
+    marks.forEach((mark) => (board.marks[mark] = {}));
     return new this(players, board, judge);
   }
 
@@ -24,8 +25,6 @@ class Game {
     public readonly judge: Judge
   ) {
     this.currentPlayer = this.players[0];
-    this.marks = this.players.map((player) => player.mark);
-    this.marks.forEach((mark) => (this.board.marks[mark] = {}));
   }
 
   public handleSquareChoose(square: SquareOfBoard): void {
@@ -33,7 +32,7 @@ class Game {
 
     if (isSquareCanBePlace) {
       this.handleSquarePlace(square);
-      this.handleAfterCurrentPlayerPlaceMark();
+      this.handleAfterSquarePlace(square);
     }
   }
 
@@ -41,8 +40,8 @@ class Game {
     this.currentPlayer.placeMark(square);
   }
 
-  public handleAfterCurrentPlayerPlaceMark(): void {
-    const nextPlayer = this.findNextPlayerWhoCanPlace();
+  public handleAfterSquarePlace(square: SquareOfBoard): void {
+    const nextPlayer = this.findNextPlayerWhoCanPlace(square.board);
 
     if (nextPlayer === this.currentPlayer || nextPlayer === null) {
       this.winner = nextPlayer;
@@ -53,7 +52,7 @@ class Game {
     this.currentPlayer = nextPlayer;
   }
 
-  public findNextPlayerWhoCanPlace(): Player | null {
+  public findNextPlayerWhoCanPlace(board: Board): Player | null {
     const indexOfCurrentPlayer = this.players.indexOf(this.currentPlayer);
     const indexOfNextPlayer = (indexOfCurrentPlayer + 1) % this.players.length;
 
@@ -61,7 +60,7 @@ class Game {
       .slice(indexOfNextPlayer)
       .concat(this.players.slice(0, indexOfNextPlayer));
 
-    const isPlayerCanPlace = (player: Player) => this.judge.judgePlayerCanPlace(player, this.board);
+    const isPlayerCanPlace = (player: Player) => this.judge.judgePlayerCanPlace(player, board);
 
     return playersStartByNextPlayer.find(isPlayerCanPlace) || null;
   }

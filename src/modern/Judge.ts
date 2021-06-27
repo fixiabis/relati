@@ -10,9 +10,9 @@ class Judge extends ClassicJudge {
     );
   }
 
-  public getSquaresOfRoot(marks: Mark[], board: Board): SquareOfBoard[] {
-    return marks
-      .map((mark) => board.marks[mark].squareOfRoot)
+  public getSquaresOfRoot(board: Board): SquareOfBoard[] {
+    return Object.keys(board.marks)
+      .map((mark) => board.marks[mark as Mark].squareOfRoot)
       .filter((squareOfRoot) => squareOfRoot);
   }
 
