@@ -4,7 +4,7 @@ import SquareOfBoard from './Board/SquareOfBoard';
 import Player from './Player';
 
 class Judge {
-  public calcBoardSize(numberOfPlayers: number) {
+  public calcBoardSize(numberOfPlayers: number): number {
     return numberOfPlayers * 2 + 1;
   }
 
