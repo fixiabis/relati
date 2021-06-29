@@ -46,14 +46,17 @@ class Game {
 
   public handleAfterSquarePlace(square: SquareOfBoard): void {
     const nextPlayer = this.findNextPlayerWhoCanPlace(square.board);
+    this.changeCurrentPlayerOrEnd(nextPlayer);
+  }
 
-    if (nextPlayer === this.currentPlayer || nextPlayer === null) {
-      this.winner = nextPlayer;
+  public changeCurrentPlayerOrEnd(player: Player | null) {
+    if (player === this.currentPlayer || player === null) {
+      this.winner = player;
       this.isOver = true;
       return;
     }
 
-    this.currentPlayer = nextPlayer;
+    this.currentPlayer = player;
   }
 
   public findNextPlayerWhoCanPlace(board: Board): Player | null {
