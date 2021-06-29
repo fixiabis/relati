@@ -9,7 +9,7 @@ class Game {
   public winner: Player | null = null;
   public isOver: boolean = false;
 
-  static create(numberOfPlayers: number) {
+  static create(numberOfPlayers: number): Game {
     const marks = MARKS.slice(0, numberOfPlayers);
     const judge = new Judge();
     const players = marks.map((mark) => new Player(mark));
@@ -36,7 +36,7 @@ class Game {
     }
   }
 
-  public handleSquarePlace(square: SquareOfBoard) {
+  public handleSquarePlace(square: SquareOfBoard): void {
     this.currentPlayer.placeMark(square);
   }
 

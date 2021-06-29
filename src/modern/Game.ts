@@ -8,7 +8,7 @@ import Judge from './Judge';
 class Game extends ClassicGame {
   public readonly judge!: Judge;
 
-  static create(numberOfPlayers: number) {
+  static create(numberOfPlayers: number): Game {
     const marks = MARKS.slice(0, numberOfPlayers);
     const judge = new Judge();
     const players = marks.map((mark) => new Player(mark));
