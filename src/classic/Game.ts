@@ -36,7 +36,7 @@ class Game {
 
     if (isSquareCanBePlace) {
       this.handleSquarePlace(square);
-      this.handleAfterSquarePlace(square);
+      this.handleSquarePlaced(square);
     }
   }
 
@@ -44,7 +44,7 @@ class Game {
     this.currentPlayer.placeMark(square);
   }
 
-  public handleAfterSquarePlace(square: SquareOfBoard): void {
+  public handleSquarePlaced(square: SquareOfBoard): void {
     const nextPlayer = this.findNextPlayerWhoCanPlace(square.board);
     this.changeCurrentPlayerOrEnd(nextPlayer);
   }
