@@ -20,11 +20,10 @@ class Judge {
   }
 
   public judgeSquareCanBePlace(square: SquareOfBoard, mark: Mark): boolean {
-    if (square.mark !== ' ') {
-      return false;
-    }
-
-    return !square.board.marks[mark].isPlaced || this.judgeSquareCanLink(square, mark);
+    return (
+      square.mark !== ' ' &&
+      (!square.board.marks[mark].isPlaced || this.judgeSquareCanLink(square, mark))
+    );
   }
 
   public judgePlayerCanPlace(player: Player, board: Board): boolean {
