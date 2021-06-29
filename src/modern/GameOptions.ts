@@ -1,5 +1,5 @@
 interface GameOptions {
-  linkMode: 'classic' | 'modern';
+  linkMode?: 'classic' | 'modern';
 }
 
 export interface ClassicGameOptions extends GameOptions {
