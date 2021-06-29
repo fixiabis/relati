@@ -15,7 +15,11 @@ class Game {
     const players = marks.map((mark) => new Player(mark));
     const size = numberOfPlayers * 2 + 1;
     const board = new Board(size, size);
-    marks.forEach((mark) => (board.marks[mark] = {}));
+
+    for (const mark of marks) {
+      board.marks[mark] = {};
+    }
+
     return new this(players, board, judge);
   }
 

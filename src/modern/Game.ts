@@ -4,17 +4,29 @@ import { MARKS } from '../shared/constants/marks';
 import Board from '../shared/Board/Board';
 import SquareOfBoard from '../shared/Board/SquareOfBoard';
 import Judge from './Judge';
+import GameOptions, { ClassicGameOptions, ModernGameOptions } from './GameOptions';
 
 class Game extends ClassicGame {
   public readonly judge!: Judge;
 
-  static create(numberOfPlayers: number): Game {
+  static create(numberOfPlayers: number): Game;
+  static create(numberOfPlayers: number, options: ModernGameOptions): Game;
+  static create(numberOfPlayers: number, options: ClassicGameOptions): ClassicGame;
+  static create(numberOfPlayers: number, options?: GameOptions): ClassicGame | Game {
+    if (options?.linkMode === 'classic') {
+      return super.create(numberOfPlayers);
+    }
+
     const marks = MARKS.slice(0, numberOfPlayers);
     const judge = new Judge();
     const players = marks.map((mark) => new Player(mark));
     const size = numberOfPlayers * 4 + 1;
     const board = new Board(size, size);
-    marks.forEach((mark) => (board.marks[mark] = {}));
+
+    for (const mark of marks) {
+      board.marks[mark] = {};
+    }
+
     return new this(players, board, judge);
   }
 
