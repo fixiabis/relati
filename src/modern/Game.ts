@@ -1,13 +1,15 @@
 import ClassicGame from '../classic/Game';
-import Player from '../classic/Player';
 import { MARKS } from '../shared/constants/marks';
 import Board from '../shared/Board/Board';
 import SquareOfBoard from '../shared/Board/SquareOfBoard';
 import Judge from './Judge';
+import Player from './Player';
 import GameOptions, { ClassicGameOptions, ModernGameOptions } from './GameOptions';
 
 class Game extends ClassicGame {
+  public readonly currentPlayer!: Player;
   public readonly judge!: Judge;
+  public readonly players!: Player[];
 
   static create(numberOfPlayers: number): Game;
   static create(numberOfPlayers: number, options: ModernGameOptions): Game;
@@ -36,8 +38,7 @@ class Game extends ClassicGame {
     super.handleSquarePlace(square);
 
     if (!isAnyMarkPlaced) {
-      square.stateOfMark.isRoot = true;
-      square.board.marks[this.currentPlayer.mark].squareOfRoot = square;
+      this.currentPlayer.makeMarkRoot(square);
     }
   }
 
