@@ -16,6 +16,12 @@ class Judge extends ClassicJudge {
       .filter((squareOfRoot) => squareOfRoot);
   }
 
+  public getSquaresMayBeUnlinked(board: Board): SquareOfBoard[] {
+    return this.getSquares(board).filter(
+      (square) => square.mark !== ' ' && !square.stateOfMark.isRoot
+    );
+  }
+
   public judgeSquareCanBeSender(square: SquareOfBoard, mark: Mark): boolean {
     return square.mark === mark && !square.stateOfMark.isUnlinked;
   }
