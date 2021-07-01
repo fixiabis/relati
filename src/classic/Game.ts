@@ -31,15 +31,15 @@ class Game {
     this.currentPlayer = this.players[0];
   }
 
-  public handleSquareChoose(square: SquareOfBoard): void {
+  public handleSquareSelect(square: SquareOfBoard): void {
     const isSquareCanBePlace = this.judge.judgeSquareCanBePlace(square, this.currentPlayer.mark);
 
     if (isSquareCanBePlace) {
-      this.handleSquareChoseToPlaceMark(square);
+      this.handleSquareSelectedToPlaceMark(square);
     }
   }
 
-  public handleSquareChoseToPlaceMark(square: SquareOfBoard): void {
+  public handleSquareSelectedToPlaceMark(square: SquareOfBoard): void {
     this.currentPlayer.placeMark(square);
     this.changeCurrentPlayerOrEnd(square.board);
   }
