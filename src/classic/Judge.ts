@@ -21,7 +21,7 @@ class Judge {
 
   public judgeSquareCanBePlace(square: SquareOfBoard, mark: Mark): boolean {
     return (
-      square.mark !== ' ' &&
+      square.mark === ' ' &&
       (!square.board.marks[mark].isPlaced || this.judgeSquareCanLink(square, mark))
     );
   }
