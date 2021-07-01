@@ -40,12 +40,8 @@ class Game {
   }
 
   public handleSquareChoseToPlaceMark(square: SquareOfBoard): void {
-    this.handleSquarePlaceMark(square);
-    this.changeCurrentPlayerOrEnd(square.board);
-  }
-
-  public handleSquarePlaceMark(square: SquareOfBoard): void {
     this.currentPlayer.placeMark(square);
+    this.changeCurrentPlayerOrEnd(square.board);
   }
 
   public changeCurrentPlayerOrEnd(board: Board): void {
