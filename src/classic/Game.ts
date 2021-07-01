@@ -39,7 +39,7 @@ class Game {
     }
   }
 
-  public handleSquareChoseToPlaceMark(square: SquareOfBoard) {
+  public handleSquareChoseToPlaceMark(square: SquareOfBoard): void {
     this.handleSquarePlaceMark(square);
     this.changeCurrentPlayerOrEnd(square.board);
   }
@@ -48,7 +48,7 @@ class Game {
     this.currentPlayer.placeMark(square);
   }
 
-  public changeCurrentPlayerOrEnd(board: Board) {
+  public changeCurrentPlayerOrEnd(board: Board): void {
     const nextPlayer = this.findNextPlayerWhoCanPlace(board);
 
     if (nextPlayer === this.currentPlayer || nextPlayer === null) {
@@ -61,16 +61,15 @@ class Game {
   }
 
   public findNextPlayerWhoCanPlace(board: Board): Player | null {
+    const playersStartByNextPlayer = this.getPlayersStartByNextPlayer();
+    const isPlayerCanPlace = (player: Player) => this.judge.judgePlayerCanPlace(player, board);
+    return playersStartByNextPlayer.find(isPlayerCanPlace) || null;
+  }
+
+  public getPlayersStartByNextPlayer(): Player[] {
     const indexOfCurrentPlayer = this.players.indexOf(this.currentPlayer);
     const indexOfNextPlayer = (indexOfCurrentPlayer + 1) % this.players.length;
-
-    const playersStartByNextPlayer = this.players
-      .slice(indexOfNextPlayer)
-      .concat(this.players.slice(0, indexOfNextPlayer));
-
-    const isPlayerCanPlace = (player: Player) => this.judge.judgePlayerCanPlace(player, board);
-
-    return playersStartByNextPlayer.find(isPlayerCanPlace) || null;
+    return this.players.slice(indexOfNextPlayer).concat(this.players.slice(0, indexOfNextPlayer));
   }
 }
 
