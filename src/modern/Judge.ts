@@ -40,20 +40,20 @@ class Judge extends ClassicJudge {
   }
 
   public judgeSquaresOfPathCanSend(squares: SquareOfBoard[], mark: Mark): boolean {
-    const [square, ...otherSquare] = squares;
+    const [square, ...otherSquares] = squares;
 
     return (
       this.judgeSquareCanBeSender(square, mark) &&
-      otherSquare.every((square) => this.judgeSquareIsUnBlocked(square))
+      otherSquares.every((square) => this.judgeSquareIsUnBlocked(square))
     );
   }
 
   public judgeSquaresOfPathCanReceive(squares: SquareOfBoard[], mark: Mark): boolean {
-    const [square, ...otherSquare] = squares;
+    const [square, ...otherSquares] = squares;
 
     return (
       this.judgeSquareCanBeReceiver(square, mark) &&
-      otherSquare.every((square) => this.judgeSquareIsUnBlocked(square))
+      otherSquares.every((square) => this.judgeSquareIsUnBlocked(square))
     );
   }
 
