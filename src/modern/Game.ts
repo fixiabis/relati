@@ -4,16 +4,13 @@ import Board from '../shared/Board/Board';
 import SquareOfBoard from '../shared/Board/SquareOfBoard';
 import Judge from './Judge';
 import Player from './Player';
-import GameOptions, { ClassicGameOptions, ModernGameOptions } from './GameOptions';
+import GameOptions from './GameOptions';
 
 class Game extends ClassicGame {
   public readonly currentPlayer!: Player;
   public readonly judge!: Judge;
   public readonly players!: Player[];
 
-  static create(numberOfPlayers: number): Game;
-  static create(numberOfPlayers: number, options: ModernGameOptions): Game;
-  static create(numberOfPlayers: number, options: ClassicGameOptions): ClassicGame;
   static create(numberOfPlayers: number, options?: GameOptions): ClassicGame | Game {
     if (options?.linkMode === 'classic') {
       return super.create(numberOfPlayers);
