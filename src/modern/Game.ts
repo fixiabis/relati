@@ -42,16 +42,16 @@ class Game extends ClassicGame {
     }
   }
 
-  public handleSquarePlacedMark(square: SquareOfBoard) {
+  public handleSquarePlacedMark(square: SquareOfBoard): void {
     this.handleSquareChanged(square);
     super.handleSquarePlacedMark(square);
   }
 
-  public handleSquareChanged(square: SquareOfBoard) {
+  public handleSquareChanged(square: SquareOfBoard): void {
     this.updateStateOfMarks(square.board);
   }
 
-  public updateStateOfMarks(board: Board) {
+  public updateStateOfMarks(board: Board): void {
     const squaresOfSender = this.judge.getSquaresOfRoot(board);
 
     const squaresMayBeUnlinked = this.judge
