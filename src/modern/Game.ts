@@ -13,7 +13,7 @@ class Game extends ClassicGame {
 
   static create(numberOfPlayers: number, options?: GameOptions): ClassicGame | Game {
     if (options?.linkMode === 'classic') {
-      return super.create(numberOfPlayers);
+      return ClassicGame.create(numberOfPlayers);
     }
 
     const marks = MARKS.slice(0, numberOfPlayers);
@@ -26,7 +26,7 @@ class Game extends ClassicGame {
       board.marks[mark] = {};
     }
 
-    return new this(players, board, judge);
+    return new Game(players, board, judge);
   }
 
   public handleSquareSelectedToPlaceMark(square: SquareOfBoard): void {

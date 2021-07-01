@@ -20,7 +20,7 @@ class Game {
       board.marks[mark] = {};
     }
 
-    return new this(players, board, judge);
+    return new Game(players, board, judge);
   }
 
   constructor(
