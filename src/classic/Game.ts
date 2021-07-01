@@ -35,28 +35,29 @@ class Game {
     const isSquareCanBePlace = this.judge.judgeSquareCanBePlace(square, this.currentPlayer.mark);
 
     if (isSquareCanBePlace) {
-      this.handleSquarePlaceMark(square);
-      this.handleSquarePlacedMark(square);
+      this.handleSquareChoseToPlaceMark(square);
     }
+  }
+
+  public handleSquareChoseToPlaceMark(square: SquareOfBoard) {
+    this.handleSquarePlaceMark(square);
+    this.changeCurrentPlayerOrEnd(square.board);
   }
 
   public handleSquarePlaceMark(square: SquareOfBoard): void {
     this.currentPlayer.placeMark(square);
   }
 
-  public handleSquarePlacedMark(square: SquareOfBoard): void {
-    const nextPlayer = this.findNextPlayerWhoCanPlace(square.board);
-    this.changeCurrentPlayerOrEnd(nextPlayer);
-  }
+  public changeCurrentPlayerOrEnd(board: Board) {
+    const nextPlayer = this.findNextPlayerWhoCanPlace(board);
 
-  public changeCurrentPlayerOrEnd(player: Player | null) {
-    if (player === this.currentPlayer || player === null) {
-      this.winner = player;
+    if (nextPlayer === this.currentPlayer || nextPlayer === null) {
+      this.winner = nextPlayer;
       this.isOver = true;
       return;
     }
 
-    this.currentPlayer = player;
+    this.currentPlayer = nextPlayer;
   }
 
   public findNextPlayerWhoCanPlace(board: Board): Player | null {

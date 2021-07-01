@@ -32,23 +32,20 @@ class Game extends ClassicGame {
     return new this(players, board, judge);
   }
 
+  public handleSquareChoseToPlaceMark(square: SquareOfBoard): void {
+    this.handleSquarePlaceMark(square);
+    this.updateStateOfMarks(square.board);
+    this.changeCurrentPlayerOrEnd(square.board);
+  }
+
   public handleSquarePlaceMark(square: SquareOfBoard): void {
     const isAnyMarkPlaced = square.board.marks[this.currentPlayer.mark].isPlaced;
 
-    super.handleSquarePlaceMark(square);
+    this.currentPlayer.placeMark(square);
 
     if (!isAnyMarkPlaced) {
       this.currentPlayer.makeMarkRoot(square);
     }
-  }
-
-  public handleSquarePlacedMark(square: SquareOfBoard): void {
-    this.handleSquareChanged(square);
-    super.handleSquarePlacedMark(square);
-  }
-
-  public handleSquareChanged(square: SquareOfBoard): void {
-    this.updateStateOfMarks(square.board);
   }
 
   public updateStateOfMarks(board: Board): void {
