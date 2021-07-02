@@ -75,8 +75,10 @@ class Game extends ModernGame {
           );
 
           if (isSquareCanComboAttackWithCannon) {
-            this.handleSquareSelectedToComboAttackWithCannon(square);
-            return this.handleCurrentPlayerCompletedAction(square.board);
+            this.currentPlayer.selectedSquare!.stateOfMark.isExhaustedCannon = true;
+            this.currentPlayer.selectedSquare = square;
+            this.currentPlayer.cannonRemaining++;
+            return;
           }
         }
       }
@@ -129,13 +131,6 @@ class Game extends ModernGame {
         }
       }
     }
-  }
-
-  public handleSquareSelectedToComboAttackWithCannon(square: SquareOfBoard): void {
-    this.currentPlayer.selectedSquare!.stateOfMark.isExhaustedCannon = true;
-    this.currentPlayer.selectedSquare = square;
-    this.currentPlayer.cannonRemaining++;
-    this.currentPlayer.actionsRemaining++;
   }
 
   public handleSquareSelectedToAttackMarkWithCannon(square: SquareOfBoard): void {
