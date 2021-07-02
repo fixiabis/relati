@@ -42,14 +42,21 @@ class Game {
 
   public changeCurrentPlayerOrEnd(board: Board): void {
     const nextPlayer = this.findNextPlayerWhoCanPlace(board);
+    const isAnyPlayerCanPlace = nextPlayer !== null;
+    const isOnlyCurrentPlayerCanPlace = nextPlayer === this.currentPlayer;
 
-    if (nextPlayer === this.currentPlayer || nextPlayer === null) {
-      this.winner = nextPlayer;
+    if (isOnlyCurrentPlayerCanPlace) {
+      this.winner = this.currentPlayer;
       this.isOver = true;
       return;
     }
 
-    this.currentPlayer = nextPlayer;
+    if (!isAnyPlayerCanPlace) {
+      this.isOver = true;
+      return;
+    }
+
+    this.currentPlayer = nextPlayer!;
   }
 
   public findNextPlayerWhoCanPlace(board: Board): Player | null {

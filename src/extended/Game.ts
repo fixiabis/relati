@@ -223,19 +223,24 @@ class Game extends ModernGame {
 
   public changeCurrentPlayerOrEnd(board: Board): void {
     const nextPlayer = this.findNextPlayerWhoCanPlace(board) as Player | null;
+    const isAnyPlayerCanPlace = nextPlayer !== null;
+    const isOnlyCurrentPlayerCanPlace = nextPlayer === this.currentPlayer;
 
-    if (nextPlayer === this.currentPlayer || nextPlayer === null) {
-      this.winner = nextPlayer;
+    if (isOnlyCurrentPlayerCanPlace) {
+      this.winner = this.currentPlayer;
       this.isOver = true;
       return;
     }
 
-    if (this.currentPlayer.actionsRemaining) {
+    if (!isAnyPlayerCanPlace) {
+      this.isOver = true;
       return;
     }
 
-    this.currentPlayer = nextPlayer;
-    this.currentPlayer.actionsRemaining = 1;
+    if (!this.currentPlayer.actionsRemaining) {
+      this.currentPlayer = nextPlayer!;
+      this.currentPlayer.actionsRemaining = 1;
+    }
   }
 }
 
