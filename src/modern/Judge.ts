@@ -39,12 +39,15 @@ class Judge extends ClassicJudge {
     return squares.some((squares) => this.judgeSquaresOfPathCanSend(squares, mark));
   }
 
+  public judgeSquaresOfPathUnblocked(squares: SquareOfBoard[]): boolean {
+    return squares.every((square) => this.judgeSquareIsUnBlocked(square));
+  }
+
   public judgeSquaresOfPathCanSend(squares: SquareOfBoard[], mark: Mark): boolean {
     const [square, ...otherSquares] = squares;
 
     return (
-      this.judgeSquareCanBeSender(square, mark) &&
-      otherSquares.every((square) => this.judgeSquareIsUnBlocked(square))
+      this.judgeSquareCanBeSender(square, mark) && this.judgeSquaresOfPathUnblocked(otherSquares)
     );
   }
 
@@ -52,8 +55,7 @@ class Judge extends ClassicJudge {
     const [square, ...otherSquares] = squares;
 
     return (
-      this.judgeSquareCanBeReceiver(square, mark) &&
-      otherSquares.every((square) => this.judgeSquareIsUnBlocked(square))
+      this.judgeSquareCanBeReceiver(square, mark) && this.judgeSquaresOfPathUnblocked(otherSquares)
     );
   }
 
