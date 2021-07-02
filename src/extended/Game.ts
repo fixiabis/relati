@@ -46,7 +46,8 @@ class Game extends ModernGame {
     const isSquareCanBePlace = this.judge.judgeSquareCanBePlace(square, this.currentPlayer.mark);
 
     if (!this.currentPlayer.selectedSquare && isSquareCanBePlace) {
-      return this.handleSquareSelectedToPlaceMark(square);
+      this.handleSquarePlaceMark(square);
+      return this.handleCurrentPlayerCompletedAction(square.board);
     }
 
     if (this.options.isCannonActive) {
@@ -63,7 +64,8 @@ class Game extends ModernGame {
         );
 
         if (isSquareCanAttackWithCannon) {
-          return this.handleSquareSelectedToAttackMarkWithCannon(square);
+          this.handleSquareSelectedToAttackMarkWithCannon(square);
+          return this.handleCurrentPlayerCompletedAction(square.board);
         }
 
         if (this.options.isComboCannonAttackActive) {
@@ -73,7 +75,8 @@ class Game extends ModernGame {
           );
 
           if (isSquareCanComboAttackWithCannon) {
-            return this.handleSquareSelectedToComboAttackWithCannon(square);
+            this.handleSquareSelectedToComboAttackWithCannon(square);
+            return this.handleCurrentPlayerCompletedAction(square.board);
           }
         }
       }
@@ -82,7 +85,8 @@ class Game extends ModernGame {
         const isSquareCanMakeMarkCannon = this.judge.judgeSquareIsNormal(square);
 
         if (isSquareCanMakeMarkCannon) {
-          return this.handleSquareSelectedToMakeMarkCannon(square);
+          this.currentPlayer.makeMarkCannon(square);
+          return this.handleCurrentPlayerCompletedAction(square.board);
         }
 
         const isSquareOfCannonCanBeAttacker = this.judge.judgeSquareOfCannonCanBeAttacker(
@@ -111,7 +115,8 @@ class Game extends ModernGame {
         );
 
         if (isSquareCanMakeMarkRoot) {
-          return this.handleSquareSelectedToMoveRoot(square);
+          this.handleSquareSelectedToMoveRoot(square);
+          return this.handleCurrentPlayerCompletedAction(square.board);
         }
       }
 
@@ -126,22 +131,11 @@ class Game extends ModernGame {
     }
   }
 
-  public handleSquareSelectedToPlaceMark(square: SquareOfBoard): void {
-    this.handleSquarePlaceMark(square);
-    this.handleCurrentPlayerCompletedAction(square.board);
-  }
-
-  public handleSquareSelectedToMakeMarkCannon(square: SquareOfBoard): void {
-    this.currentPlayer.makeMarkCannon(square);
-    this.handleCurrentPlayerCompletedAction(square.board);
-  }
-
   public handleSquareSelectedToComboAttackWithCannon(square: SquareOfBoard): void {
     this.currentPlayer.selectedSquare!.stateOfMark.isExhaustedCannon = true;
     this.currentPlayer.selectedSquare = square;
     this.currentPlayer.cannonRemaining++;
     this.currentPlayer.actionsRemaining++;
-    return this.handleCurrentPlayerCompletedAction(square.board);
   }
 
   public handleSquareSelectedToAttackMarkWithCannon(square: SquareOfBoard): void {
@@ -151,18 +145,16 @@ class Game extends ModernGame {
 
     if (this.currentPlayer.cannonRemaining) {
       this.currentPlayer.actionsRemaining++;
-      return this.handleCurrentPlayerCompletedAction(square.board);
+      return;
     }
 
     this.currentPlayer.selectedSquare = null;
-    this.handleCurrentPlayerCompletedAction(square.board);
   }
 
   public handleSquareSelectedToMoveRoot(square: SquareOfBoard): void {
     this.currentPlayer.makeMarkRoot(square);
     this.currentPlayer.makeMarkDead(this.currentPlayer.selectedSquare!);
     this.currentPlayer.selectedSquare = null;
-    this.handleCurrentPlayerCompletedAction(square.board);
   }
 
   public handleCurrentPlayerCompletedAction(board: Board) {

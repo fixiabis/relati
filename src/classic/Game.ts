@@ -35,13 +35,9 @@ class Game {
     const isSquareCanBePlace = this.judge.judgeSquareCanBePlace(square, this.currentPlayer.mark);
 
     if (isSquareCanBePlace) {
-      this.handleSquareSelectedToPlaceMark(square);
+      this.currentPlayer.placeMark(square);
+      this.changeCurrentPlayerOrEnd(square.board);
     }
-  }
-
-  public handleSquareSelectedToPlaceMark(square: SquareOfBoard): void {
-    this.currentPlayer.placeMark(square);
-    this.changeCurrentPlayerOrEnd(square.board);
   }
 
   public changeCurrentPlayerOrEnd(board: Board): void {

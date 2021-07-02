@@ -29,10 +29,14 @@ class Game extends ClassicGame {
     return new Game(players, board, judge);
   }
 
-  public handleSquareSelectedToPlaceMark(square: SquareOfBoard): void {
-    this.handleSquarePlaceMark(square);
-    this.updateStateOfMarks(square.board);
-    this.changeCurrentPlayerOrEnd(square.board);
+  public handleSquareSelect(square: SquareOfBoard): void {
+    const isSquareCanBePlace = this.judge.judgeSquareCanBePlace(square, this.currentPlayer.mark);
+
+    if (isSquareCanBePlace) {
+      this.handleSquarePlaceMark(square);
+      this.updateStateOfMarks(square.board);
+      this.changeCurrentPlayerOrEnd(square.board);
+    }
   }
 
   public handleSquarePlaceMark(square: SquareOfBoard): void {
