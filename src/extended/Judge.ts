@@ -52,7 +52,10 @@ class Judge extends ModernJudge {
 
   public judgeSquareOfCannonCanBeAttacker(square: SquareOfBoard, mark: string): boolean {
     return (
-      square.mark === mark && square.stateOfMark.isCannon && !square.stateOfMark.isExhaustedCannon
+      square.mark === mark &&
+      square.stateOfMark.isCannon &&
+      !square.stateOfMark.isExhaustedCannon &&
+      !square.stateOfMark.isDead
     );
   }
 
