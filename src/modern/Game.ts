@@ -23,7 +23,7 @@ class Game extends ClassicGame {
     const board = new Board(size, size);
 
     for (const mark of marks) {
-      board.marks[mark] = {};
+      board.stateOfMarks[mark] = {};
     }
 
     return new Game(players, board, judge);
@@ -40,7 +40,7 @@ class Game extends ClassicGame {
   }
 
   public handleSquarePlaceMark(square: SquareOfBoard): void {
-    const isAnyMarkPlaced = square.board.marks[this.currentPlayer.mark].isPlaced;
+    const isAnyMarkPlaced = square.board.stateOfMarks[this.currentPlayer.mark].isPlaced;
 
     this.currentPlayer.placeMark(square);
 

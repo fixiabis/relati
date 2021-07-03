@@ -17,7 +17,7 @@ class Game {
     const board = new Board(size, size);
 
     for (const mark of marks) {
-      board.marks[mark] = {};
+      board.stateOfMarks[mark] = {};
     }
 
     return new Game(players, board, judge);

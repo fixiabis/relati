@@ -24,7 +24,7 @@ class Judge extends ModernJudge {
   }
 
   public countUnlinkedNumberOfEachMark(board: Board): Record<Mark, number> {
-    const marks = Object.keys(board.marks) as Mark[];
+    const marks = Object.keys(board.stateOfMarks) as Mark[];
     const unlinkedNumbers = {} as Record<Mark, number>;
     const squares = this.getSquares(board);
 

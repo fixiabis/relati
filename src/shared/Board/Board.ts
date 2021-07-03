@@ -5,7 +5,7 @@ type MarkInfo = Record<string, any>;
 class Board {
   public readonly coordinates: Coordinate[];
   public readonly squares: SquareOfBoard[][];
-  public readonly marks: Record<Mark, MarkInfo> = {} as Record<Mark, MarkInfo>;
+  public readonly stateOfMarks: Record<Mark, MarkInfo> = {} as Record<Mark, MarkInfo>;
 
   constructor(public readonly width: number, public readonly height: number) {
     this.coordinates = Array(width * height)

@@ -4,7 +4,7 @@ import SquareOfBoard from '../shared/Board/SquareOfBoard';
 class Player extends ClassicPlayer {
   public makeMarkRoot(square: SquareOfBoard) {
     square.stateOfMark.isRoot = true;
-    square.board.marks[this.mark].squareOfRoot = square;
+    square.board.stateOfMarks[this.mark].squareOfRoot = square;
   }
 }
 
