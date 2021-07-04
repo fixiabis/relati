@@ -68,18 +68,15 @@ class Game extends ModernGame {
           return this.handleCurrentPlayerCompletedAction(square.board);
         }
 
-        if (this.options.isComboCannonAttackActive) {
-          const isSquareCanComboAttackWithCannon = this.judge.judgeSquareCanComboAttackWithCannon(
-            square,
-            this.currentPlayer.selectedSquare
-          );
+        const isSquareCanComboAttackWithCannon =
+          this.options.isComboCannonAttackActive &&
+          this.judge.judgeSquareCanComboAttackWithCannon(square, this.currentPlayer.selectedSquare);
 
-          if (isSquareCanComboAttackWithCannon) {
-            this.currentPlayer.selectedSquare!.stateOfMark.isExhaustedCannon = true;
-            this.currentPlayer.selectedSquare = square;
-            this.currentPlayer.cannonRemaining++;
-            return;
-          }
+        if (isSquareCanComboAttackWithCannon) {
+          this.currentPlayer.selectedSquare!.stateOfMark.isExhaustedCannon = true;
+          this.currentPlayer.selectedSquare = square;
+          this.currentPlayer.cannonRemaining++;
+          return;
         }
       }
 
