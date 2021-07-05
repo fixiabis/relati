@@ -19,8 +19,8 @@ class Judge extends ModernJudge {
     return super.judgeSquareCanBeReceiver(square, mark) && !square.stateOfMark.isDead;
   }
 
-  public judgeSquareIsUnBlocked(square: SquareOfBoard): boolean {
-    return super.judgeSquareIsUnBlocked(square) || square.stateOfMark.isDead;
+  public judgeSquareIsBlocked(square: SquareOfBoard): boolean {
+    return super.judgeSquareIsBlocked(square) && !square.stateOfMark.isDead;
   }
 
   public countUnlinkedNumberOfEachMark(board: Board): Record<Mark, number> {
@@ -74,7 +74,7 @@ class Judge extends ModernJudge {
 
     return (
       this.judgeSquareCanBeAttackTarget(square, squareOfAttacker.mark as Mark) &&
-      this.judgeSquaresOfPathUnblocked(otherSquares)
+      !this.judgeSquaresOfPathBlocked(otherSquares)
     );
   }
 
@@ -93,7 +93,7 @@ class Judge extends ModernJudge {
 
     return (
       this.judgeSquareOfCannonCanBeAttacker(square, squareOfAttacker.mark as Mark) &&
-      this.judgeSquaresOfPathUnblocked(otherSquares)
+      !this.judgeSquaresOfPathBlocked(otherSquares)
     );
   }
 

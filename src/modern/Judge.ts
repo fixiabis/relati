@@ -30,8 +30,8 @@ class Judge extends ClassicJudge {
     return square.mark === mark;
   }
 
-  public judgeSquareIsUnBlocked(square: SquareOfBoard): boolean {
-    return square.mark === ' ';
+  public judgeSquareIsBlocked(square: SquareOfBoard): boolean {
+    return square.mark !== ' ';
   }
 
   public judgeSquareCanLink(square: SquareOfBoard, mark: Mark): boolean {
@@ -39,15 +39,15 @@ class Judge extends ClassicJudge {
     return squares.some((squares) => this.judgeSquaresOfPathCanSend(squares, mark));
   }
 
-  public judgeSquaresOfPathUnblocked(squares: SquareOfBoard[]): boolean {
-    return squares.every((square) => this.judgeSquareIsUnBlocked(square));
+  public judgeSquaresOfPathBlocked(squares: SquareOfBoard[]): boolean {
+    return squares.some((square) => this.judgeSquareIsBlocked(square));
   }
 
   public judgeSquaresOfPathCanSend(squares: SquareOfBoard[], mark: Mark): boolean {
     const [square, ...otherSquares] = squares;
 
     return (
-      this.judgeSquareCanBeSender(square, mark) && this.judgeSquaresOfPathUnblocked(otherSquares)
+      this.judgeSquareCanBeSender(square, mark) && !this.judgeSquaresOfPathBlocked(otherSquares)
     );
   }
 
@@ -55,7 +55,7 @@ class Judge extends ClassicJudge {
     const [square, ...otherSquares] = squares;
 
     return (
-      this.judgeSquareCanBeReceiver(square, mark) && this.judgeSquaresOfPathUnblocked(otherSquares)
+      this.judgeSquareCanBeReceiver(square, mark) && !this.judgeSquaresOfPathBlocked(otherSquares)
     );
   }
 
