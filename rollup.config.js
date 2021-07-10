@@ -1,7 +1,7 @@
 import typescript from 'rollup-plugin-typescript2';
 
-let defaults = { compilerOptions: { declaration: true } };
-let hideDeclaration = { compilerOptions: { declaration: false } };
+const defaults = { compilerOptions: { declaration: true } };
+const hideDeclaration = { compilerOptions: { declaration: false } };
 
 export default [
   {
