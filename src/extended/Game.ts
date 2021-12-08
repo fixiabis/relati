@@ -49,104 +49,6 @@ class Game extends ModernGame {
       this.handleSquarePlaceMark(square);
       return this.handleCurrentPlayerCompletedAction(square.board);
     }
-
-    if (this.options.isCannonActive) {
-      if (this.currentPlayer.selectedSquare?.stateOfMark.isCannon) {
-        if (this.currentPlayer.selectedSquare === square) {
-          this.currentPlayer.selectedSquare = null;
-          this.currentPlayer.cannonRemaining--;
-          return;
-        }
-
-        const isSquareCanAttackWithCannon = this.judge.judgeSquareCanAttackWithCannon(
-          square,
-          this.currentPlayer.selectedSquare
-        );
-
-        if (isSquareCanAttackWithCannon) {
-          this.handleSquareSelectedToAttackMarkWithCannon(square);
-          return this.handleCurrentPlayerCompletedAction(square.board);
-        }
-
-        const isSquareCanComboAttackWithCannon =
-          this.options.isComboCannonAttackActive &&
-          this.judge.judgeSquareCanComboAttackWithCannon(square, this.currentPlayer.selectedSquare);
-
-        if (isSquareCanComboAttackWithCannon) {
-          this.currentPlayer.selectedSquare!.stateOfMark.isExhaustedCannon = true;
-          this.currentPlayer.selectedSquare = square;
-          this.currentPlayer.cannonRemaining++;
-          return;
-        }
-      }
-
-      if (!this.currentPlayer.selectedSquare && square.mark === this.currentPlayer.mark) {
-        const isSquareCanMakeMarkCannon = this.judge.judgeSquareIsNormal(square);
-
-        if (isSquareCanMakeMarkCannon) {
-          this.currentPlayer.makeMarkCannon(square);
-          return this.handleCurrentPlayerCompletedAction(square.board);
-        }
-
-        const isSquareOfCannonCanBeAttacker = this.judge.judgeSquareOfCannonCanBeAttacker(
-          square,
-          this.currentPlayer.mark
-        );
-
-        if (isSquareOfCannonCanBeAttacker) {
-          this.currentPlayer.selectedSquare = square;
-          this.currentPlayer.cannonRemaining++;
-          return;
-        }
-      }
-    }
-
-    if (this.options.isRootMovementActive) {
-      if (this.currentPlayer.selectedSquare?.stateOfMark.isRoot) {
-        if (this.currentPlayer.selectedSquare === square) {
-          this.currentPlayer.selectedSquare = null;
-          return;
-        }
-
-        const isSquareCanMakeMarkRoot = this.judge.judgeSquareCanMoveRoot(
-          square,
-          this.currentPlayer.selectedSquare
-        );
-
-        if (isSquareCanMakeMarkRoot) {
-          this.handleSquareSelectedToMoveRoot(square);
-          return this.handleCurrentPlayerCompletedAction(square.board);
-        }
-      }
-
-      if (!this.currentPlayer.selectedSquare && square.mark === this.currentPlayer.mark) {
-        const isSquareOfRoot = this.judge.judgeSquareIsRoot(square);
-
-        if (isSquareOfRoot) {
-          this.currentPlayer.selectedSquare = square;
-          return;
-        }
-      }
-    }
-  }
-
-  public handleSquareSelectedToAttackMarkWithCannon(square: SquareOfBoard): void {
-    this.currentPlayer.makeMarkDead(square);
-    this.currentPlayer.makeMarkExhaustedCannon(this.currentPlayer.selectedSquare!);
-    this.currentPlayer.cannonRemaining--;
-
-    if (this.currentPlayer.cannonRemaining) {
-      this.currentPlayer.actionsRemaining++;
-      return;
-    }
-
-    this.currentPlayer.selectedSquare = null;
-  }
-
-  public handleSquareSelectedToMoveRoot(square: SquareOfBoard): void {
-    this.currentPlayer.makeMarkRoot(square);
-    this.currentPlayer.makeMarkDead(this.currentPlayer.selectedSquare!);
-    this.currentPlayer.selectedSquare = null;
   }
 
   public handleCurrentPlayerCompletedAction(board: Board) {
@@ -199,18 +101,6 @@ class Game extends ModernGame {
     return (
       Number(isCurrentPlayerUnlinkedNumberDecreased) + otherPlayersWhoUnlinkedNumberIncreased.length
     );
-  }
-
-  public updateStateOfMarks(board: Board): void {
-    super.updateStateOfMarks(board);
-
-    const squares = this.judge.getSquares(board);
-
-    for (const square of squares) {
-      if (square.stateOfMark.isCannon && square.stateOfMark.isUnlinked) {
-        square.stateOfMark.isDead = true;
-      }
-    }
   }
 
   public changeCurrentPlayerOrEnd(board: Board): void {

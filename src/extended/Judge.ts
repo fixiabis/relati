@@ -3,26 +3,6 @@ import Board from '../shared/Board/Board';
 import SquareOfBoard from '../shared/Board/SquareOfBoard';
 
 class Judge extends ModernJudge {
-  public getSquaresOfRoot(board: Board): SquareOfBoard[] {
-    return super.getSquaresOfRoot(board).filter((square) => !square.stateOfMark.isDead);
-  }
-
-  public judgeSquareCanBeSender(square: SquareOfBoard, mark: Mark): boolean {
-    return (
-      super.judgeSquareCanBeSender(square, mark) &&
-      !square.stateOfMark.isDead &&
-      !square.stateOfMark.isCannon
-    );
-  }
-
-  public judgeSquareCanBeReceiver(square: SquareOfBoard, mark: Mark): boolean {
-    return super.judgeSquareCanBeReceiver(square, mark) && !square.stateOfMark.isDead;
-  }
-
-  public judgeSquareIsBlocked(square: SquareOfBoard): boolean {
-    return super.judgeSquareIsBlocked(square) && !square.stateOfMark.isDead;
-  }
-
   public countUnlinkedNumberOfEachMark(board: Board): Record<Mark, number> {
     const marks = Object.keys(board.stateOfMarks) as Mark[];
     const unlinkedNumbers = {} as Record<Mark, number>;
@@ -33,7 +13,7 @@ class Judge extends ModernJudge {
     }
 
     for (const square of squares) {
-      if (square.mark !== ' ' && square.stateOfMark.isUnlinked && !square.stateOfMark.isDead) {
+      if (square.mark !== ' ' && square.stateOfMark.isUnlinked) {
         unlinkedNumbers[square.mark]++;
       }
     }
@@ -44,56 +24,7 @@ class Judge extends ModernJudge {
   public judgeSquareIsNormal(square: SquareOfBoard): boolean {
     return (
       !square.stateOfMark.isRoot &&
-      !square.stateOfMark.isUnlinked &&
-      !square.stateOfMark.isCannon &&
-      !square.stateOfMark.isDead
-    );
-  }
-
-  public judgeSquareOfCannonCanBeAttacker(square: SquareOfBoard, mark: string): boolean {
-    return (
-      square.mark === mark &&
-      square.stateOfMark.isCannon &&
-      !square.stateOfMark.isExhaustedCannon &&
-      !square.stateOfMark.isDead
-    );
-  }
-
-  public judgeSquareCanAttackWithCannon(
-    square: SquareOfBoard,
-    squareOfAttacker: SquareOfBoard
-  ): boolean {
-    const isSquaresSameX = squareOfAttacker.x === square.x;
-    const isSquaresSameY = squareOfAttacker.y === square.y;
-
-    if (!isSquaresSameX && !isSquaresSameY) {
-      return false;
-    }
-
-    const otherSquares = this.getSquaresInTwoSquares(square, squareOfAttacker);
-
-    return (
-      this.judgeSquareCanBeAttackTarget(square, squareOfAttacker.mark as Mark) &&
-      !this.judgeSquaresOfPathBlocked(otherSquares)
-    );
-  }
-
-  public judgeSquareCanComboAttackWithCannon(
-    square: SquareOfBoard,
-    squareOfAttacker: SquareOfBoard
-  ): boolean {
-    const isSquaresSameX = squareOfAttacker.x === square.x;
-    const isSquaresSameY = squareOfAttacker.y === square.y;
-
-    if (!isSquaresSameX && !isSquaresSameY) {
-      return false;
-    }
-
-    const otherSquares = this.getSquaresInTwoSquares(square, squareOfAttacker);
-
-    return (
-      this.judgeSquareOfCannonCanBeAttacker(square, squareOfAttacker.mark as Mark) &&
-      !this.judgeSquaresOfPathBlocked(otherSquares)
+      !square.stateOfMark.isUnlinked
     );
   }
 
@@ -118,30 +49,6 @@ class Judge extends ModernJudge {
       : Array(squareOfStart.x - squareOfEnd.x - 1)
           .fill(squareOfEnd.x + 1)
           .map((x, dx) => board.squares[x + dx][squareOfStart.y]);
-  }
-
-  public judgeSquareCanBeAttackTarget(square: SquareOfBoard, mark: Mark): boolean {
-    return square.mark !== mark && !square.stateOfMark.isDead;
-  }
-
-  public judgeSquareIsRoot(square: SquareOfBoard): boolean {
-    return square.stateOfMark.isRoot && !square.stateOfMark.isDead;
-  }
-
-  public judgeSquareCanMoveRoot(square: SquareOfBoard, squareOfRoot: SquareOfBoard): boolean {
-    const isSquareOfNormal = this.judgeSquareIsNormal(square);
-
-    if (!isSquareOfNormal) {
-      return false;
-    }
-
-    const squaresOfPaths = this.getSquaresByPaths(square);
-
-    const squaresOfSender = this.findSquaresOfPathCanSend(squaresOfPaths, square.mark as Mark).map(
-      ([square]) => square
-    );
-
-    return squaresOfSender.includes(squareOfRoot);
   }
 }
 
