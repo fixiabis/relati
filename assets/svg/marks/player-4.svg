@@ -2,24 +2,24 @@
   xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
     <path id="path-root" d="
-      M 0 0
-      m 1 1
+      M 0 0 m 1 1
+      
       m -0.25 -0.25
-      l 0 3.5
-      l 3.5 0
-      l 0 -3.5
-      z
-
+        l 0 3.5
+        l 3.5 0
+        l 0 -3.5
+        z
       m 0.25 0.25
+
       m 0.5 0.5
-      l 0 2
-      l 2 0
-      l 0 -2
-      z" stroke-width="0.25" fill="none" />
+        l 0 2
+        l 2 0
+        l 0 -2
+        z" stroke-width="0.25" fill="none" />
 
     <path id="path-node" d="
-      M 0 0
-      m 1 1
+      M 0 0 m 1 1
+
       l 0 3
       l 3 0
       l 0 -3
