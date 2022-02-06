@@ -1,0 +1,35 @@
+<svg width="5" height="5" viewBox="0 0 5 5" xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <path id="path-root" d="
+      M 0 0
+      m 2.5 2.5
+      m  0 -1.125
+      a 1.125 1.125 0 0 1 0 2.25
+      a 1.125 1.125 0 0 1 0 -2.25
+      m  0 1.125
+      m  0 -1.875
+      a 1.875 1.875 0 0 1 0 3.75
+      a 1.875 1.875 0 0 1 0 -3.75" stroke-width="0.25" fill="none" />
+
+    <path id="path-node" d="
+      M 0 0
+      m 2.5 2.5
+      m  0 -1.5
+      a 1.5 1.5 0 0 1 0 3
+      a 1.5 1.5 0 0 1 0 -3" stroke-width="0.6" fill="none" />
+  </defs>
+  <g stroke="rgb(220, 20, 60)">
+    <use class="mark" id="root-destroyed" xlink:href="#path-root" stroke="rgba(128, 128, 128, 0.4)" />
+    <use class="mark" id="root" xlink:href="#path-root" />
+    <use class="mark" id="node-disconnected" xlink:href="#path-node" stroke="rgb(128, 128, 128)" />
+    <use class="mark" id="node-destroyed" xlink:href="#path-node" stroke="rgba(128, 128, 128, 0.4)" />
+    <use class="mark" id="node" xlink:href="#path-node" />
+  </g>
+  <style>
+    .mark:not(:target):not(#node),
+    .mark:target~#node {
+      display: none;
+    }
+  </style>
+</svg>
