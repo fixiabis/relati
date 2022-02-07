@@ -29,13 +29,13 @@
   <g stroke="rgb(255, 140, 0)">
     <use class="mark" id="root-destroyed" xlink:href="#path-root" stroke="rgba(128, 128, 128, 0.4)" />
     <use class="mark" id="root" xlink:href="#path-root" />
-    <use class="mark" id="node-disconnected" xlink:href="#path-node" stroke="rgb(128, 128, 128)" />
+    <use class="mark" id="node-disabled" xlink:href="#path-node" stroke="rgb(128, 128, 128)" />
     <use class="mark" id="node-destroyed" xlink:href="#path-node" stroke="rgba(128, 128, 128, 0.4)" />
-    <use class="mark" id="node" xlink:href="#path-node" />
+    <use class="mark default-mark" id="node" xlink:href="#path-node" />
   </g>
   <style>
-    .mark:not(:target):not(#node),
-    .mark:target~#node {
+    .mark:not(:target):not(.default-mark),
+    .mark:target~.default-mark {
       display: none;
     }
   </style>

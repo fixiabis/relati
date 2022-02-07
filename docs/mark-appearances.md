@@ -12,7 +12,7 @@
       Node
     </th>
     <th align="center" width="20%">
-      Disconnected Node
+      Disabled Node
     </th>
     <th align="center" width="20%">
       Destroyed Node
@@ -29,7 +29,7 @@
       <img src="../assets/svg/marks/player-1.svg#node" width="30" height="30" alt="Player 1's node mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/marks/player-1.svg#node-disconnected" width="30" height="30" alt="Player 1's disconnected node mark" />
+      <img src="../assets/svg/marks/player-1.svg#node-disabled" width="30" height="30" alt="Player 1's disabled node mark" />
     </td>
     <td align="center">
       <img src="../assets/svg/marks/player-1.svg#node-destroyed" width="30" height="30" alt="Player 1's destroyed node mark" />
@@ -46,7 +46,7 @@
       <img src="../assets/svg/marks/player-2.svg#node" width="30" height="30" alt="Player 2's node mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/marks/player-2.svg#node-disconnected" width="30" height="30" alt="Player 2's disconnected node" />
+      <img src="../assets/svg/marks/player-2.svg#node-disabled" width="30" height="30" alt="Player 2's disabled node" />
     </td>
     <td align="center">
       <img src="../assets/svg/marks/player-2.svg#node-destroyed" width="30" height="30" alt="Player 2's destroyed node mark" />
@@ -63,7 +63,7 @@
       <img src="../assets/svg/marks/player-3.svg#node" width="30" height="30" alt="Player 3's node mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/marks/player-3.svg#node-disconnected" width="30" height="30" alt="Player 3's disconnected node mark" />
+      <img src="../assets/svg/marks/player-3.svg#node-disabled" width="30" height="30" alt="Player 3's disabled node mark" />
     </td>
     <td align="center">
       <img src="../assets/svg/marks/player-3.svg#node-destroyed" width="30" height="30" alt="Player 3's destroyed node mark" />
@@ -80,7 +80,7 @@
       <img src="../assets/svg/marks/player-4.svg#node" width="30" height="30" alt="Player 4's node mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/marks/player-4.svg#node-disconnected" width="30" height="30" alt="Player 4's disconnected node mark" />
+      <img src="../assets/svg/marks/player-4.svg#node-disabled" width="30" height="30" alt="Player 4's disabled node mark" />
     </td>
     <td align="center">
       <img src="../assets/svg/marks/player-4.svg#node-destroyed" width="30" height="30" alt="Player 4's destroyed node mark" />
