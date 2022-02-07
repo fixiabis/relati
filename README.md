@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./images/logo.svg" />
+  <img src="./assets/svg/logo.svg" />
 </p>
 
 <h1 align="center">relati</h1>
