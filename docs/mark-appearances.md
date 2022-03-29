@@ -23,16 +23,16 @@
       <img src="../assets/svg/marks/player-1.svg#root" width="30" height="30" alt="Player 1's root mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/marks/player-1.svg#root-destroyed" width="30" height="30" alt="Player 1's destroyed root mark" />
+      <img src="../assets/svg/marks/player-1.svg#destroyed-root" width="30" height="30" alt="Player 1's destroyed root mark" />
     </td>
     <td align="center">
       <img src="../assets/svg/marks/player-1.svg#node" width="30" height="30" alt="Player 1's node mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/marks/player-1.svg#node-disabled" width="30" height="30" alt="Player 1's disabled node mark" />
+      <img src="../assets/svg/marks/player-1.svg#disabled-node" width="30" height="30" alt="Player 1's disabled node mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/marks/player-1.svg#node-destroyed" width="30" height="30" alt="Player 1's destroyed node mark" />
+      <img src="../assets/svg/marks/player-1.svg#destroyed-node" width="30" height="30" alt="Player 1's destroyed node mark" />
     </td>
   </tr>
   <tr>
@@ -40,16 +40,16 @@
       <img src="../assets/svg/marks/player-2.svg#root" width="30" height="30" alt="Player 2's root mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/marks/player-2.svg#root-destroyed" width="30" height="30" alt="Player 2's destroyed root mark" />
+      <img src="../assets/svg/marks/player-2.svg#destroyed-root" width="30" height="30" alt="Player 2's destroyed root mark" />
     </td>
     <td align="center">
       <img src="../assets/svg/marks/player-2.svg#node" width="30" height="30" alt="Player 2's node mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/marks/player-2.svg#node-disabled" width="30" height="30" alt="Player 2's disabled node" />
+      <img src="../assets/svg/marks/player-2.svg#disabled-node" width="30" height="30" alt="Player 2's disabled node" />
     </td>
     <td align="center">
-      <img src="../assets/svg/marks/player-2.svg#node-destroyed" width="30" height="30" alt="Player 2's destroyed node mark" />
+      <img src="../assets/svg/marks/player-2.svg#destroyed-node" width="30" height="30" alt="Player 2's destroyed node mark" />
     </td>
   </tr>
   <tr>
@@ -57,16 +57,16 @@
       <img src="../assets/svg/marks/player-3.svg#root" width="30" height="30" alt="Player 3's root mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/marks/player-3.svg#root-destroyed" width="30" height="30" alt="Player 3's destroyed root mark" />
+      <img src="../assets/svg/marks/player-3.svg#destroyed-root" width="30" height="30" alt="Player 3's destroyed root mark" />
     </td>
     <td align="center">
       <img src="../assets/svg/marks/player-3.svg#node" width="30" height="30" alt="Player 3's node mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/marks/player-3.svg#node-disabled" width="30" height="30" alt="Player 3's disabled node mark" />
+      <img src="../assets/svg/marks/player-3.svg#disabled-node" width="30" height="30" alt="Player 3's disabled node mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/marks/player-3.svg#node-destroyed" width="30" height="30" alt="Player 3's destroyed node mark" />
+      <img src="../assets/svg/marks/player-3.svg#destroyed-node" width="30" height="30" alt="Player 3's destroyed node mark" />
     </td>
   </tr>
   <tr>
@@ -74,16 +74,16 @@
       <img src="../assets/svg/marks/player-4.svg#root" width="30" height="30" alt="Player 4's root mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/marks/player-4.svg#root-destroyed" width="30" height="30" alt="Player 4's destroyed root mark" />
+      <img src="../assets/svg/marks/player-4.svg#destroyed-root" width="30" height="30" alt="Player 4's destroyed root mark" />
     </td>
     <td align="center">
       <img src="../assets/svg/marks/player-4.svg#node" width="30" height="30" alt="Player 4's node mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/marks/player-4.svg#node-disabled" width="30" height="30" alt="Player 4's disabled node mark" />
+      <img src="../assets/svg/marks/player-4.svg#disabled-node" width="30" height="30" alt="Player 4's disabled node mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/marks/player-4.svg#node-destroyed" width="30" height="30" alt="Player 4's destroyed node mark" />
+      <img src="../assets/svg/marks/player-4.svg#destroyed-node" width="30" height="30" alt="Player 4's destroyed node mark" />
     </td>
   </tr>
 </table>

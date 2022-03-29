@@ -40,15 +40,15 @@
       l -3 3" stroke-width="0.6" fill="none" />
   </defs>
   <g stroke="rgb(65, 105, 225)">
-    <use class="mark" id="root-destroyed" xlink:href="#path-root" stroke="rgba(128, 128, 128, 0.4)" />
-    <use class="mark" id="root" xlink:href="#path-root" />
-    <use class="mark" id="node-disabled" xlink:href="#path-node" stroke="rgb(128, 128, 128)" />
-    <use class="mark" id="node-destroyed" xlink:href="#path-node" stroke="rgba(128, 128, 128, 0.4)" />
-    <use class="mark default-mark" id="node" xlink:href="#path-node" />
+    <use xlink:href="#path-root" id="destroyed-root" class="mark" stroke="rgba(128, 128, 128, 0.4)" />
+    <use xlink:href="#path-root" id="root" class="mark" />
+    <use xlink:href="#path-node" id="disabled-node" class="mark" stroke="rgb(128, 128, 128)" />
+    <use xlink:href="#path-node" id="destroyed-node" class="mark" stroke="rgba(128, 128, 128, 0.4)" />
+    <use xlink:href="#path-node" id="node" class="default mark" />
   </g>
   <style>
-    .mark:not(:target):not(.default-mark),
-    .mark:target~.default-mark {
+    .mark:not(.default):not(:target),
+    .mark:target~.default.mark {
       display: none;
     }
   </style>
