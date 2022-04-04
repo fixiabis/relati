@@ -2,7 +2,8 @@
   xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
     <path id="root-path" d="
-      M 0 0 m 1 1
+      M 0 0
+      m 1 1
 
       m -0.03 0
         m -0.25 0.25
@@ -30,14 +31,17 @@
       m 0 0.03
         m -0.25 0.25
           l -1.25 -1.25
-          l -1.25 1.25" stroke-width="0.25" fill="none" />
+          l -1.25 1.25
+    " stroke-width="0.25" fill="none" />
 
     <path id="node-path" d="
-      M 0 0 m 1 1
+      M 0 0
+      m 1 1
 
       l 3 3
       m 0 -3
-      l -3 3" stroke-width="0.6" fill="none" />
+      l -3 3
+    " stroke-width="0.6" fill="none" />
   </defs>
   <g stroke="rgb(65, 105, 225)">
     <use xlink:href="#root-path" id="destroyed-root" class="mark" stroke="rgba(128, 128, 128, 0.4)" />
