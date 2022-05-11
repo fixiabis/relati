@@ -4,7 +4,7 @@ import Placement, { isPlacement } from '../moves/Placement';
 import GameManager from './GameManager';
 
 abstract class BaseGameManager implements GameManager {
-  public abstract createGame(numberOfPlayers: number): Game;
+  public abstract createGame(numberOfPlayers: number): Readonly<Game>;
 
   protected judgePlacement(game: Readonly<Game>, move: Placement): void {
     if (!game.board.hasCoordinate(move.coordinate)) {

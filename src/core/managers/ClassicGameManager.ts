@@ -18,7 +18,7 @@ const nearbyDirections = [
 ];
 
 class ClassicGameManager extends BaseGameManager {
-  public createGame(numberOfPlayers: number): Game {
+  public createGame(numberOfPlayers: number): Readonly<Game> {
     return new Game({
       numberOfPlayers,
       board: new Board({ width: numberOfPlayers * 2 + 1 }),
