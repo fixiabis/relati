@@ -1,9 +1,10 @@
 import ClassicGameManager from './core/managers/ClassicGameManager';
+import GameManager from './core/managers/GameManager';
 import ModernGameManager from './core/managers/ModernGameManager';
 
 type GameMode = 'modern' | 'classic';
 
-const gameManagers = {
+const gameManagers: Record<GameMode, GameManager> = {
   classic: new ClassicGameManager(),
   modern: new ModernGameManager(),
 };
