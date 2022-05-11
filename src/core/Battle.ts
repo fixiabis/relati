@@ -2,7 +2,7 @@ import type Board from './Board';
 import type Move from './moves/Move';
 import Placement, { isPlacement } from './moves/Placement';
 
-export interface GameProps {
+export interface BattleProps {
   readonly numberOfPlayers: number;
   board: Board;
   currentPlayer?: number;
@@ -12,7 +12,7 @@ export interface GameProps {
   moves?: readonly Move[];
 }
 
-class Game {
+class Battle {
   public static readonly NO_WINNER = -1;
 
   public readonly numberOfPlayers: number;
@@ -23,12 +23,12 @@ class Game {
   public ended: boolean;
   public moves: readonly Move[];
 
-  constructor(props: GameProps) {
+  constructor(props: BattleProps) {
     this.numberOfPlayers = props.numberOfPlayers;
     this.board = props.board;
     this.currentPlayer = props.currentPlayer || 0;
     this.eliminatedPlayers = props.eliminatedPlayers || [];
-    this.winner = props.winner ?? Game.NO_WINNER;
+    this.winner = props.winner ?? Battle.NO_WINNER;
     this.ended = props.ended || false;
     this.moves = props.moves || [];
   }
@@ -52,7 +52,7 @@ class Game {
     this.currentPlayer = player;
   }
 
-  public endByWinner(player: number = Game.NO_WINNER): void {
+  public endByWinner(player: number = Battle.NO_WINNER): void {
     this.winner = player;
     this.ended = true;
   }
@@ -71,4 +71,4 @@ class Game {
   }
 }
 
-export default Game;
+export default Battle;

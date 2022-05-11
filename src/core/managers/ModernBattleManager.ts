@@ -1,10 +1,10 @@
 import Board from '../Board';
 import Direction from '../Direction';
-import Game from '../Game';
+import Battle from '../Battle';
 import Placement, { isPlacement } from '../moves/Placement';
 import Piece from '../Piece';
 import { Coordinate } from '../types';
-import BaseGameManager from './BaseGameManager';
+import BaseBattleManager from './BaseBattleManager';
 
 type CoordinatePath = [Coordinate, ...Coordinate[]];
 
@@ -60,16 +60,16 @@ const nearbyDirectionPaths: CoordinatePath[] = [
   [Direction.BBR, Direction.BR, Direction.R],
 ];
 
-class ModernGameManager extends BaseGameManager {
-  public createGame(numberOfPlayers: number): Readonly<Game> {
-    return new Game({
+class ModernBattleManager extends BaseBattleManager {
+  public createBattle(numberOfPlayers: number): Readonly<Battle> {
+    return new Battle({
       numberOfPlayers,
       board: new Board({ width: numberOfPlayers * 4 + 1 }),
     });
   }
 
-  protected override judgePlacementValid(game: Readonly<Game>, move: Placement) {
-    const allPlayersHasFirstMove = game.moves.length >= game.numberOfPlayers;
+  protected override judgePlacementValid(battle: Readonly<Battle>, move: Placement) {
+    const allPlayersHasFirstMove = battle.moves.length >= battle.numberOfPlayers;
 
     if (!allPlayersHasFirstMove && move.piece.type !== 'root') {
       throw new Error('放置不符規則，棋子類型應為根源');
@@ -79,36 +79,36 @@ class ModernGameManager extends BaseGameManager {
       throw new Error('放置不符規則，棋子類型不應為根源');
     }
 
-    super.judgePlacementValid(game, move);
+    super.judgePlacementValid(battle, move);
   }
 
-  protected checkPlacementValidAfterFirstMove(game: Readonly<Game>, move: Placement): boolean {
+  protected checkPlacementValidAfterFirstMove(battle: Readonly<Battle>, move: Placement): boolean {
     const [x, y] = move.coordinate;
 
     const nearbyCoordinatePaths = nearbyDirectionPaths
       .map((path) => path.map<Coordinate>(([dx, dy]) => [x + dx, y + dy]) as CoordinatePath)
-      .filter((path) => path.every(game.board.hasCoordinate.bind(game.board)));
+      .filter((path) => path.every(battle.board.hasCoordinate.bind(battle.board)));
 
     const enabledNearbyPieces = nearbyCoordinatePaths
-      .map((path) => path.map(([x, y]) => game.board.pieces[x]![y]))
+      .map((path) => path.map(([x, y]) => battle.board.pieces[x]![y]))
       .filter((pieces): pieces is [Piece] => pieces[0] !== null && !pieces[0]?.disabled)
       .filter((pieces) => pieces.slice(1).every((piece) => piece === null));
 
     return enabledNearbyPieces.some(([piece]) => piece.player === move.player);
   }
 
-  protected override prepareNextTurn(game: Readonly<Game>): void {
-    this.updatePieceStatus(game);
-    super.prepareNextTurn(game);
+  protected override prepareNextTurn(battle: Readonly<Battle>): void {
+    this.updatePieceStatus(battle);
+    super.prepareNextTurn(battle);
   }
 
-  protected updatePieceStatus(game: Readonly<Game>): void {
-    this.disablePieces(game);
-    this.enablePiecesByRoot(game);
+  protected updatePieceStatus(battle: Readonly<Battle>): void {
+    this.disablePieces(battle);
+    this.enablePiecesByRoot(battle);
   }
 
-  protected disablePieces(game: Readonly<Game>): void {
-    const pieces = game.board.pieces.map((pieces) => pieces.map((piece) => piece && { ...piece }));
+  protected disablePieces(battle: Readonly<Battle>): void {
+    const pieces = battle.board.pieces.map((pieces) => pieces.map((piece) => piece && { ...piece }));
 
     for (const piecesOfLine of pieces) {
       for (const piece of piecesOfLine) {
@@ -118,13 +118,13 @@ class ModernGameManager extends BaseGameManager {
       }
     }
 
-    game.updateBoard(game.board.updatePieces(pieces));
+    battle.updateBoard(battle.board.updatePieces(pieces));
   }
 
-  protected enablePiecesByRoot(game: Readonly<Game>): void {
-    const pieces = game.board.pieces.map((pieces) => pieces.map((piece) => piece && { ...piece }));
+  protected enablePiecesByRoot(battle: Readonly<Battle>): void {
+    const pieces = battle.board.pieces.map((pieces) => pieces.map((piece) => piece && { ...piece }));
 
-    const enabledCoordinates = game.moves
+    const enabledCoordinates = battle.moves
       .filter(isPlacement)
       .filter((move) => move.piece.type === 'root')
       .map((move) => move.coordinate);
@@ -134,13 +134,13 @@ class ModernGameManager extends BaseGameManager {
       const sourcePiece = pieces[x]![y]!;
 
       const isPathOfPieceCanEnable = (path: CoordinatePath) => {
-        const [piece, ...otherPieces] = path.map(([x, y]) => game.board.pieces[x]![y]);
+        const [piece, ...otherPieces] = path.map(([x, y]) => battle.board.pieces[x]![y]);
         return piece?.player === sourcePiece.player && piece.disabled && otherPieces.every((piece) => piece === null);
       };
 
       const enableNeededCoordinates = nearbyDirectionPaths
         .map((path) => path.map<Coordinate>(([dx, dy]) => [x + dx, y + dy]) as CoordinatePath)
-        .filter((path) => path.every(game.board.hasCoordinate.bind(game.board)))
+        .filter((path) => path.every(battle.board.hasCoordinate.bind(battle.board)))
         .filter(isPathOfPieceCanEnable)
         .filter(([[x, y]], index, paths) => index === paths.findIndex(([[xOfP, yOfP]]) => xOfP === x && yOfP === y))
         .map(([coordinate]) => coordinate);
@@ -151,4 +151,4 @@ class ModernGameManager extends BaseGameManager {
   }
 }
 
-export default ModernGameManager;
+export default ModernBattleManager;
