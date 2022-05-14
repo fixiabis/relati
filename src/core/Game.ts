@@ -21,19 +21,28 @@ type GameState<TModeName extends GameModeName> = typeof stateConstructors[TModeN
 
 export type GameModeName = keyof typeof modes;
 
+export interface GameOptions<TMode extends GameModeName = 'modern'> {
+  mode?: TMode;
+  state?: Partial<GameState<TMode>>;
+  players?: (Player<TMode> | undefined)[];
+}
+
 class Game<TMode extends GameModeName = 'modern'> {
-  public readonly players: readonly Player<TMode>[];
   public readonly mode: GameMode<TMode>;
   public readonly state: GameState<TMode>;
+  public readonly players: (Player<TMode> | undefined)[];
 
-  constructor(players: Player<TMode>[], mode = 'modern' as TMode, state: Partial<GameState<TMode>> = {}) {
+  constructor(options: GameOptions<TMode> = {}) {
+    const mode = options.mode || 'modern';
+    const state = options.state || {};
+    const players = options.players || [];
     const GameState = stateConstructors[mode];
 
-    this.players = players;
     this.mode = modes[mode];
     this.state = new GameState(state) as GameState<TMode>;
+    this.players = players;
 
-    if (state.numberOfPlayers !== players.length) {
+    if (this.state.numberOfPlayers !== this.players.length) {
       throw new Error('number of players not matching');
     }
 
@@ -42,7 +51,7 @@ class Game<TMode extends GameModeName = 'modern'> {
 
   protected notifyPlayerWhoCanMove(): void {
     if (!this.state.ended) {
-      this.players[this.state.currentPlayer]!.onCanMove?.(this);
+      this.players[this.state.currentPlayer]?.onCanMove?.(this);
     }
   }
 
@@ -51,7 +60,7 @@ class Game<TMode extends GameModeName = 'modern'> {
 
     if (hasPlayerEliminated) {
       for (const player of this.players) {
-        player.onPlayersEliminated?.(this, eliminatedPlayers);
+        player?.onPlayersEliminated?.(this, eliminatedPlayers);
       }
     }
   }
@@ -59,7 +68,7 @@ class Game<TMode extends GameModeName = 'modern'> {
   protected notifyPlayersIfGameEnded(): void {
     if (this.state.ended) {
       for (const player of this.players) {
-        player.onGameEnded?.(this);
+        player?.onGameEnded?.(this);
       }
     }
   }
@@ -83,6 +92,14 @@ class Game<TMode extends GameModeName = 'modern'> {
     this.notifyPlayersIfHasPlayerEliminated(currentEliminatedPlayers);
     this.notifyPlayersIfGameEnded();
     this.notifyPlayerWhoCanMove();
+  }
+
+  public setPlayer(n: number, player: Player<TMode>): void {
+    this.players[n] = player;
+  }
+
+  public removePlayer(n: number): void {
+    delete this.players[n];
   }
 }
 
