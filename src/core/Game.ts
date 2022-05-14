@@ -46,52 +46,19 @@ class Game<TMode extends GameModeName = 'modern'> {
       throw new Error('number of players not matching');
     }
 
-    this.notifyPlayersOnInitialized();
+    this.notifyPlayersOnPreparedForMove(this.state);
   }
 
-  protected notifyPlayerWhoCanMove(): void {
-    if (!this.state.ended) {
-      this.players[this.state.currentPlayer]?.onCanMove?.(this);
+  protected notifyPlayersOnPreparedForMove(state: GameState<TMode>): void {
+    for (const player of this.players) {
+      player?.onGamePreparedForMove(this, state);
     }
-  }
-
-  protected notifyPlayersIfHasPlayerEliminated(eliminatedPlayers: readonly number[]): void {
-    const hasPlayerEliminated = eliminatedPlayers.length > 0;
-
-    if (hasPlayerEliminated) {
-      for (const player of this.players) {
-        player?.onPlayersEliminated?.(this, eliminatedPlayers);
-      }
-    }
-  }
-
-  protected notifyPlayersIfGameEnded(): void {
-    if (this.state.ended) {
-      for (const player of this.players) {
-        player?.onGameEnded?.(this);
-      }
-    }
-  }
-
-  protected notifyPlayersOnInitialized() {
-    this.notifyPlayersIfHasPlayerEliminated(this.state.eliminatedPlayers);
-    this.notifyPlayersIfGameEnded();
-    this.notifyPlayerWhoCanMove();
   }
 
   public takeMove(move: GameMove): void {
-    const prevEliminatedPlayers = this.state.eliminatedPlayers;
-
+    const prevState = { ...this.state };
     this.mode.takeMove(move, this.state as ModernGameState);
-
-    const currentEliminatedPlayers =
-      this.state.eliminatedPlayers !== prevEliminatedPlayers
-        ? this.state.eliminatedPlayers.filter((player) => !prevEliminatedPlayers.includes(player))
-        : [];
-
-    this.notifyPlayersIfHasPlayerEliminated(currentEliminatedPlayers);
-    this.notifyPlayersIfGameEnded();
-    this.notifyPlayerWhoCanMove();
+    this.notifyPlayersOnPreparedForMove(prevState);
   }
 
   public setPlayer(n: number, player: Player<TMode>): void {
