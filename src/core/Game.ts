@@ -37,12 +37,22 @@ class Game<TMode extends GameModeName = 'modern'> {
       throw new Error('number of players not matching');
     }
 
-    this.players[this.state.currentPlayer]!.onCanMove(this);
+    this.notifyPlayers();
   }
 
-  public takeMove(move: GameMove) {
+  public takeMove(move: GameMove): void {
     this.mode.takeMove(move, this.state as ModernGameState);
-    this.players[this.state.currentPlayer]!.onCanMove(this);
+    this.notifyPlayers();
+  }
+
+  protected notifyPlayers(): void {
+    if (!this.state.ended) {
+      return this.players[this.state.currentPlayer]!.onCanMove(this);
+    }
+
+    for (const player of this.players) {
+      player.onGameEnded(this);
+    }
   }
 }
 
