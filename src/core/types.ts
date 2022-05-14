@@ -1,1 +1,1 @@
-export type Coordinate = readonly [number, number];
+export type Coordinate = readonly [x: number, y: number];
