@@ -46,6 +46,7 @@ class Game<TMode extends GameModeName = 'modern'> {
       throw new Error('number of players not matching');
     }
 
+    this.mode.prepare(this.state);
     this.notifyPlayersOnPreparedForMove(this.state);
   }
 

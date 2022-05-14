@@ -19,6 +19,17 @@ const nearbyDirections = [
 class ClassicGameMode extends TBS.FlowStep<ClassicGameState, GameMove> {
   public readonly name: string = 'relati-classic';
 
+  public override prepare(state: ClassicGameState): void {
+    this.eliminatePlayersWhoCannotMove(state);
+    this.endGameIfValid(state);
+
+    const currentPlayerHasEliminated = state.eliminatedPlayers.includes(state.currentPlayer);
+
+    if (currentPlayerHasEliminated) {
+      this.changeCurrentPlayerToNext(state);
+    }
+  }
+
   protected checkMove(move: GameMove, state: Readonly<ClassicGameState>): boolean {
     const [x, y] = move.coordinate;
     const squareOfCoordinateHasTaken = state.board.pieces[x]![y] !== null;
@@ -103,10 +114,12 @@ class ClassicGameMode extends TBS.FlowStep<ClassicGameState, GameMove> {
     state.eliminatedPlayers = state.eliminatedPlayers.concat(eliminatedPlayers);
   }
 
-  protected prepareForNext(state: ClassicGameState): void {
-    this.eliminatePlayersWhoCannotMove(state);
-
+  protected endGameIfValid(state: ClassicGameState): void {
     const numberOfSurvivingPlayers = state.numberOfPlayers - state.eliminatedPlayers.length;
+
+    if (numberOfSurvivingPlayers > 1) {
+      return;
+    }
 
     if (numberOfSurvivingPlayers === 0) {
       state.winner = -1;
@@ -116,20 +129,33 @@ class ClassicGameMode extends TBS.FlowStep<ClassicGameState, GameMove> {
 
     const players = Array.from({ length: state.numberOfPlayers }).map((_, player) => player);
     const isSurvivingPlayer = (player: number) => !state.eliminatedPlayers.includes(player);
+    const survivingPlayer = players.find(isSurvivingPlayer)!;
 
-    if (numberOfSurvivingPlayers === 1) {
-      const survivingPlayer = players.find(isSurvivingPlayer)!;
+    if (survivingPlayer === state.currentPlayer) {
       state.winner = survivingPlayer;
       state.ended = true;
-      return;
     }
+  }
 
-    const [nextSurvivingPlayer] = players
+  protected changeCurrentPlayerToNext(state: ClassicGameState): void {
+    const players = Array.from({ length: state.numberOfPlayers }).map((_, player) => player);
+    const isSurvivingPlayer = (player: number) => !state.eliminatedPlayers.includes(player);
+
+    const nextSurvivingPlayer = players
       .slice(state.currentPlayer + 1)
       .concat(players.slice(0, state.currentPlayer))
-      .filter(isSurvivingPlayer);
+      .find(isSurvivingPlayer);
 
     state.currentPlayer = nextSurvivingPlayer!;
+  }
+
+  protected prepareForNext(state: ClassicGameState): void {
+    this.eliminatePlayersWhoCannotMove(state);
+    this.endGameIfValid(state);
+
+    if (!state.ended) {
+      this.changeCurrentPlayerToNext(state);
+    }
   }
 }
 
