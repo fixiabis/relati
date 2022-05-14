@@ -1,6 +1,6 @@
 import Direction from '../Direction';
 import GameMove from '../GameMove';
-import GameState from '../game-states/ModernGameState';
+import ModernGameState from '../game-states/ModernGameState';
 import Piece from '../Piece';
 import { Coordinate } from '../types';
 import ClassicGameMode from './ClassicGameMode';
@@ -65,10 +65,10 @@ const nearbyDirectionPaths: CoordinatePath[] = [
   [Direction.BBR, Direction.BR, Direction.R],
 ];
 
-class ModernGameMode extends ClassicGameMode implements TBS.FlowStep<GameState, GameMove> {
+class ModernGameMode extends ClassicGameMode implements TBS.FlowStep<ModernGameState, GameMove> {
   public override readonly name: string = 'relati';
 
-  protected override checkMove(move: GameMove, state: Readonly<GameState>): boolean {
+  protected override checkMove(move: GameMove, state: Readonly<ModernGameState>): boolean {
     const [x, y] = move.coordinate;
     const squareOfCoordinateHasTaken = state.board.pieces[x]![y] !== null;
 
@@ -100,7 +100,7 @@ class ModernGameMode extends ClassicGameMode implements TBS.FlowStep<GameState, 
     return nearbyPiecesOfPath.some((piece) => !piece.disabled && piece.player === move.player);
   }
 
-  protected override executeMove(move: GameMove, state: GameState): void {
+  protected override executeMove(move: GameMove, state: ModernGameState): void {
     const allPlayersHaveMoved = state.allPlayersHaveMoved;
 
     super.executeMove(move, state);
@@ -110,7 +110,7 @@ class ModernGameMode extends ClassicGameMode implements TBS.FlowStep<GameState, 
     }
   }
 
-  protected updatePieceStatus(state: GameState): void {
+  protected updatePieceStatus(state: ModernGameState): void {
     const pieces = state.board.pieces.map((pieces) => pieces.map((piece) => piece && { ...piece, disabled: true }));
     const sourceIndexes = [...state.rootCoordinates].map(utils.convertCoordinateToIndex);
 
@@ -139,7 +139,7 @@ class ModernGameMode extends ClassicGameMode implements TBS.FlowStep<GameState, 
     state.board = state.board.updatePieces(pieces);
   }
 
-  protected override prepareForNext(state: GameState) {
+  protected override prepareForNext(state: ModernGameState) {
     this.updatePieceStatus(state);
     return super.prepareForNext(state);
   }

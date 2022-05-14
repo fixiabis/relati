@@ -1,6 +1,6 @@
 import TBS from '../lib/TurnBasedStrategy';
 import Direction from '../Direction';
-import GameState from '../game-states/ClassicGameState';
+import ClassicGameState from '../game-states/ClassicGameState';
 import GameMove from '../GameMove';
 import Piece from '../Piece';
 import { Coordinate } from '../types';
@@ -16,10 +16,10 @@ const nearbyDirections = [
   Direction.BR,
 ];
 
-class ClassicGameMode extends TBS.FlowStep<GameState, GameMove> {
+class ClassicGameMode extends TBS.FlowStep<ClassicGameState, GameMove> {
   public readonly name: string = 'relati-classic';
 
-  protected checkMove(move: GameMove, state: Readonly<GameState>): boolean {
+  protected checkMove(move: GameMove, state: Readonly<ClassicGameState>): boolean {
     const [x, y] = move.coordinate;
     const squareOfCoordinateHasTaken = state.board.pieces[x]![y] !== null;
 
@@ -42,7 +42,7 @@ class ClassicGameMode extends TBS.FlowStep<GameState, GameMove> {
     return nearbyPieces.some((piece) => piece.player === move.player);
   }
 
-  protected judgeMove(move: GameMove, state: Readonly<GameState>): void {
+  protected judgeMove(move: GameMove, state: Readonly<ClassicGameState>): void {
     if (state.ended) {
       throw new Error('invalid move: game is ended');
     }
@@ -60,7 +60,7 @@ class ClassicGameMode extends TBS.FlowStep<GameState, GameMove> {
     }
   }
 
-  protected executeMove(move: GameMove, state: GameState): void {
+  protected executeMove(move: GameMove, state: ClassicGameState): void {
     const piece = { player: move.player };
 
     state.board = state.board.placePiece(move.coordinate, piece);
@@ -74,7 +74,7 @@ class ClassicGameMode extends TBS.FlowStep<GameState, GameMove> {
     }
   }
 
-  protected checkPlayerCanMove(player: number, state: GameState): boolean {
+  protected checkPlayerCanMove(player: number, state: ClassicGameState): boolean {
     if (!state.allPlayersHaveMoved) {
       return true;
     }
@@ -94,7 +94,7 @@ class ClassicGameMode extends TBS.FlowStep<GameState, GameMove> {
     return false;
   }
 
-  protected eliminatePlayersWhoCannotMove(state: GameState) {
+  protected eliminatePlayersWhoCannotMove(state: ClassicGameState) {
     const players = Array.from({ length: state.numberOfPlayers }).map((_, player) => player);
     const isSurvivingPlayer = (player: number) => !state.eliminatedPlayers.includes(player);
     const survivingPlayers = players.filter(isSurvivingPlayer);
@@ -103,7 +103,7 @@ class ClassicGameMode extends TBS.FlowStep<GameState, GameMove> {
     state.eliminatedPlayers = state.eliminatedPlayers.concat(eliminatedPlayers);
   }
 
-  protected prepareForNext(state: GameState): void {
+  protected prepareForNext(state: ClassicGameState): void {
     this.eliminatePlayersWhoCannotMove(state);
 
     const numberOfSurvivingPlayers = state.numberOfPlayers - state.eliminatedPlayers.length;
