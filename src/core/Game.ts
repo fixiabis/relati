@@ -56,9 +56,9 @@ class Game<TMode extends GameModeName = 'modern'> {
     }
   }
 
-  public takeMove(move: GameMove): void {
+  public async takeMove(move: GameMove): Promise<void> {
     const prevState = { ...this.state };
-    this.mode.takeMove(move, this.state as ModernGameState);
+    await this.mode.takeMove(move, this.state as ModernGameState);
     this.notifyPlayersOnPreparedForMove(prevState);
   }
 

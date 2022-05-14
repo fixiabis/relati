@@ -19,7 +19,7 @@ const nearbyDirections = [
 class ClassicGameMode extends TBS.FlowStep<ClassicGameState, GameMove> {
   public readonly name: string = 'relati-classic';
 
-  public override prepare(state: ClassicGameState): void {
+  public override async prepare(state: ClassicGameState): Promise<void> {
     this.eliminatePlayersWhoCannotMove(state);
     this.endGameIfValid(state);
 
