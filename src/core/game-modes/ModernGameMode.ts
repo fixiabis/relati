@@ -115,7 +115,7 @@ class ModernGameMode extends ClassicGameMode implements TBS.FlowStep<ModernGameS
     const sourceIndexes = [...state.rootCoordinates].map(utils.convertCoordinateToIndex);
 
     const coordinatePathOfPieceCanEnable = (player: number) => (path: CoordinatePath) => {
-      const [piece, ...otherPieces] = path.map(([x, y]) => state.board.pieces[x]![y]) as ReadonlyPiecePath;
+      const [piece, ...otherPieces] = path.map(([x, y]) => pieces[x]![y]) as ReadonlyPiecePath;
       return piece?.player === player && piece.disabled && otherPieces.every((piece) => piece === null);
     };
 
@@ -130,7 +130,7 @@ class ModernGameMode extends ClassicGameMode implements TBS.FlowStep<ModernGameS
       const nextSourceIndexes = nearbyCoordinatePaths
         .filter(coordinatePathOfPieceCanEnable(sourcePiece.player))
         .map(([coordinate]) => utils.convertCoordinateToIndex(coordinate))
-        .filter((number) => !sourceIndexes.includes(number));
+        .filter((index) => !sourceIndexes.includes(index));
 
       sourceIndexes.push(...nextSourceIndexes);
       delete sourcePiece.disabled;
