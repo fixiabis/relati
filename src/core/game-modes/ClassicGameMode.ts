@@ -19,7 +19,7 @@ const nearbyDirections = [
 class ClassicGameMode extends TBS.FlowStep<ClassicGameState, GameMove> {
   public readonly name: string = 'relati-classic';
 
-  public override async prepare(state: ClassicGameState): Promise<void> {
+  public override prepare(state: ClassicGameState): Promise<void> {
     this.eliminatePlayersWhoCannotMove(state);
     this.endGameIfValid(state);
 
@@ -28,9 +28,11 @@ class ClassicGameMode extends TBS.FlowStep<ClassicGameState, GameMove> {
     if (currentPlayerHasEliminated) {
       this.changeCurrentPlayerToNext(state);
     }
+
+    return Promise.resolve();
   }
 
-  protected checkMove(move: GameMove, state: Readonly<ClassicGameState>): boolean {
+  public checkMove(move: GameMove, state: Readonly<ClassicGameState>): boolean {
     const [x, y] = move.coordinate;
     const squareOfCoordinateHasTaken = state.board.pieces[x]![y] !== null;
 
@@ -85,7 +87,7 @@ class ClassicGameMode extends TBS.FlowStep<ClassicGameState, GameMove> {
     }
   }
 
-  protected checkPlayerCanMove(player: number, state: ClassicGameState): boolean {
+  public checkPlayerCanMove(player: number, state: ClassicGameState): boolean {
     if (!state.allPlayersHaveMoved) {
       return true;
     }

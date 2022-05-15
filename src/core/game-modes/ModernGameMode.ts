@@ -68,7 +68,7 @@ const nearbyDirectionPaths: CoordinatePath[] = [
 class ModernGameMode extends ClassicGameMode implements TBS.FlowStep<ModernGameState, GameMove> {
   public override readonly name: string = 'relati';
 
-  protected override checkMove(move: GameMove, state: Readonly<ModernGameState>): boolean {
+  public override checkMove(move: GameMove, state: Readonly<ModernGameState>): boolean {
     const [x, y] = move.coordinate;
     const squareOfCoordinateHasTaken = state.board.pieces[x]![y] !== null;
 
