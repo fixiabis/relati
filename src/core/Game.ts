@@ -42,10 +42,6 @@ class Game<TMode extends GameModeName = 'modern'> {
     this.state = new GameState(state) as GameState<TMode>;
     this.players = players;
 
-    if (this.state.numberOfPlayers !== this.players.length) {
-      throw new Error('number of players not matching');
-    }
-
     this.mode.prepare(this.state);
     this.notifyPlayersOnPreparedForMove(this.state);
   }
