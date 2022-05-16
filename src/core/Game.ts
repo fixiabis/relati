@@ -31,6 +31,7 @@ class Game<TMode extends GameModeName = 'modern'> {
   public readonly mode: GameMode<TMode>;
   public readonly state: GameState<TMode>;
   public readonly players: (Player<TMode> | undefined)[];
+  protected moveTaking: boolean = false;
 
   constructor(options: GameOptions<TMode> = {}) {
     const mode = options.mode || 'modern';
@@ -54,13 +55,18 @@ class Game<TMode extends GameModeName = 'modern'> {
 
   public async takeMove(move: GameMove): Promise<void> {
     const prevState = { ...this.state };
+    this.moveTaking = true;
     await this.mode.takeMove(move, this.state as ModernGameState);
+    this.moveTaking = false;
     this.notifyPlayersOnPreparedForMove(prevState);
   }
 
   public setPlayer(n: number, player: Player<TMode>): void {
     this.players[n] = player;
-    player?.onGamePreparedForMove(this, this.state);
+
+    if (!this.moveTaking) {
+      player?.onGamePreparedForMove(this, this.state);
+    }
   }
 
   public removePlayer(n: number): void {
