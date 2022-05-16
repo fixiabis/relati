@@ -64,6 +64,7 @@ class Game<TMode extends GameModeName = 'modern'> {
 
   public setPlayer(n: number, player: Player<TMode>): void {
     this.players[n] = player;
+    player?.onGamePreparedForMove(this, this.state);
   }
 
   public removePlayer(n: number): void {
