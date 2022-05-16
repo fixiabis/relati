@@ -2,7 +2,7 @@ import Game, { GameModeName } from '../../core/Game';
 import GameMove from '../../core/GameMove';
 import Player from '../../core/Player';
 
-abstract class AI<TMode extends GameModeName> implements Player<TMode> {
+abstract class AIPlayer<TMode extends GameModeName> implements Player<TMode> {
   public readonly player: number;
 
   constructor(player: number) {
@@ -24,4 +24,4 @@ abstract class AI<TMode extends GameModeName> implements Player<TMode> {
   ): Promise<GameMove>;
 }
 
-export default AI;
+export default AIPlayer;

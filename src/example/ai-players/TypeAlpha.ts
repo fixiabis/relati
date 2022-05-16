@@ -4,7 +4,7 @@ import Game from '../../core/Game';
 import ModernGameState from '../../core/game-states/ModernGameState';
 import GameMove from '../../core/GameMove';
 import * as utils from '../../core/utils';
-import AI from './AI';
+import AIPlayer from './AIPlayer';
 
 const nearbyDirections = [
   Direction.F,
@@ -19,7 +19,7 @@ const nearbyDirections = [
 
 type Decision = { score: number; move: GameMove };
 
-class TypeAlpha extends AI<'modern' | 'classic'> {
+class TypeAlpha extends AIPlayer<'modern' | 'classic'> {
   protected async decideMove(game: Readonly<Game<'modern' | 'classic'>>): Promise<GameMove> {
     const player = this.player;
     const mode = game.mode;

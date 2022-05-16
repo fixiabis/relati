@@ -2,9 +2,9 @@ import { Coordinate } from '../../../lib/core/types';
 import Game from '../../core/Game';
 import ModernGameState from '../../core/game-states/ModernGameState';
 import GameMove from '../../core/GameMove';
-import AI from './AI';
+import AIPlayer from './AIPlayer';
 
-class RoughGuy extends AI<'classic' | 'modern'> {
+class RoughGuy extends AIPlayer<'classic' | 'modern'> {
   protected decideMove(game: Readonly<Game<'classic' | 'modern'>>): Promise<GameMove> {
     const player = this.player;
     const mode = game.mode;
