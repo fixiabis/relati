@@ -43,7 +43,9 @@ class TypeAlpha extends AIPlayer<'modern' | 'classic'> {
       decisions.every((otherDecision) => decision.score >= otherDecision.score)
     );
 
-    return highPointDecisions[0]!.move;
+    const finalDecision = highPointDecisions[Math.floor(Math.random() * highPointDecisions.length)]!;
+
+    return finalDecision.move;
   }
 
   protected async evaluateScoreOfMove(game: Readonly<Game<'modern' | 'classic'>>, move: GameMove): Promise<number> {
