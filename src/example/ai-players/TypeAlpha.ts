@@ -106,7 +106,9 @@ class TypeAlpha extends AIPlayer<'modern' | 'classic'> {
 
           for (let otherPlayer = 0; otherPlayer < state.numberOfPlayers; otherPlayer++) {
             if (otherPlayer !== player && turnsTaken[otherPlayer]![x]![y]! > 0) {
-              scoresForEachSquare[player]![x]![y] -= Math.floor(100 / turnsTaken[otherPlayer]![x]![y]!);
+              scoresForEachSquare[player]![x]![y] -= Math.ceil(
+                Math.floor(100 / turnsTaken[otherPlayer]![x]![y]!) / (state.numberOfPlayers - 1)
+              );
             }
           }
         }
