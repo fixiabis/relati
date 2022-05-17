@@ -48,10 +48,11 @@ export function convertIndexToCoordinate(index: number): Coordinate {
  */
 export function convertDirectionToIndex(direction: Coordinate): number {
   const [x, y] = direction;
-  const shellBase = Math.abs(x) > Math.abs(y) ? x : Math.abs(y) > Math.abs(x) ? y : y < 0 ? y : x;
-  const shell = shellBase * 2 * Math.sign(shellBase) - Math.floor((Math.sign(shellBase) + 1) / 2);
+  const shell = Math.max(Math.abs(x) * 2 - +(x > 0), Math.abs(y) * 2 - +(y > 0));
+  const shellBase = Math.ceil(shell / 2) * ((shell % 2) - ((shell + 1) % 2));
+  const shellBaseSign = Math.sign(shellBase);
   const start = shell * shell;
-  return start + shell + x * Math.sign(shellBase) - y * Math.sign(shellBase);
+  return start + shell + x * shellBaseSign - y * shellBaseSign;
 }
 
 /**
@@ -60,8 +61,9 @@ export function convertDirectionToIndex(direction: Coordinate): number {
  */
 export function convertIndexToDirection(index: number): Coordinate {
   const shell = Math.floor(Math.sqrt(index));
-  const shellBase = Math.ceil(shell / 2) * (shell % 2 ? 1 : -1);
+  const shellBase = Math.ceil(shell / 2) * ((shell % 2) - ((shell + 1) % 2));
+  const shellBaseSign = Math.sign(shellBase);
   const start = shell * shell;
   const n = index - start - shell;
-  return [shellBase + Math.sign(shellBase) * Math.min(n, 0), shellBase - Math.sign(shellBase) * Math.max(n, 0)];
+  return [shellBase + shellBaseSign * Math.min(n, 0), shellBase - shellBaseSign * Math.max(n, 0)];
 }
