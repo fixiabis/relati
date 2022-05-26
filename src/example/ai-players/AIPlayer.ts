@@ -1,6 +1,6 @@
-import Game, { GameModeName } from '../../core/Game';
-import GameMove from '../../core/GameMove';
-import Player from '../../core/Player';
+import Game, { GameModeName } from '../../core-0/Game';
+import GameMove from '../../core-0/GameMove';
+import Player from '../../core-0/Player';
 
 abstract class AIPlayer<TMode extends GameModeName> implements Player<TMode> {
   public readonly player: number;

@@ -1,4 +1,4 @@
-import { Coordinate } from '../primitives';
+import { Coordinate } from './types';
 
 /**
  * Rosenberg-Strong pairing function coordinate graph
@@ -14,7 +14,7 @@ import { Coordinate } from '../primitives';
 /**
  * Rosenberg-Strong pairing function used
  */
-export function convertCoordinateToNumber(coordinate: Coordinate): number {
+export function convertCoordinateToIndex(coordinate: Coordinate): number {
   const [x, y] = coordinate;
   const shell = Math.max(x, y);
   const start = shell * shell;
@@ -24,7 +24,7 @@ export function convertCoordinateToNumber(coordinate: Coordinate): number {
 /**
  * Rosenberg-Strong pairing function used
  */
-export function convertNumberToCoordinate(index: number): Coordinate {
+export function convertIndexToCoordinate(index: number): Coordinate {
   const shell = Math.floor(Math.sqrt(index));
   const start = shell * shell;
   const n = index - start - shell;
@@ -46,7 +46,7 @@ export function convertNumberToCoordinate(index: number): Coordinate {
  * @todo optimization
  * custom pairing function used
  */
-export function convertDirectionToNumber(direction: Coordinate): number {
+export function convertDirectionToIndex(direction: Coordinate): number {
   const [x, y] = direction;
   const shell = Math.max(Math.abs(x) * 2 - +(x > 0), Math.abs(y) * 2 - +(y > 0));
   const shellBase = Math.ceil(shell / 2) * ((shell % 2) - ((shell + 1) % 2));
@@ -59,7 +59,7 @@ export function convertDirectionToNumber(direction: Coordinate): number {
  * @todo optimization
  * custom pairing function used
  */
-export function convertNumberToDirection(index: number): Coordinate {
+export function convertIndexToDirection(index: number): Coordinate {
   const shell = Math.floor(Math.sqrt(index));
   const shellBase = Math.ceil(shell / 2) * ((shell % 2) - ((shell + 1) % 2));
   const shellBaseSign = Math.sign(shellBase);

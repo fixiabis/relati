@@ -1,9 +1,9 @@
 import { Coordinate } from '../../../lib/core/types';
-import Direction from '../../core/Direction';
-import Game from '../../core/Game';
-import ModernGameState from '../../core/game-states/ModernGameState';
-import GameMove from '../../core/GameMove';
-import * as utils from '../../core/utils';
+import Direction from '../../core-0/Direction';
+import Game from '../../core-0/Game';
+import ModernGameState from '../../core-0/game-states/ModernGameState';
+import GameMove from '../../core-0/GameMove';
+import * as utils from '../../core-0/utils';
 import AIPlayer from './AIPlayer';
 
 const nearbyDirections = [

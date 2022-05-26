@@ -1,76 +1,51 @@
-import ClassicGameMode from './game-modes/ClassicGameMode';
-import ModernGameMode from './game-modes/ModernGameMode';
-import ClassicGameState from './game-states/ClassicGameState';
-import ModernGameState from './game-states/ModernGameState';
-import GameMove from './GameMove';
-import Player from './Player';
+import { Board, Coordinate } from '../primitives';
+import { GameMove } from './moves';
+import GameStatus from './GameStatus';
+import GameMode from './modes/GameMode';
+import Piece from './Piece';
 
-const modes = {
-  classic: new ClassicGameMode(),
-  modern: new ModernGameMode(),
-};
-
-type GameMode<TModeName extends GameModeName> = typeof modes[TModeName];
-
-const stateConstructors = {
-  classic: ClassicGameState,
-  modern: ModernGameState,
-};
-
-type GameState<TModeName extends GameModeName> = typeof stateConstructors[TModeName]['prototype'];
-
-export type GameModeName = keyof typeof modes;
-
-export interface GameOptions<TMode extends GameModeName = 'modern'> {
-  mode?: TMode;
-  state?: Partial<GameState<TMode>>;
-  players?: (Player<TMode> | undefined)[];
+export interface GameProps {
+  mode: GameMode;
+  numberOfPlayers?: number;
+  status?: GameStatus;
+  ended?: boolean;
+  board?: Board<Piece>;
+  winner?: number;
+  currentPlayer?: number;
+  eliminatedPlayers?: number[];
+  moveRecord?: GameMove[];
+  coordinatesOfPieceType?: Readonly<Record<string, readonly Coordinate[]>>;
 }
 
-class Game<TMode extends GameModeName = 'modern'> {
-  public readonly mode: GameMode<TMode>;
-  public readonly state: GameState<TMode>;
-  public readonly players: (Player<TMode> | undefined)[];
-  protected moveTaking: boolean = false;
+class Game {
+  public readonly mode: GameMode;
+  public readonly numberOfPlayers: number;
+  public status: GameStatus;
+  public ended: boolean;
+  public board: Board<Piece>;
+  public winner: number;
+  public currentPlayer: number;
+  public eliminatedPlayers: readonly number[];
+  public moveRecord: readonly GameMove[];
+  public coordinatesOfPieceType: Readonly<Record<string, readonly Coordinate[]>>;
 
-  constructor(options: GameOptions<TMode> = {}) {
-    const mode = options.mode || 'modern';
-    const state = options.state || {};
-    const players = options.players || [];
-    const GameState = stateConstructors[mode];
-
-    this.mode = modes[mode];
-    this.state = new GameState(state) as GameState<TMode>;
-    this.players = players;
-
-    this.mode.prepare(this.state);
-    this.notifyPlayersOnPreparedForMove(this.state);
+  constructor(props: GameProps) {
+    this.mode = props.mode;
+    this.numberOfPlayers = props.numberOfPlayers || 2;
+    this.status = props.status || GameStatus.Initial;
+    this.ended = props.ended || false;
+    this.board = props.board || this.mode.createBoard(this.numberOfPlayers);
+    this.winner = props.winner || -1;
+    this.currentPlayer = props.currentPlayer || 0;
+    this.eliminatedPlayers = props.eliminatedPlayers || [];
+    this.moveRecord = props.moveRecord || [];
+    this.coordinatesOfPieceType = props.coordinatesOfPieceType || {};
+    this.mode.prepare(this);
   }
 
-  protected notifyPlayersOnPreparedForMove(state: GameState<TMode>): void {
-    for (const player of this.players) {
-      player?.onGamePreparedForMove(this, state);
-    }
-  }
-
-  public async takeMove(move: GameMove): Promise<void> {
-    const prevState = { ...this.state };
-    this.moveTaking = true;
-    await this.mode.takeMove(move, this.state as ModernGameState);
-    this.moveTaking = false;
-    this.notifyPlayersOnPreparedForMove(prevState);
-  }
-
-  public setPlayer(n: number, player: Player<TMode>): void {
-    this.players[n] = player;
-
-    if (!this.moveTaking) {
-      player?.onGamePreparedForMove(this, this.state);
-    }
-  }
-
-  public removePlayer(n: number): void {
-    delete this.players[n];
+  public makeMove(move: GameMove): void {
+    this.mode.handleMove(this, move);
+    this.mode.prepareForNextMove(this);
   }
 }
 

@@ -25,12 +25,10 @@ class Board {
   }
 
   public placePiece(coordinate: Coordinate, piece: Readonly<Piece>): Board {
-    const [x, y] = coordinate;
-    const props = this.toProps();
     const pieces = this.pieces.map((pieces) => [...pieces]);
+    const [x, y] = coordinate;
     pieces[x]![y] = piece;
-    props.pieces = pieces;
-    return new Board(props);
+    return new Board({ ...this.toProps(), pieces });
   }
 
   public hasCoordinate(coordinate: Coordinate): boolean {
@@ -39,13 +37,11 @@ class Board {
   }
 
   public updatePieces(pieces: BoardPieces): Board {
-    const props = this.toProps();
-    props.pieces = pieces;
-    return new Board(props);
+    return new Board({ ...this.toProps(), pieces });
   }
 
   protected toProps(): BoardProps {
-    return { width: this.width, height: this.height, pieces: this.pieces };
+    return { ...this };
   }
 }
 

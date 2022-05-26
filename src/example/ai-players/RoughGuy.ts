@@ -1,7 +1,7 @@
 import { Coordinate } from '../../../lib/core/types';
-import Game from '../../core/Game';
-import ModernGameState from '../../core/game-states/ModernGameState';
-import GameMove from '../../core/GameMove';
+import Game from '../../core-0/Game';
+import ModernGameState from '../../core-0/game-states/ModernGameState';
+import GameMove from '../../core-0/GameMove';
 import AIPlayer from './AIPlayer';
 
 class RoughGuy extends AIPlayer<'classic' | 'modern'> {
