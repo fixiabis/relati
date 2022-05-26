@@ -116,7 +116,7 @@ class ModernMode extends ClassicMode {
     return nearbyPiecesOfPath.some((piece) => !piece.disabled && piece.player === move.player);
   }
 
-  protected override handlePlacement(game: Game, move: Placement): void {
+  protected override executePlacement(game: Game, move: Placement): void {
     const piece: Piece = { player: move.player };
 
     if (game.status === GameStatus.Opening) {
@@ -141,7 +141,7 @@ class ModernMode extends ClassicMode {
     }
   }
 
-  // TODO: 改採用 communicationPaths 計算，並應整合至 handlePlacement 中。
+  // TODO: 改採用 linkPaths 計算，並應整合至 handlePlacement 中。
   protected updatePieces(game: Game): void {
     const pieces = game.board.pieces.map((pieces) => pieces.map((piece) => piece && { ...piece, disabled: true }));
     const sourceIndexes = [...(game.coordinatesOfPieceType['root'] || [])].map(convertCoordinateToNumber);

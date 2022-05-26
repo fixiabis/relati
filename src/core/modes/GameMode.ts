@@ -18,11 +18,11 @@ abstract class GameMode {
 
   public prepare(game: Game): void {}
 
-  public abstract handleMove(game: Game, move: GameMove): void;
+  public abstract executeMove(game: Game, move: GameMove): void;
 
   public abstract prepareForNextMove(game: Game): void;
 
-  protected judgeMove(game: Game, move: GameMove): void {
+  protected ensureMoveValid(game: Game, move: GameMove): void {
     if (game.ended) {
       throw new InvalidMoveException('遊戲已經結束');
     }

@@ -43,8 +43,8 @@ class Game {
     this.mode.prepare(this);
   }
 
-  public makeMove(move: GameMove): void {
-    this.mode.handleMove(this, move);
+  public handleMove(move: GameMove): void {
+    this.mode.executeMove(this, move);
     this.mode.prepareForNextMove(this);
   }
 }

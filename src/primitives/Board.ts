@@ -7,7 +7,7 @@ function createInitialPieces(width: number, height: number) {
 export interface BoardProps<T extends {}> {
   width: number;
   height?: number;
-  values?: readonly (readonly (Readonly<T> | null)[])[];
+  pieces?: readonly (readonly (Readonly<T> | null)[])[];
 }
 
 class Board<T extends {}> {
@@ -18,7 +18,7 @@ class Board<T extends {}> {
   constructor(props: BoardProps<T>) {
     this.width = props.width;
     this.height = props.height || props.width;
-    this.pieces = props.values || createInitialPieces(this.width, this.height);
+    this.pieces = props.pieces || createInitialPieces(this.width, this.height);
   }
 
   public hasCoordinate(coordinate: Coordinate): boolean {
@@ -33,8 +33,8 @@ class Board<T extends {}> {
     return this.putAllPieces(values);
   }
 
-  public putAllPieces(values: (T | null)[][]): Board<T> {
-    return new Board<T>({ ...this, values });
+  public putAllPieces(pieces: (T | null)[][]): Board<T> {
+    return new Board<T>({ ...this, pieces });
   }
 }
 

@@ -30,11 +30,11 @@ class ClassicMode extends GameMode {
     return new Board<Piece>({ width: numberOfPlayers * 2 + 1 });
   }
 
-  public handleMove(game: Game, move: GameMove): void {
-    this.judgeMove(game, move);
+  public executeMove(game: Game, move: GameMove): void {
+    this.ensureMoveValid(game, move);
 
     if (isPlacement(move)) {
-      return this.handlePlacement(game, move);
+      return this.executePlacement(game, move);
     }
   }
 
@@ -70,7 +70,7 @@ class ClassicMode extends GameMode {
     return nearbyPieces.some((piece) => piece.player === move.player);
   }
 
-  protected judgePlacement(game: Game, move: Placement): void {
+  protected ensurePlacementValid(game: Game, move: Placement): void {
     if (!game.board.hasCoordinate(move.coordinate)) {
       throw new InvalidMoveException('動作座標不存在');
     }
@@ -80,8 +80,8 @@ class ClassicMode extends GameMode {
     }
   }
 
-  protected handlePlacement(game: Game, move: Placement): void {
-    this.judgePlacement(game, move);
+  protected executePlacement(game: Game, move: Placement): void {
+    this.ensurePlacementValid(game, move);
 
     const piece = { player: move.player };
 
