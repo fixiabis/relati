@@ -1,0 +1,143 @@
+<svg width="5" height="5" viewBox="0 0 5 5" xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <path id="source-path" d="
+      M 0 0
+      m 1 1
+
+      m -0.03 0
+        m -0.25 0.25
+          l 1.25 1.25
+          l -1.25 1.25
+        m 0.25 -2.75
+      m 0.03 0
+
+      m 0 -0.03
+        m 0.25 -0.25
+          l 1.25 1.25
+          l 1.25 -1.25
+        m -2.75 0.25
+      m 0 0.03
+
+      m 3 3
+
+      m 0.03 0
+        m 0.25 -0.25
+          l -1.25 -1.25
+          l 1.25 -1.25
+        m -0.25 2.75
+      m -0.03 0
+
+      m 0 0.03
+        m -0.25 0.25
+          l -1.25 -1.25
+          l -1.25 1.25
+    " stroke-width="0.25" fill="none" />
+
+    <path id="normal-path" d="
+      M 0 0
+      m 1 1
+
+      l 3 3
+      m 0 -3
+      l -3 3
+    " stroke-width="0.6" fill="none" />
+
+    <path id="sniper-path" d="
+      M 0 0
+      m 1 1
+
+      l 3 3
+      m 0 -3
+      l -3 3
+      m 1.5 -1.5
+      
+      m 0 -2.25
+      v 1
+      m 0 1.25
+
+      m 0 2.25
+      v -1
+      m 0 -1.25
+
+      m -2.25 0
+      h 1
+      m 1.25 0
+
+      m 2.25 0
+      h -1
+    " stroke-width="0.6" fill="none" />
+
+    <path id="bunker-path" d="
+      M 0 0
+      m 1 1
+
+      l 3 3
+      m 0 -3
+      l -3 3
+      m 1.5 -1.5
+
+      m -1 -1
+      h 2
+      v 2
+      h -2
+      v -2
+    " stroke-width="0.6" fill="none" />
+
+    <path id="bomber-path" d="
+      M 0 0
+      m 1 1
+
+      l 3 3
+      m 0 -3
+      l -3 3
+      m 1.5 -1.5
+      
+      m  0 -0.8
+        a 0.8 0.8 0 0 1 0 1.6
+        a 0.8 0.8 0 0 1 0 -1.6
+      m  0 0.8
+      
+    " stroke-width="0.6" fill="none" />
+
+    <path id="killer-path" d="
+      M 0 0
+      m 1 1
+
+      l 3 3
+      m 0 -3
+      l -3 3
+      m 1.5 -1.5
+      
+      m 0 -1.5
+      v 3
+      m -1.5 -1.5
+      h 3
+    " stroke-width="0.6" fill="none" />
+  </defs>
+  <g stroke="rgb(65, 105, 225)">
+    <use xlink:href="#source-path" id="destroyed-source" class="mark" stroke="rgba(128, 128, 128, 0.4)" />
+    <use xlink:href="#source-path" id="source" class="mark" />
+    <use xlink:href="#sniper-path" id="disabled-sniper" class="mark" stroke="rgb(128, 128, 128)" />
+    <use xlink:href="#sniper-path" id="destroyed-sniper" class="mark" stroke="rgba(128, 128, 128, 0.4)" />
+    <use xlink:href="#sniper-path" id="sniper" class="mark" />
+    <use xlink:href="#bunker-path" id="disabled-bunker" class="mark" stroke="rgb(128, 128, 128)" />
+    <use xlink:href="#bunker-path" id="destroyed-bunker" class="mark" stroke="rgba(128, 128, 128, 0.4)" />
+    <use xlink:href="#bunker-path" id="bunker" class="mark" />
+    <use xlink:href="#bomber-path" id="disabled-bomber" class="mark" stroke="rgb(128, 128, 128)" />
+    <use xlink:href="#bomber-path" id="destroyed-bomber" class="mark" stroke="rgba(128, 128, 128, 0.4)" />
+    <use xlink:href="#bomber-path" id="bomber" class="mark" />
+    <use xlink:href="#killer-path" id="disabled-killer" class="mark" stroke="rgb(128, 128, 128)" />
+    <use xlink:href="#killer-path" id="destroyed-killer" class="mark" stroke="rgba(128, 128, 128, 0.4)" />
+    <use xlink:href="#killer-path" id="killer" class="mark" />
+    <use xlink:href="#normal-path" id="disabled" class="mark" stroke="rgb(128, 128, 128)" />
+    <use xlink:href="#normal-path" id="destroyed" class="mark" stroke="rgba(128, 128, 128, 0.4)" />
+    <use xlink:href="#normal-path" id="normal" class="default mark" />
+  </g>
+  <style>
+    .mark:not(.default):not(:target),
+    .mark:target~.default.mark {
+      display: none;
+    }
+  </style>
+</svg>
