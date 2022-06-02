@@ -8,4 +8,4 @@
 * [經典玩法](./docs/how-to-play/relati-classic.md)
 * [流行玩法](./docs/how-to-play/relati.md)
 * [擴充玩法](./docs/how-to-play/relati-extended.md)
-* [戰鬥玩法](./docs/how-to-play/relati-combat.md)
+* [戰鬥玩法](./docs/how-to-play/relati-battle.md)
