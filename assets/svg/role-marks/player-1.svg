@@ -102,6 +102,21 @@
       m 0.75 -0.75
       l -1.5 1.5
     " stroke-width="0.6" fill="none" />
+
+    <path id="clergy-path" d="
+      M 0 0
+      m 2.5 2.5
+
+      m  0 -1.5
+        a 1.5 1.5 0 0 1 0 3
+        a 1.5 1.5 0 0 1 0 -3
+      m  0 1.5
+      
+      m 0 -1
+      v 2
+      m -1 -1
+      h 2
+    " stroke-width="0.6" fill="none" />
   </defs>
   <g stroke="rgb(220, 20, 60)">
     <use xlink:href="#source-path" id="destroyed-source" class="mark" stroke="rgba(128, 128, 128, 0.4)" />
@@ -118,6 +133,9 @@
     <use xlink:href="#killer-path" id="disabled-killer" class="mark" stroke="rgb(128, 128, 128)" />
     <use xlink:href="#killer-path" id="destroyed-killer" class="mark" stroke="rgba(128, 128, 128, 0.4)" />
     <use xlink:href="#killer-path" id="killer" class="mark" />
+    <use xlink:href="#clergy-path" id="disabled-clergy" class="mark" stroke="rgb(128, 128, 128)" />
+    <use xlink:href="#clergy-path" id="destroyed-clergy" class="mark" stroke="rgba(128, 128, 128, 0.4)" />
+    <use xlink:href="#clergy-path" id="clergy" class="mark" />
     <use xlink:href="#normal-path" id="disabled" class="mark" stroke="rgb(128, 128, 128)" />
     <use xlink:href="#normal-path" id="destroyed" class="mark" stroke="rgba(128, 128, 128, 0.4)" />
     <use xlink:href="#normal-path" id="normal" class="default mark" />

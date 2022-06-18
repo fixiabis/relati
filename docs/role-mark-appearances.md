@@ -86,6 +86,18 @@
     </td>
   </tr>
   <tr>
+    <th>Clergy</th>
+    <td align="center">
+      <img src="../assets/svg/role-marks/player-1.svg#clergy" width="30" height="30" alt="Player 1's clergy mark" />
+    </td>
+    <td align="center">
+      <img src="../assets/svg/role-marks/player-1.svg#disabled-clergy" width="30" height="30" alt="Player 1's disabled clergy mark" />
+    </td>
+    <td align="center">
+      <img src="../assets/svg/role-marks/player-1.svg#destroyed-clergy" width="30" height="30" alt="Player 1's destroyed clergy mark" />
+    </td>
+  </tr>
+  <tr>
     <th>Leader</th>
     <td align="center">
       <img src="../assets/svg/role-marks/player-2.svg#source" width="30" height="30" alt="Player 2's source mark" />
@@ -153,6 +165,18 @@
     </td>
     <td align="center">
       <img src="../assets/svg/role-marks/player-2.svg#destroyed-killer" width="30" height="30" alt="Player 2's destroyed killer mark" />
+    </td>
+  </tr>
+  <tr>
+    <th>Clergy</th>
+    <td align="center">
+      <img src="../assets/svg/role-marks/player-2.svg#clergy" width="30" height="30" alt="Player 2's clergy mark" />
+    </td>
+    <td align="center">
+      <img src="../assets/svg/role-marks/player-2.svg#disabled-clergy" width="30" height="30" alt="Player 2's disabled clergy mark" />
+    </td>
+    <td align="center">
+      <img src="../assets/svg/role-marks/player-2.svg#destroyed-clergy" width="30" height="30" alt="Player 2's destroyed clergy mark" />
     </td>
   </tr>
 </table>
