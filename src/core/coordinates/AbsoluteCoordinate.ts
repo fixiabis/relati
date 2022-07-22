@@ -3,7 +3,7 @@ import { Coordinate } from './Coordinate';
 export type Position = string;
 
 export class AbsoluteCoordinate extends Coordinate {
-  public static readonly PositionRegExp = /(?<alphabetPart>[A-Z])(?<numberPart>\d+)/;
+  public static readonly PositionRegExp = /^(?<alphabetPart>[A-Z])(?<numberPart>\d+)$/;
 
   public override toString(): string {
     return AbsoluteCoordinate.stringify(this);
