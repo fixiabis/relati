@@ -9,9 +9,9 @@ export class RelativeCoordinate extends Coordinate {
     return RelativeCoordinate.stringify(this);
   }
 
-  public static parse(code: Direction): RelativeCoordinate {
+  public static parse(direction: Direction): RelativeCoordinate {
     const numberOf = { F: 0, B: 0, L: 0, R: 0 };
-    const types = code.split('') as (keyof typeof numberOf)[];
+    const types = direction.split('') as (keyof typeof numberOf)[];
     types.forEach((type) => numberOf[type]++);
     return [numberOf['R'] - numberOf['L'], numberOf['B'] - numberOf['F']];
   }
