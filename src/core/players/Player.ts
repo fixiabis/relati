@@ -1,12 +1,17 @@
-import { Game } from '../games';
-import { PieceSymbol } from '../piece';
+import { BoardSquare } from '../board';
+import { Game } from '../games/Game';
+import { Piece, PieceSymbol } from '../piece';
 
-export abstract class Player {
+export abstract class Player<TGame extends Game> {
   public readonly pieceSymbol: PieceSymbol;
 
   constructor(pieceSymbol: PieceSymbol) {
     this.pieceSymbol = pieceSymbol;
   }
 
-  public abstract takeTurn(game: Game): void;
+  public abstract onTurned(game: TGame): void;
+
+  public createPiece(square: BoardSquare, game: TGame): Piece {
+    return new Piece(this.pieceSymbol, square, { isRoot: game.rootPlacing });
+  }
 }
