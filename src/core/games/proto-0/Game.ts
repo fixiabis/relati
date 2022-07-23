@@ -86,7 +86,7 @@ export abstract class Game {
     this.onTurnEnd(player);
   }
 
-  protected onPiecePlaced(piece: Piece): void {}
+  protected onPiecePlaced(_piece: Piece): void {}
 
   protected onTurnStart(player: Player): void {
     if (player !== this.activePlayer) {
@@ -94,7 +94,7 @@ export abstract class Game {
     }
   }
 
-  protected onTurnEnd(player: Player): void {
+  protected onTurnEnd(_player: Player): void {
     this.changeNextPlayerOrEnd();
   }
 
