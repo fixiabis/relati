@@ -1,7 +1,7 @@
 import { Board } from '../../board';
 import { RelativeCoordinate } from '../../coordinates';
 import { Game, GameInit } from './Game';
-import { Player } from '../../players';
+import { Player } from '../../players/proto-0';
 import { BoardSquare } from '../../board';
 
 const nearbyRelativeCoordinates = ['F', 'B', 'L', 'R', 'FL', 'FR', 'BL', 'BR'].map(RelativeCoordinate.parse);

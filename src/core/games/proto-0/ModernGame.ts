@@ -1,6 +1,6 @@
 import { Board, BoardSquare } from '../../board';
 import { Piece, PieceSymbol } from '../../piece';
-import { Player } from '../../players';
+import { Player } from '../../players/proto-0';
 import { RelationMode } from '../../relation';
 import { Game, GameInit } from './Game';
 

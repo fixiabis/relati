@@ -1,6 +1,6 @@
 import { Piece, PieceSymbol } from '../../piece';
 import { BoardSquare } from '../../board';
-import { Player } from '../../players';
+import { Player } from '../../players/proto-0';
 import { ModernGame, ModernGameInit } from './ModernGame';
 
 export interface ExtendedModernGameInit extends ModernGameInit {

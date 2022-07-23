@@ -1,7 +1,7 @@
 import { Board, BoardSquare } from '../../board';
 import { AbsoluteCoordinate } from '../../coordinates';
 import { Piece } from '../../piece';
-import { Player } from '../../players';
+import { Player } from '../../players/proto-0';
 
 export interface GameInit {
   ended?: boolean;
