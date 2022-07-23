@@ -1,6 +1,7 @@
-import { BoardSquare } from './BoardSquare';
-import { Coordinate, AbsoluteCoordinate } from '../coordinates';
+import { AbsoluteCoordinate } from '../coordinates/AbsoluteCoordinate';
+import { Coordinate } from '../coordinates/Coordinate';
 import { Piece } from '../piece/Piece';
+import { BoardSquare } from './BoardSquare';
 
 export class Board {
   public readonly width: number;

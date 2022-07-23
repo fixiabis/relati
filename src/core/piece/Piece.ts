@@ -1,5 +1,5 @@
-import { BoardSquare } from '../board';
-import { RelationPath } from '../relation';
+import { BoardSquare } from '../board/BoardSquare';
+import { RelationPath } from '../relation/RelationPath';
 
 export interface PieceInit {
   isRoot?: boolean;

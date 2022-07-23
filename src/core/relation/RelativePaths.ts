@@ -1,4 +1,4 @@
-import { RelativeCoordinate } from '../coordinates';
+import { RelativeCoordinate } from '../coordinates/RelativeCoordinate';
 
 export type RelativePath = readonly RelativeCoordinate[];
 

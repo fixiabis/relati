@@ -1,6 +1,6 @@
-import { BoardSquare } from '../board';
-import { RelativePaths } from './RelativePaths';
+import { BoardSquare } from '../board/BoardSquare';
 import { RelationPath } from './RelationPath';
+import { RelativePaths } from './RelativePaths';
 
 export class RelationMode {
   public static readonly Classic = new RelationMode(RelativePaths.ForClassic);

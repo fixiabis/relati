@@ -1,5 +1,5 @@
-import { BoardSquare } from '../board';
-import { Piece } from '../piece';
+import { BoardSquare } from '../board/BoardSquare';
+import { Piece } from '../piece/Piece';
 
 export class RelationPath {
   public readonly targetSquare: BoardSquare;

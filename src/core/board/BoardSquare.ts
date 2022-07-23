@@ -1,4 +1,6 @@
-import { AbsoluteCoordinate, Coordinate, RelativeCoordinate } from '../coordinates';
+import { AbsoluteCoordinate } from '../coordinates/AbsoluteCoordinate';
+import { Coordinate } from '../coordinates/Coordinate';
+import { RelativeCoordinate } from '../coordinates/RelativeCoordinate';
 import { Piece } from '../piece/Piece';
 import { Board } from './Board';
 
