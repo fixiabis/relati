@@ -5,7 +5,7 @@ import { RelationMode } from '../relation/RelationMode';
 export interface GameInit {
   ended?: boolean;
   winner?: Player | null;
-  activePlayer?: Player | null;
+  activePlayer?: Player;
   relationMode?: RelationMode;
   allRootPlaced?: boolean;
 }
