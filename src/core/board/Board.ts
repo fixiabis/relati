@@ -9,6 +9,10 @@ export class Board {
   public readonly squareList: readonly BoardSquare[];
 
   constructor(width: number, height: number = width) {
+    if (width < 0 || height < 0) {
+      throw new Error(`Invalid board size, got: ${width} x ${height}`);
+    }
+
     this.width = width;
     this.height = height;
 
@@ -29,7 +33,7 @@ export class Board {
 
   public squareAt(absoluteCoordinate: Coordinate): BoardSquare {
     if (!this.squareDefinedAt(absoluteCoordinate)) {
-      throw new Error(`Square not defined at "${AbsoluteCoordinate.stringify(absoluteCoordinate)}"`);
+      throw new Error(`Square not defined at: ${AbsoluteCoordinate.stringify(absoluteCoordinate)}`);
     }
 
     const [x, y] = absoluteCoordinate;

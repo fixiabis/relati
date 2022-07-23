@@ -21,7 +21,7 @@ export class BoardSquare {
     try {
       return this.board.squareAt(this.toCoordinate(relativeCoordinate));
     } catch {
-      throw new Error(`Square not defined to "${RelativeCoordinate.stringify(relativeCoordinate)}"`);
+      throw new Error(`Square not defined to: ${RelativeCoordinate.stringify(relativeCoordinate)}`);
     }
   }
 
@@ -33,7 +33,7 @@ export class BoardSquare {
 
   public placePiece(piece: Piece): void {
     if (this.piece) {
-      throw new Error(`Piece can't place at "${AbsoluteCoordinate.stringify(this.coordinate)}", square has been taken`);
+      throw new Error(`Square has been taken, can't place piece at: ${AbsoluteCoordinate.stringify(this.coordinate)}`);
     }
 
     this.piece = piece;
