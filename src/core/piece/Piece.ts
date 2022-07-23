@@ -1,12 +1,13 @@
 import { BoardSquare } from '../board';
 import { RelationPath } from '../relation';
-import { PieceSymbol } from './PieceSymbol';
 
 export interface PieceInit {
   isRoot?: boolean;
   disabled?: boolean;
   relationPaths?: RelationPath[];
 }
+
+export type PieceSymbol = typeof Piece.AllSymbols[number];
 
 export class Piece {
   public static readonly AllSymbols = ['O', 'X', 'D', 'R', 'A', 'H'] as const;
