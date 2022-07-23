@@ -1,8 +1,7 @@
-import { AbsoluteCoordinate } from "../../coordinates";
-import { PieceSymbol } from "../../piece";
+import { AbsoluteCoordinate } from '../../coordinates';
+import { PieceSymbol } from '../../piece';
 import { Player } from './Player';
-import { Game } from '../../games';
-import { HyperModernGame } from '../../games';
+import { Game, HyperModernGame } from '../../games/proto-0';
 
 export class LocalPlayer extends Player {
   private activeGame: Game | null;

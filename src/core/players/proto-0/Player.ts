@@ -1,4 +1,4 @@
-import { Game } from '../../games';
+import { Game } from '../../games/proto-0';
 import { PieceSymbol } from '../../piece';
 
 export abstract class Player {

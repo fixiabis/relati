@@ -1,7 +1,7 @@
-import { Board } from '../board';
-import { AbsoluteCoordinate } from '../coordinates';
-import { Piece } from '../piece';
-import { Player } from '../players/Player';
+import { Board, BoardSquare } from '../../board';
+import { AbsoluteCoordinate } from '../../coordinates';
+import { Piece } from '../../piece';
+import { Player } from '../../players/proto-1/Player';
 
 export interface GameInit {
   ended?: boolean;
@@ -17,7 +17,6 @@ export abstract class Game {
   private _ended!: boolean;
   private _winner!: Player<Game> | null;
   private _activePlayer!: Player<Game>;
-  private _rootPlacing!: boolean;
 
   constructor(players: Player<Game>[], board: Board, init: GameInit) {
     this.players = players;
@@ -25,34 +24,55 @@ export abstract class Game {
     this.activePlayer = init.activePlayer || players[0]!;
     this.winner = init.winner || null;
     this.ended = init.ended || false;
-    this.rootPlacing = init.rootPlacing ?? true;
-    this.activePlayer.onTurned(this);
   }
 
   public placePiece(player: Player<Game>, coordinate: AbsoluteCoordinate): void {
+    this.onTurnStart(player);
+
     const square = this.board.squareAt(coordinate);
     const piece = player.createPiece(square, this);
 
+    this.onPlacePiece(piece);
+    square.placePiece(piece);
+    this.onPlacedPiece(piece);
+
+    this.onTurnEnd();
+  }
+
+  protected onTurnStart(player: Player<Game>) {
+    this.validateIsActivePlayer(player);
+  }
+
+  private validateIsActivePlayer(player: Player<Game>): void {
+    if (player !== this.activePlayer) {
+      throw new Error('Invalid action, player not active');
+    }
+  }
+
+  protected onPlacePiece(piece: Piece): void {
+    this.validatePieceCanPlace(piece);
+  }
+
+  private validatePieceCanPlace(piece: Piece): void {
     if (!this.pieceCanPlace(piece)) {
       throw new Error(`Invalid action, can't place piece at: ${piece.square.coordinate}`);
     }
-
-    square.placePiece(piece);
-    this.onPlacedPiece();
   }
 
   protected abstract pieceCanPlace(piece: Piece): boolean;
 
-  protected onPlacedPiece(): void {
+  protected onPlacedPiece(_piece: Piece): void {}
+
+  protected onTurnEnd() {
     this.nextPlayerTurnOrEnd();
   }
 
-  private nextPlayerTurnOrEnd() {
-    const playerWhoCanPlacePiece = this.playersAfterActivePlayer.find((who) => this.playerCanPlacePiece(who)) || null;
+  private nextPlayerTurnOrEnd(): void {
+    const nextPlayer = this.playersAfterActivePlayer.find((who) => this.playerCanPlacePiece(who)) || null;
 
-    if (playerWhoCanPlacePiece) {
-      this.activePlayer = playerWhoCanPlacePiece;
-      return this.activePlayer.onTurned(this);
+    if (nextPlayer) {
+      this.activePlayer = nextPlayer;
+      return;
     }
 
     if (this.playerCanPlacePiece(this.activePlayer)) {
@@ -68,9 +88,10 @@ export abstract class Game {
   }
 
   private playerCanPlacePiece(player: Player<Game>): boolean {
-    return this.board.squareList.some(
-      (square) => !square.piece && this.pieceCanPlace(player.createPiece(square, this))
-    );
+    const squareCanPlacePiece = (square: BoardSquare) =>
+      !square.piece && this.pieceCanPlace(player.createPiece(square, this));
+
+    return this.board.squareList.some(squareCanPlacePiece);
   }
 
   public get ended(): boolean {
@@ -95,13 +116,5 @@ export abstract class Game {
 
   private set activePlayer(value: Player<Game>) {
     this._activePlayer = value;
-  }
-
-  public get rootPlacing(): boolean {
-    return this._rootPlacing;
-  }
-
-  public set rootPlacing(value: boolean) {
-    this._rootPlacing = value;
   }
 }
