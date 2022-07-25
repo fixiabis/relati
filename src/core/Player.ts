@@ -1,16 +1,10 @@
-import { BoardSquare } from './board/BoardSquare';
-import { Game } from './Game';
-import { Piece, PieceSymbol } from './Piece';
+import { PieceSymbol } from './Piece';
 
-export class Player<TPiece extends Piece> {
+export class Player {
   public readonly pieceSymbol: PieceSymbol;
 
   constructor(pieceSymbol: PieceSymbol) {
     this.pieceSymbol = pieceSymbol;
-  }
-
-  public createPiece(square: BoardSquare<TPiece>, _game: Game<TPiece>): TPiece {
-    return new Piece(this.pieceSymbol, square) as TPiece;
   }
 
   public toString(): PieceSymbol {

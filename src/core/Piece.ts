@@ -12,4 +12,8 @@ export class Piece {
     this.symbol = symbol;
     this.square = square;
   }
+
+  public toString(): string {
+    return this.symbol;
+  }
 }
