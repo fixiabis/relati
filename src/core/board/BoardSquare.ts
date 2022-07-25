@@ -3,12 +3,12 @@ import { Coordinate } from '../coordinates/Coordinate';
 import { DirectionCoordinate } from '../coordinates/DirectionCoordinate';
 import { Board } from './Board';
 
-export class BoardSquare<Piece> {
+export class BoardSquare<TPiece> {
   public readonly position: PositionCoordinate;
-  public readonly board: Board<Piece>;
-  private _piece!: Piece | null;
+  public readonly board: Board<TPiece>;
+  private _piece!: TPiece | null;
 
-  constructor(coordinate: PositionCoordinate, board: Board<Piece>) {
+  constructor(coordinate: PositionCoordinate, board: Board<TPiece>) {
     this.position = coordinate;
     this.board = board;
     this.piece = null;
@@ -18,7 +18,7 @@ export class BoardSquare<Piece> {
     return this.board.squareDefinedAt(this.toPosition(direction));
   }
 
-  public squareTo(direction: Coordinate): BoardSquare<Piece> {
+  public squareTo(direction: Coordinate): BoardSquare<TPiece> {
     try {
       return this.board.squareAt(this.toPosition(direction));
     } catch {
@@ -36,7 +36,7 @@ export class BoardSquare<Piece> {
     return [x + dx, y + dy];
   }
 
-  public placePiece(piece: Piece): void {
+  public placePiece(piece: TPiece): void {
     if (this.piece) {
       throw new Error(`Square has been taken, can't place piece at: ${PositionCoordinate.stringify(this.position)}`);
     }
@@ -44,11 +44,11 @@ export class BoardSquare<Piece> {
     this.piece = piece;
   }
 
-  public get piece(): Piece | null {
+  public get piece(): TPiece | null {
     return this._piece;
   }
 
-  private set piece(value: Piece | null) {
+  private set piece(value: TPiece | null) {
     this._piece = value;
   }
 }

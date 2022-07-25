@@ -9,6 +9,7 @@ export interface ModernPieceInit {
 }
 
 export class ModernPiece extends Piece {
+  public override readonly square!: BoardSquare<ModernPiece>;
   public readonly isRoot: boolean;
   public readonly relationPaths: readonly RelationPath[];
   public disabled: boolean;

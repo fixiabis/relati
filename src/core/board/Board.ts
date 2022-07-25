@@ -2,11 +2,11 @@ import { PositionCoordinate } from '../coordinates/PositionCoordinate';
 import { Coordinate } from '../coordinates/Coordinate';
 import { BoardSquare } from './BoardSquare';
 
-export class Board<Piece> {
+export class Board<TPiece> {
   public readonly width: number;
   public readonly height: number;
-  public readonly squares: readonly (readonly BoardSquare<Piece>[])[];
-  public readonly squareList: readonly BoardSquare<Piece>[];
+  public readonly squares: readonly (readonly BoardSquare<TPiece>[])[];
+  public readonly squareList: readonly BoardSquare<TPiece>[];
 
   constructor(width: number, height: number = width) {
     if (width < 0 || height < 0) {
@@ -18,7 +18,7 @@ export class Board<Piece> {
 
     this.squares = Array<null[]>(this.width)
       .fill(Array(this.height).fill(null))
-      .map((squares, x) => squares.map((_, y) => new BoardSquare<Piece>(new PositionCoordinate(x, y), this)));
+      .map((squares, x) => squares.map((_, y) => new BoardSquare<TPiece>(new PositionCoordinate(x, y), this)));
 
     this.squareList = Array(this.width * this.height)
       .fill(null)
@@ -31,7 +31,7 @@ export class Board<Piece> {
     return x > -1 && y > -1 && x < this.width && y < this.height;
   }
 
-  public squareAt(position: Coordinate): BoardSquare<Piece> {
+  public squareAt(position: Coordinate): BoardSquare<TPiece> {
     if (!this.squareDefinedAt(position)) {
       throw new Error(`Square not defined at: ${PositionCoordinate.stringify(position)}`);
     }
@@ -40,7 +40,7 @@ export class Board<Piece> {
     return this.squares[x]![y]!;
   }
 
-  public get pieces(): readonly Piece[] {
+  public get pieces(): readonly TPiece[] {
     return this.squareList.map((square) => square.piece!).filter(Boolean);
   }
 }

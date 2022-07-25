@@ -1,63 +1,53 @@
 import { DirectionCoordinate } from '../../core/coordinates/DirectionCoordinate';
 
-export type DirectionPath = readonly DirectionCoordinate[];
+export const DirectionPaths = [
+  ['F'],
+  ['B'],
+  ['L'],
+  ['R'],
 
-export type DirectionPaths = readonly DirectionPath[];
+  ['FL'],
+  ['FR'],
+  ['BL'],
+  ['BR'],
 
-export namespace DirectionPaths {
-  export const ForClassic: DirectionPaths = ['F', 'B', 'L', 'R', 'FL', 'FR', 'BL', 'BR']
-    .map(DirectionCoordinate.parse)
-    .map((coordinate) => [coordinate]);
+  ['FF', 'F'],
+  ['BB', 'B'],
+  ['LL', 'L'],
+  ['RR', 'R'],
 
-  export const ForModern: DirectionPaths = [
-    ['F'],
-    ['B'],
-    ['L'],
-    ['R'],
+  ['FFLL', 'FL'],
+  ['FFRR', 'FR'],
+  ['BBLL', 'BL'],
+  ['BBRR', 'BR'],
 
-    ['FL'],
-    ['FR'],
-    ['BL'],
-    ['BR'],
+  ['FFL', 'FF', 'F'],
+  ['FFR', 'FF', 'F'],
+  ['BBL', 'BB', 'B'],
+  ['BBR', 'BB', 'B'],
 
-    ['FF', 'F'],
-    ['BB', 'B'],
-    ['LL', 'L'],
-    ['RR', 'R'],
+  ['FLL', 'LL', 'L'],
+  ['FRR', 'RR', 'R'],
+  ['BLL', 'LL', 'L'],
+  ['BRR', 'RR', 'R'],
 
-    ['FFLL', 'FL'],
-    ['FFRR', 'FR'],
-    ['BBLL', 'BL'],
-    ['BBRR', 'BR'],
+  ['FFL', 'FL', 'F'],
+  ['FFR', 'FR', 'F'],
+  ['BBL', 'BL', 'B'],
+  ['BBR', 'BR', 'B'],
 
-    ['FFL', 'FF', 'F'],
-    ['FFR', 'FF', 'F'],
-    ['BBL', 'BB', 'B'],
-    ['BBR', 'BB', 'B'],
+  ['FLL', 'FL', 'L'],
+  ['FRR', 'FR', 'R'],
+  ['BLL', 'BL', 'L'],
+  ['BRR', 'BR', 'R'],
 
-    ['FLL', 'LL', 'L'],
-    ['FRR', 'RR', 'R'],
-    ['BLL', 'LL', 'L'],
-    ['BRR', 'RR', 'R'],
+  ['FLL', 'FL', 'F'],
+  ['FRR', 'FR', 'F'],
+  ['BLL', 'BL', 'B'],
+  ['BRR', 'BR', 'B'],
 
-    ['FFL', 'FL', 'F'],
-    ['FFR', 'FR', 'F'],
-    ['BBL', 'BL', 'B'],
-    ['BBR', 'BR', 'B'],
-
-    ['FLL', 'FL', 'L'],
-    ['FRR', 'FR', 'R'],
-    ['BLL', 'BL', 'L'],
-    ['BRR', 'BR', 'R'],
-
-    ['FLL', 'FL', 'F'],
-    ['FRR', 'FR', 'F'],
-    ['BLL', 'BL', 'B'],
-    ['BRR', 'BR', 'B'],
-
-    ['FFL', 'FL', 'L'],
-    ['FFR', 'FR', 'R'],
-    ['BBL', 'BL', 'L'],
-    ['BBR', 'BR', 'R'],
-  ].map((codes) => codes.map(DirectionCoordinate.parse));
-}
+  ['FFL', 'FL', 'L'],
+  ['FFR', 'FR', 'R'],
+  ['BBL', 'BL', 'L'],
+  ['BBR', 'BR', 'R'],
+].map((codes) => codes.map(DirectionCoordinate.parse));
