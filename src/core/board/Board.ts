@@ -1,13 +1,12 @@
 import { AbsoluteCoordinate } from '../coordinates/AbsoluteCoordinate';
 import { Coordinate } from '../coordinates/Coordinate';
-import { Piece } from '../piece/Piece';
 import { BoardSquare } from './BoardSquare';
 
-export class Board {
+export class Board<Piece> {
   public readonly width: number;
   public readonly height: number;
-  public readonly squares: readonly (readonly BoardSquare[])[];
-  public readonly squareList: readonly BoardSquare[];
+  public readonly squares: readonly (readonly BoardSquare<Piece>[])[];
+  public readonly squareList: readonly BoardSquare<Piece>[];
 
   constructor(width: number, height: number = width) {
     if (width < 0 || height < 0) {
@@ -19,7 +18,7 @@ export class Board {
 
     this.squares = Array<null[]>(this.width)
       .fill(Array(this.height).fill(null))
-      .map((squares, x) => squares.map((_, y) => new BoardSquare(new AbsoluteCoordinate(x, y), this)));
+      .map((squares, x) => squares.map((_, y) => new BoardSquare<Piece>(new AbsoluteCoordinate(x, y), this)));
 
     this.squareList = Array(this.width * this.height)
       .fill(null)
@@ -32,7 +31,7 @@ export class Board {
     return x > -1 && y > -1 && x < this.width && y < this.height;
   }
 
-  public squareAt(absoluteCoordinate: Coordinate): BoardSquare {
+  public squareAt(absoluteCoordinate: Coordinate): BoardSquare<Piece> {
     if (!this.squareDefinedAt(absoluteCoordinate)) {
       throw new Error(`Square not defined at: ${AbsoluteCoordinate.stringify(absoluteCoordinate)}`);
     }

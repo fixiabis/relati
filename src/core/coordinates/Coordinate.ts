@@ -4,4 +4,4 @@ export interface CoordinateConstructor {
   new (x: number, y: number): Coordinate;
 }
 
-export const Coordinate = Array as new (...items: any[]) => readonly any[] as CoordinateConstructor;
+export const Coordinate = Array as new (...items: unknown[]) => readonly unknown[] as CoordinateConstructor;

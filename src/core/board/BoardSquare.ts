@@ -1,15 +1,14 @@
 import { AbsoluteCoordinate } from '../coordinates/AbsoluteCoordinate';
 import { Coordinate } from '../coordinates/Coordinate';
 import { RelativeCoordinate } from '../coordinates/RelativeCoordinate';
-import { Piece } from '../piece/Piece';
 import { Board } from './Board';
 
-export class BoardSquare {
+export class BoardSquare<Piece> {
   public readonly coordinate: AbsoluteCoordinate;
-  public readonly board: Board;
+  public readonly board: Board<Piece>;
   private _piece!: Piece | null;
 
-  constructor(coordinate: AbsoluteCoordinate, board: Board) {
+  constructor(coordinate: AbsoluteCoordinate, board: Board<Piece>) {
     this.coordinate = coordinate;
     this.board = board;
     this.piece = null;
@@ -19,11 +18,15 @@ export class BoardSquare {
     return this.board.squareDefinedAt(this.toCoordinate(relativeCoordinate));
   }
 
-  public squareTo(relativeCoordinate: Coordinate): BoardSquare {
+  public squareTo(relativeCoordinate: Coordinate): BoardSquare<Piece> {
     try {
       return this.board.squareAt(this.toCoordinate(relativeCoordinate));
     } catch {
-      throw new Error(`Square not defined to: ${RelativeCoordinate.stringify(relativeCoordinate)}`);
+      throw new Error(
+        `Square not defined, at: ${AbsoluteCoordinate.stringify(this.coordinate)}, got: ${RelativeCoordinate.stringify(
+          relativeCoordinate
+        )}`
+      );
     }
   }
 

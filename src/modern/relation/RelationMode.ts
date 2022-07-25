@@ -1,4 +1,5 @@
-import { BoardSquare } from '../board/BoardSquare';
+import { BoardSquare } from '../../core/board/BoardSquare';
+import { ModernPiece } from '../Piece';
 import { RelationPath } from './RelationPath';
 import { RelativePaths } from './RelativePaths';
 
@@ -13,7 +14,7 @@ export class RelationMode {
     this.relativePaths = relativePaths;
   }
 
-  public createPaths(square: BoardSquare): RelationPath[] {
+  public createPaths(square: BoardSquare<ModernPiece>): RelationPath[] {
     return this.relativePaths
       .filter((coordinates) => coordinates.every((coordinate) => square.squareDefinedTo(coordinate)))
       .map((coordinates) => coordinates.map((coordinate) => square.squareTo(coordinate)))

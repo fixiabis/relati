@@ -1,6 +1,6 @@
-import { PieceSymbol } from '../piece/Piece';
+import { PieceSymbol } from './Piece';
 
-export abstract class Player {
+export class Player {
   public readonly pieceSymbol: PieceSymbol;
 
   constructor(pieceSymbol: PieceSymbol) {

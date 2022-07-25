@@ -10,6 +10,10 @@ export class AbsoluteCoordinate extends Coordinate {
   }
 
   public static parse(position: Position): AbsoluteCoordinate {
+    if (!AbsoluteCoordinate.canParse(position)) {
+      throw new Error(`Can't parse position, got: ${position}`);
+    }
+
     const x = position.charCodeAt(0) - 'A'.charCodeAt(0);
     const y = parseInt(position.slice(1)) - 1;
     return new AbsoluteCoordinate(x, y);
@@ -20,5 +24,9 @@ export class AbsoluteCoordinate extends Coordinate {
     const alphabetPart = String.fromCharCode(x + 'A'.charCodeAt(0));
     const numberPart = (y + 1).toString();
     return alphabetPart + numberPart;
+  }
+
+  public static canParse(position: Position): boolean {
+    return AbsoluteCoordinate.PositionRegExp.test(position);
   }
 }
