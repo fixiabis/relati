@@ -21,6 +21,11 @@ export class AbsoluteCoordinate extends Coordinate {
 
   public static stringify(coordinate: Coordinate): Position {
     const [x, y] = coordinate;
+
+    if (x < 0 || y < 0) {
+      throw new Error(`Can't stringify coordinate, got: ${coordinate}`)
+    }
+
     const alphabetPart = String.fromCharCode(x + 'A'.charCodeAt(0));
     const numberPart = (y + 1).toString();
     return alphabetPart + numberPart;

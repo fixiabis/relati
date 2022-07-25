@@ -23,7 +23,7 @@ export class BoardSquare<Piece> {
       return this.board.squareAt(this.toCoordinate(relativeCoordinate));
     } catch {
       throw new Error(
-        `Square not defined, at: ${AbsoluteCoordinate.stringify(this.coordinate)}, got: ${RelativeCoordinate.stringify(
+        `Square not defined from: ${AbsoluteCoordinate.stringify(this.coordinate)}, got: ${RelativeCoordinate.stringify(
           relativeCoordinate
         )}`
       );

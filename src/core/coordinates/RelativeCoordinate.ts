@@ -3,7 +3,7 @@ import { Coordinate } from './Coordinate';
 export type Direction = string;
 
 export class RelativeCoordinate extends Coordinate {
-  public static readonly DirectionRegExp = /^(F|B|L|R)+$/;
+  public static readonly DirectionRegExp = /^(F|B|L|R)*$/;
 
   public override toString(): string {
     return RelativeCoordinate.stringify(this);
