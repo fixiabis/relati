@@ -1,15 +1,15 @@
-import { RelativeCoordinate } from '../../core/coordinates/RelativeCoordinate';
+import { DirectionCoordinate } from '../../core/coordinates/DirectionCoordinate';
 
-export type RelativePath = readonly RelativeCoordinate[];
+export type DirectionPath = readonly DirectionCoordinate[];
 
-export type RelativePaths = readonly RelativePath[];
+export type DirectionPaths = readonly DirectionPath[];
 
-export namespace RelativePaths {
-  export const ForClassic: RelativePaths = ['F', 'B', 'L', 'R', 'FL', 'FR', 'BL', 'BR']
-    .map(RelativeCoordinate.parse)
+export namespace DirectionPaths {
+  export const ForClassic: DirectionPaths = ['F', 'B', 'L', 'R', 'FL', 'FR', 'BL', 'BR']
+    .map(DirectionCoordinate.parse)
     .map((coordinate) => [coordinate]);
 
-  export const ForModern: RelativePaths = [
+  export const ForModern: DirectionPaths = [
     ['F'],
     ['B'],
     ['L'],
@@ -59,5 +59,5 @@ export namespace RelativePaths {
     ['FFR', 'FR', 'R'],
     ['BBL', 'BL', 'L'],
     ['BBR', 'BR', 'R'],
-  ].map((codes) => codes.map(RelativeCoordinate.parse));
+  ].map((codes) => codes.map(DirectionCoordinate.parse));
 }

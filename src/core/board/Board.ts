@@ -1,4 +1,4 @@
-import { AbsoluteCoordinate } from '../coordinates/AbsoluteCoordinate';
+import { PositionCoordinate } from '../coordinates/PositionCoordinate';
 import { Coordinate } from '../coordinates/Coordinate';
 import { BoardSquare } from './BoardSquare';
 
@@ -10,7 +10,7 @@ export class Board<Piece> {
 
   constructor(width: number, height: number = width) {
     if (width < 0 || height < 0) {
-      throw new Error(`Invalid board size, got: ${width} x ${height}`);
+      throw new Error(`Board size invalid, got width: ${width}, height: ${height}`);
     }
 
     this.width = width;
@@ -18,7 +18,7 @@ export class Board<Piece> {
 
     this.squares = Array<null[]>(this.width)
       .fill(Array(this.height).fill(null))
-      .map((squares, x) => squares.map((_, y) => new BoardSquare<Piece>(new AbsoluteCoordinate(x, y), this)));
+      .map((squares, x) => squares.map((_, y) => new BoardSquare<Piece>(new PositionCoordinate(x, y), this)));
 
     this.squareList = Array(this.width * this.height)
       .fill(null)
@@ -26,17 +26,17 @@ export class Board<Piece> {
       .map(([x, y]) => this.squares[x]![y]!);
   }
 
-  public squareDefinedAt(absoluteCoordinate: Coordinate): boolean {
-    const [x, y] = absoluteCoordinate;
+  public squareDefinedAt(position: Coordinate): boolean {
+    const [x, y] = position;
     return x > -1 && y > -1 && x < this.width && y < this.height;
   }
 
-  public squareAt(absoluteCoordinate: Coordinate): BoardSquare<Piece> {
-    if (!this.squareDefinedAt(absoluteCoordinate)) {
-      throw new Error(`Square not defined at: ${AbsoluteCoordinate.stringify(absoluteCoordinate)}`);
+  public squareAt(position: Coordinate): BoardSquare<Piece> {
+    if (!this.squareDefinedAt(position)) {
+      throw new Error(`Square not defined at: ${PositionCoordinate.stringify(position)}`);
     }
 
-    const [x, y] = absoluteCoordinate;
+    const [x, y] = position;
     return this.squares[x]![y]!;
   }
 

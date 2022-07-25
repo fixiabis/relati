@@ -2,15 +2,15 @@ import { Coordinate } from './Coordinate';
 
 export type Direction = string;
 
-export class RelativeCoordinate extends Coordinate {
+export class DirectionCoordinate extends Coordinate {
   public static readonly DirectionRegExp = /^(F|B|L|R)*$/;
 
   public override toString(): string {
-    return RelativeCoordinate.stringify(this);
+    return DirectionCoordinate.stringify(this);
   }
 
-  public static parse(direction: Direction): RelativeCoordinate {
-    if (!RelativeCoordinate.canParse(direction)) {
+  public static parse(direction: Direction): DirectionCoordinate {
+    if (!DirectionCoordinate.isDirection(direction)) {
       throw new Error(`Can't parse direction, got: ${direction}`);
     }
 
@@ -20,14 +20,14 @@ export class RelativeCoordinate extends Coordinate {
     return [numberOf['R'] - numberOf['L'], numberOf['B'] - numberOf['F']];
   }
 
-  public static stringify(coordinate: RelativeCoordinate): Direction {
+  public static stringify(coordinate: DirectionCoordinate): Direction {
     const [dx, dy] = coordinate;
     const partFB = dy > 0 ? 'B' : 'F';
     const partLR = dx > 0 ? 'R' : 'L';
     return partFB.repeat(Math.abs(dy)) + partLR.repeat(Math.abs(dx));
   }
 
-  public static canParse(direction: Direction): boolean {
-    return RelativeCoordinate.DirectionRegExp.test(direction);
+  public static isDirection(direction: Direction): boolean {
+    return DirectionCoordinate.DirectionRegExp.test(direction);
   }
 }

@@ -1,44 +1,44 @@
-import { AbsoluteCoordinate } from '../coordinates/AbsoluteCoordinate';
+import { PositionCoordinate } from '../coordinates/PositionCoordinate';
 import { Coordinate } from '../coordinates/Coordinate';
-import { RelativeCoordinate } from '../coordinates/RelativeCoordinate';
+import { DirectionCoordinate } from '../coordinates/DirectionCoordinate';
 import { Board } from './Board';
 
 export class BoardSquare<Piece> {
-  public readonly coordinate: AbsoluteCoordinate;
+  public readonly position: PositionCoordinate;
   public readonly board: Board<Piece>;
   private _piece!: Piece | null;
 
-  constructor(coordinate: AbsoluteCoordinate, board: Board<Piece>) {
-    this.coordinate = coordinate;
+  constructor(coordinate: PositionCoordinate, board: Board<Piece>) {
+    this.position = coordinate;
     this.board = board;
     this.piece = null;
   }
 
-  public squareDefinedTo(relativeCoordinate: Coordinate): boolean {
-    return this.board.squareDefinedAt(this.toCoordinate(relativeCoordinate));
+  public squareDefinedTo(direction: Coordinate): boolean {
+    return this.board.squareDefinedAt(this.toPosition(direction));
   }
 
-  public squareTo(relativeCoordinate: Coordinate): BoardSquare<Piece> {
+  public squareTo(direction: Coordinate): BoardSquare<Piece> {
     try {
-      return this.board.squareAt(this.toCoordinate(relativeCoordinate));
+      return this.board.squareAt(this.toPosition(direction));
     } catch {
       throw new Error(
-        `Square not defined from: ${AbsoluteCoordinate.stringify(this.coordinate)}, got: ${RelativeCoordinate.stringify(
-          relativeCoordinate
+        `Square not defined on: ${PositionCoordinate.stringify(this.position)}, got: ${DirectionCoordinate.stringify(
+          direction
         )}`
       );
     }
   }
 
-  private toCoordinate(relativeCoordinate: Coordinate): Coordinate {
-    const [x, y] = this.coordinate;
-    const [dx, dy] = relativeCoordinate;
+  private toPosition(direction: Coordinate): Coordinate {
+    const [x, y] = this.position;
+    const [dx, dy] = direction;
     return [x + dx, y + dy];
   }
 
   public placePiece(piece: Piece): void {
     if (this.piece) {
-      throw new Error(`Square has been taken, can't place piece at: ${AbsoluteCoordinate.stringify(this.coordinate)}`);
+      throw new Error(`Square has been taken, can't place piece at: ${PositionCoordinate.stringify(this.position)}`);
     }
 
     this.piece = piece;

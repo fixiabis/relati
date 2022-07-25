@@ -1,16 +1,16 @@
 import { BoardSquare } from '../../core/board/BoardSquare';
 import { ModernPiece } from '../Piece';
 import { RelationPath } from './RelationPath';
-import { RelativePaths } from './RelativePaths';
+import { DirectionPaths } from './DirectionPaths';
 
 export class RelationMode {
-  public static readonly Classic = new RelationMode(RelativePaths.ForClassic);
+  public static readonly Classic = new RelationMode(DirectionPaths.ForClassic);
 
-  public static readonly Modern = new RelationMode(RelativePaths.ForModern);
+  public static readonly Modern = new RelationMode(DirectionPaths.ForModern);
 
-  public readonly relativePaths: RelativePaths;
+  public readonly relativePaths: DirectionPaths;
 
-  private constructor(relativePaths: RelativePaths) {
+  private constructor(relativePaths: DirectionPaths) {
     this.relativePaths = relativePaths;
   }
 
