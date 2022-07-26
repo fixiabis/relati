@@ -12,7 +12,6 @@ export interface GameInit {
   ended?: boolean;
   winner?: Player | null;
   activePlayer?: Player;
-  allPlayersHavePlaced?: boolean;
 }
 
 export class Game {
@@ -21,7 +20,7 @@ export class Game {
   public ended: boolean;
   public winner: Player | null;
   public activePlayer: Player;
-  public allPlayersHavePlaced: boolean;
+  private _allPlayerHavePlaced!: boolean;
 
   constructor(players: Player[], init: GameInit) {
     this.players = players;
@@ -29,20 +28,22 @@ export class Game {
     this.activePlayer = init.activePlayer || players[0]!;
     this.winner = init.winner || null;
     this.ended = init.ended || false;
-    this.allPlayersHavePlaced = init.allPlayersHavePlaced || false;
   }
 
   public placePiece(pieceSymbol: PieceSymbol, position: Position) {
-    if (pieceSymbol !== this.activePlayer.pieceSymbol) {
-      throw new Error('符號非該玩家的回合');
-    }
+    this.validateIsPieceSymbolOfActivePlayer(pieceSymbol);
 
     const positionCoordinate = PositionCoordinate.parse(position);
     const square = this.board.squareAt(positionCoordinate);
 
     this.placePieceOnSquare(pieceSymbol, square);
-    this.checkAllPlayersHavePlaced();
     this.nextPlayerTurnOrEnd();
+  }
+
+  private validateIsPieceSymbolOfActivePlayer(pieceSymbol: PieceSymbol): void {
+    if (pieceSymbol !== this.activePlayer.pieceSymbol) {
+      throw new Error('符號非該玩家的回合');
+    }
   }
 
   private placePieceOnSquare(pieceSymbol: PieceSymbol, square: BoardSquare): void {
@@ -64,42 +65,43 @@ export class Game {
       .filter(Boolean);
   }
 
-  private checkAllPlayersHavePlaced(): void {
-    if (!this.allPlayersHavePlaced && this.activePlayer === this.players[this.players.length - 1]) {
-      this.allPlayersHavePlaced = true;
-    }
-  }
-
   private nextPlayerTurnOrEnd(): void {
-    const activePlayerIndex = this.players.indexOf(this.activePlayer);
-
-    const playersAfterActive = this.players
-      .slice(activePlayerIndex + 1)
-      .concat(this.players.slice(0, activePlayerIndex));
-
-    const nextPlayer = this.findNextPlayer(playersAfterActive);
+    const nextPlayer = this.findNextPlayer();
 
     if (nextPlayer) {
       this.activePlayer = nextPlayer;
       return;
     }
 
-    if (this.anySquarePlayerCanPlace(this.activePlayer)) {
+    if (this.playerCanPlacePiece(this.activePlayer)) {
       this.winner = this.activePlayer;
     }
 
     this.ended = true;
   }
 
-  private findNextPlayer(players: Player[]): Player | null {
-    return players.find((who) => this.anySquarePlayerCanPlace(who)) || null;
+  private findNextPlayer(): Player | null {
+    return this.playersAfterActive.find((who) => this.playerCanPlacePiece(who)) || null;
   }
 
-  private anySquarePlayerCanPlace(player: Player): boolean {
+  private get playersAfterActive(): Player[] {
+    const activePlayerIndex = this.players.indexOf(this.activePlayer);
+    return this.players.slice(activePlayerIndex + 1).concat(this.players.slice(0, activePlayerIndex));
+  }
+
+  private playerCanPlacePiece(player: Player): boolean {
     return this.board.squareList.some((square) => this.squareCanPlace(square, player.pieceSymbol));
   }
 
   private squareCanPlace(square: BoardSquare, pieceSymbol: PieceSymbol): boolean {
     return square.piece === null && (!this.allPlayersHavePlaced || this.anySimilarPieceNearby(square, pieceSymbol));
+  }
+
+  public get allPlayersHavePlaced(): boolean {
+    return (this._allPlayerHavePlaced ||= this.players.every((player) => this.playerHasPlaced(player)));
+  }
+
+  public playerHasPlaced(player: Player): boolean {
+    return this.board.pieces.some((piece) => piece.symbol === player.pieceSymbol);
   }
 }
