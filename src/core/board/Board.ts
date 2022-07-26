@@ -2,7 +2,7 @@ import { PositionCoordinate } from '../coordinates/PositionCoordinate';
 import { Coordinate } from '../coordinates/Coordinate';
 import { BoardSquare } from './BoardSquare';
 
-export class Board<TPiece> {
+export class Board<TPiece = any> {
   public readonly width: number;
   public readonly height: number;
   public readonly squares: readonly (readonly BoardSquare<TPiece>[])[];
@@ -10,7 +10,7 @@ export class Board<TPiece> {
 
   constructor(width: number, height: number = width) {
     if (width < 0 || height < 0) {
-      throw new Error(`Board size invalid, got width: ${width}, height: ${height}`);
+      throw new Error(`棋盤大小異常，拿到了: ${width}, ${height}`);
     }
 
     this.width = width;
@@ -33,7 +33,7 @@ export class Board<TPiece> {
 
   public squareAt(position: Coordinate): BoardSquare<TPiece> {
     if (!this.squareDefinedAt(position)) {
-      throw new Error(`Square not defined at: ${PositionCoordinate.stringify(position)}`);
+      throw new Error(`格子未定義在: ${PositionCoordinate.stringify(position)}`);
     }
 
     const [x, y] = position;

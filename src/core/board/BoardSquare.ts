@@ -3,7 +3,7 @@ import { Coordinate } from '../coordinates/Coordinate';
 import { DirectionCoordinate } from '../coordinates/DirectionCoordinate';
 import { Board } from './Board';
 
-export class BoardSquare<TPiece> {
+export class BoardSquare<TPiece = any> {
   public readonly position: PositionCoordinate;
   public readonly board: Board<TPiece>;
   private _piece!: TPiece | null;
@@ -23,7 +23,7 @@ export class BoardSquare<TPiece> {
       return this.board.squareAt(this.toPosition(direction));
     } catch {
       throw new Error(
-        `Square not defined on: ${PositionCoordinate.stringify(this.position)}, got: ${DirectionCoordinate.stringify(
+        `格子未定義從: ${PositionCoordinate.stringify(this.position)}, 朝向: ${DirectionCoordinate.stringify(
           direction
         )}`
       );
@@ -38,7 +38,7 @@ export class BoardSquare<TPiece> {
 
   public placePiece(piece: TPiece): void {
     if (this.piece) {
-      throw new Error(`Square has been taken, can't place piece at: ${PositionCoordinate.stringify(this.position)}`);
+      throw new Error(`格子已被放置棋子: ${PositionCoordinate.stringify(this.position)}`);
     }
 
     this.piece = piece;
