@@ -118,22 +118,13 @@ describe('2 名玩家在 5x5 棋盤上的殘局', () => {
 
   describe('假設玩家交錯的下子，欲將盤面呈現類似西洋棋盤的樣式，輪到玩家O，且剩一步', () => {
     beforeEach(() => {
-      const positions = ['A1', 'B1', 'B2', 'A2', 'A3', 'B3', 'B4', 'A4', 'A5', 'B5'];
-      positions.push(
-        ...Array(5)
-          .fill('C?')
-          .map((_position, index) => 'C' + (5 - index))
-      );
-      positions.push(
-        ...Array(5)
-          .fill('D?')
-          .map((_position, index) => 'D' + (index + 1))
-      );
-      positions.push(
-        ...Array(4)
-          .fill('E?')
-          .map((_position, index) => 'E' + (5 - index))
-      );
+      const positions = [
+        ['A1', 'B1', 'B2', 'A2', 'A3', 'B3', 'B4', 'A4', 'A5', 'B5'],
+        ['C5', 'C4', 'C3', 'C2', 'C1'],
+        ['D1', 'D2', 'D3', 'D4', 'D5'],
+        ['E5', 'E4', 'E3', 'E2'],
+      ].flat();
+
       positions.forEach((position) => game.placePiece(game.activePlayer.pieceSymbol, position));
     });
 
