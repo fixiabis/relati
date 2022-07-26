@@ -3,15 +3,15 @@ import { Position } from '../src/core/coordinates/PositionCoordinate';
 import { Game } from '../src/core/Game';
 import { Player } from '../src/core/Player';
 
-let game: Game;
-
-beforeEach(() => {
-  const players = [new Player('O'), new Player('X')];
-  const board = new Board(5, 5);
-  game = new Game(players, { board });
-});
-
 describe('2 名玩家在 5x5 棋盤上的開局', () => {
+  let game: Game;
+
+  beforeEach(() => {
+    const players = [new Player('O'), new Player('X')];
+    const board = new Board(5, 5);
+    game = new Game(players, { board });
+  });
+
   describe('假設在這個情境下', () => {
     test('當玩家O下子在C3時，C3應該要有棋子O，並且輪到玩家X', () => {
       game.placePiece('O', 'C3');
@@ -88,6 +88,14 @@ describe('2 名玩家在 5x5 棋盤上的開局', () => {
 });
 
 describe('2 名玩家在 5x5 棋盤上的殘局', () => {
+  let game: Game;
+
+  beforeEach(() => {
+    const players = [new Player('O'), new Player('X')];
+    const board = new Board(5, 5);
+    game = new Game(players, { board });
+  });
+
   describe('假設玩家X一開始放在左上角，被玩家O壓制，幾步後呈現兩條，輪到玩家X，且剩一步', () => {
     beforeEach(() => {
       const positions = ['B1', 'A1', 'B2', 'A2', 'B3', 'A3', 'B4', 'A4', 'B5'];
@@ -130,6 +138,30 @@ describe('2 名玩家在 5x5 棋盤上的殘局', () => {
       game.placePiece('O', 'E1');
       expect(game.ended).toBe(true);
       expect(game.winner).toBeNull();
+    });
+  });
+});
+
+describe('3 名玩家在 7x7 棋盤上的開局', () => {
+  let game: Game;
+
+  beforeEach(() => {
+    const players = [new Player('O'), new Player('X'), new Player('D')];
+    const board = new Board(7, 7);
+    game = new Game(players, { board });
+  });
+
+  describe('假設玩家O放D4，玩家X放E4', () => {
+    beforeEach(() => {
+      game.placePiece('O', 'D4');
+      game.placePiece('X', 'E4');
+    });
+
+    test('當玩家D下子在E5時，E5應該要有棋子D，並且輪到玩家O，而且玩家都放過棋子了', () => {
+      game.placePiece('D', 'E5');
+      expect(game.board.squareAt(Position`E5`).piece?.symbol).toBe('D');
+      expect(game.activePlayer.pieceSymbol).toBe('O');
+      expect(game.allPlayersHavePlaced).toBe(true);
     });
   });
 });
