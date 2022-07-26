@@ -15,12 +15,12 @@ export class BoardSquare<TPiece = any> {
   }
 
   public squareDefinedTo(direction: Coordinate): boolean {
-    return this.board.squareDefinedAt(this.toPosition(direction));
+    return this.board.squareDefinedAt(this.position.to(direction));
   }
 
   public squareTo(direction: Coordinate): BoardSquare<TPiece> {
     try {
-      return this.board.squareAt(this.toPosition(direction));
+      return this.board.squareAt(this.position.to(direction));
     } catch {
       throw new Error(
         `格子未定義從: ${PositionCoordinate.stringify(this.position)}, 朝向: ${DirectionCoordinate.stringify(
@@ -28,12 +28,6 @@ export class BoardSquare<TPiece = any> {
         )}`
       );
     }
-  }
-
-  private toPosition(direction: Coordinate): Coordinate {
-    const [x, y] = this.position;
-    const [dx, dy] = direction;
-    return [x + dx, y + dy];
   }
 
   public placePiece(piece: TPiece): void {

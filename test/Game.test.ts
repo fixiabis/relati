@@ -1,9 +1,7 @@
 import { Board } from '../src/core/board/Board';
-import { PositionCoordinate } from '../src/core/coordinates/PositionCoordinate';
+import { Position } from '../src/core/coordinates/PositionCoordinate';
 import { Game } from '../src/core/Game';
 import { Player } from '../src/core/Player';
-
-const position = (strings: TemplateStringsArray) => PositionCoordinate.parse(strings.join(''));
 
 let game: Game;
 
@@ -17,7 +15,7 @@ describe('2 名玩家在 5x5 棋盤上的開局', () => {
   describe('假設在這個情境下', () => {
     test('當玩家O下子在C3時，C3應該要有棋子O，並且輪到玩家X', () => {
       game.placePiece('O', 'C3');
-      expect(game.board.squareAt(position`C3`).piece?.symbol).toBe('O');
+      expect(game.board.squareAt(Position`C3`).piece?.symbol).toBe('O');
       expect(game.activePlayer.pieceSymbol).toBe('X');
     });
 
@@ -37,7 +35,7 @@ describe('2 名玩家在 5x5 棋盤上的開局', () => {
 
     test('當玩家X下子在B2時，B2應該要有棋子X，並且輪到玩家O，而且玩家都放過棋子了', () => {
       game.placePiece('X', 'B2');
-      expect(game.board.squareAt(position`B2`).piece?.symbol).toBe('X');
+      expect(game.board.squareAt(Position`B2`).piece?.symbol).toBe('X');
       expect(game.activePlayer.pieceSymbol).toBe('O');
       expect(game.allPlayersHavePlaced).toBe(true);
     });
@@ -55,7 +53,7 @@ describe('2 名玩家在 5x5 棋盤上的開局', () => {
 
     test('當玩家O下子在D2時，D2應該要有棋子O', () => {
       game.placePiece('O', 'D2');
-      expect(game.board.squareAt(position`C3`).piece?.symbol).toBe('O');
+      expect(game.board.squareAt(Position`C3`).piece?.symbol).toBe('O');
     });
 
     test('當玩家X下子在D2時，會因為不是玩家X的回合而出錯', () => {
@@ -76,7 +74,7 @@ describe('2 名玩家在 5x5 棋盤上的開局', () => {
 
     test('當玩家X下子在C2時，C2應該要有棋子X', () => {
       game.placePiece('X', 'C2');
-      expect(game.board.squareAt(position`C2`).piece?.symbol).toBe('X');
+      expect(game.board.squareAt(Position`C2`).piece?.symbol).toBe('X');
     });
 
     test('當玩家X下子在D2時，會因為已經有棋子而出錯', () => {

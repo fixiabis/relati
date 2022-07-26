@@ -2,10 +2,14 @@ import { Coordinate } from './Coordinate';
 
 export type Direction = string;
 
+export function Direction(strings: TemplateStringsArray): DirectionCoordinate {
+  return DirectionCoordinate.parse(strings.join(''));
+}
+
 export class DirectionCoordinate extends Coordinate {
   public static readonly DirectionRegExp = /^(F|B|L|R)*$/;
 
-  public override toString(): string {
+  public override toString(): Direction {
     return DirectionCoordinate.stringify(this);
   }
 

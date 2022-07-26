@@ -2,10 +2,20 @@ import { Coordinate } from './Coordinate';
 
 export type Position = string;
 
+export function Position(strings: TemplateStringsArray): PositionCoordinate {
+  return PositionCoordinate.parse(strings.join(''));
+}
+
 export class PositionCoordinate extends Coordinate {
   public static readonly PositionRegExp = /^(?<alphabetPart>[A-Z])(?<numberPart>\d+)$/;
 
-  public override toString(): string {
+  public to(direction: Coordinate): PositionCoordinate {
+    const [x, y] = this;
+    const [dx, dy] = direction;
+    return new PositionCoordinate(x + dx, y + dy);
+  }
+
+  public override toString(): Position {
     return PositionCoordinate.stringify(this);
   }
 
