@@ -19,13 +19,13 @@ export class ModernMode extends GameMode {
   }
 
   public placePieceOnSquare(game: Game, pieceSymbol: PieceSymbol, square: BoardSquare): void {
-    const paths = this.createPaths(square);
+    const relationPaths = this.createRelationPaths(square);
 
-    if (game.allPlayersHavePlaced && !this.anySimilarPieceRelated(paths, pieceSymbol)) {
+    if (game.allPlayersHavePlaced && !this.anySimilarPieceRelated(relationPaths, pieceSymbol)) {
       throw new Error('無法聯繫到附近的符號');
     }
 
-    const piece = new Piece(pieceSymbol, square);
+    const piece = new Piece(pieceSymbol, square, { isRoot: !game.allPlayersHavePlaced, relationPaths });
     square.placePiece(piece);
     this.checkAllPiecesDisability(game);
   }
@@ -42,19 +42,19 @@ export class ModernMode extends GameMode {
     }
   }
 
-  private createPaths(square: BoardSquare): RelationPath[] {
+  private createRelationPaths(square: BoardSquare): RelationPath[] {
     return this.directionPaths
       .filter((coordinates) => coordinates.every((coordinate) => square.squareDefinedTo(coordinate)))
       .map((coordinates) => coordinates.map((coordinate) => square.squareTo(coordinate)))
       .map(([targetSquare, ...otherSquares]) => new RelationPath(targetSquare!, otherSquares));
   }
 
-  private anySimilarPieceRelated(paths: RelationPath[], pieceSymbol: PieceSymbol): boolean {
-    return paths.some((path) => path.targetPiece?.symbol === pieceSymbol && !path.targetPiece.disabled);
+  private anySimilarPieceRelated(relationPaths: RelationPath[], pieceSymbol: PieceSymbol): boolean {
+    return relationPaths.some((path) => !path.blocked && path.targetPiece?.symbol === pieceSymbol && !path.targetPiece.disabled);
   }
 
   public squareCanPlace(game: Game, square: BoardSquare, pieceSymbol: PieceSymbol): boolean {
-    const paths = this.createPaths(square);
+    const paths = this.createRelationPaths(square);
     return !square.piece && (!game.allPlayersHavePlaced || this.anySimilarPieceRelated(paths, pieceSymbol));
   }
 }

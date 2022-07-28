@@ -1,8 +1,9 @@
 import { Board } from './board/Board';
-import { PositionCode, Position } from './vectors/Position';
+import { BoardSquare } from './board/BoardSquare';
+import { GameMode } from './modes/GameMode';
 import { Piece, PieceSymbol } from './Piece';
 import { Player } from './Player';
-import { GameMode } from './modes/GameMode';
+import { Position, PositionCode } from './vectors/Position';
 
 export interface GameInit {
   mode: GameMode;
@@ -32,19 +33,37 @@ export class Game {
   }
 
   public placePiece(pieceSymbol: PieceSymbol, positionCode: PositionCode) {
-    this.validateIsPieceSymbolOfActivePlayer(pieceSymbol);
+    this.validateCanPlacePiece(pieceSymbol, positionCode);
 
     const position = Position.parse(positionCode);
-    const square = this.board.squareAt(position);
+    const square = this.boardSquareAt(position);
 
     this.mode.placePieceOnSquare(this, pieceSymbol, square);
     this.nextPlayerTurnOrEnd();
   }
 
-  private validateIsPieceSymbolOfActivePlayer(pieceSymbol: PieceSymbol): void {
+  private validateCanPlacePiece(pieceSymbol: PieceSymbol, positionCode: PositionCode): void {
     if (pieceSymbol !== this.activePlayer.pieceSymbol) {
-      throw new Error('符號非該玩家的回合');
+      throw new Error('非玩家回合的符號');
     }
+
+    if (!Position.isParsableCode(positionCode)) {
+      throw new Error('無法解析的座標');
+    }
+  }
+
+  private boardSquareAt(position: Position): BoardSquare {
+    if (!this.board.squareDefinedAt(position)) {
+      throw new Error('不存在的格子');
+    }
+
+    const square = this.board.squareAt(position);
+
+    if (square.piece) {
+      throw new Error(`格子${position}已有棋子`);
+    }
+
+    return square;
   }
 
   private nextPlayerTurnOrEnd(): void {
@@ -84,17 +103,13 @@ export class Game {
   }
 
   public get rootPieces(): Partial<Record<PieceSymbol, Piece>> {
-    if (this._rootPieces) {
-      return this._rootPieces;
-    }
+    const rootPieces = this._rootPieces || this.findRootPieces();
 
-    const rootPieces = this.findRootPieces();
-
-    if (Object.keys(rootPieces).length === this.players.length) {
+    if (!this._rootPieces && Object.keys(rootPieces).length === this.players.length) {
       this._rootPieces = rootPieces;
     }
 
-    return this._rootPieces || rootPieces;
+    return rootPieces;
   }
 
   private findRootPieces(): Partial<Record<PieceSymbol, Piece>> {

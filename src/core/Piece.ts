@@ -5,7 +5,7 @@ export type PieceSymbol = typeof Piece.AllSymbols[number];
 
 export interface PieceInit {
   isRoot?: boolean;
-  isDisabled?: boolean;
+  disabled?: boolean;
   relationPaths?: RelationPath[];
 }
 
@@ -23,7 +23,7 @@ export class Piece {
     this.square = square;
     this.relationPaths = init.relationPaths || [];
     this.isRoot = init.isRoot || false;
-    this.disabled = init.isDisabled || false;
+    this.disabled = init.disabled || false;
   }
 
   public get relatedPieces(): readonly Piece[] {
@@ -34,6 +34,10 @@ export class Piece {
   }
 
   public toString(): string {
-    return this.symbol;
+    if (this.isRoot) {
+      return `[${this.symbol}]`;
+    }
+
+    return ` ${this.symbol} `;
   }
 }

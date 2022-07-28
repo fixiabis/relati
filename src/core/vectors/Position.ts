@@ -8,9 +8,8 @@ export class Position extends Vector {
   public readonly code: PositionCode;
 
   constructor(x: number, y: number, code?: string) {
-    Position.validateIsValid([x, y]);
     super(x, y);
-    this.code = code || Position.stringify([x, y]);
+    this.code = code || Position.stringify(this);
   }
 
   public to(direction: Vector): Position {
@@ -30,18 +29,9 @@ export class Position extends Vector {
   }
 
   public static parse(code: PositionCode): Position {
-    Position.validateIsParsableCode(code);
-
     const x = code.charCodeAt(0) - 'A'.charCodeAt(0);
     const y = parseInt(code.slice(1)) - 1;
-
     return new Position(x, y, code);
-  }
-
-  private static validateIsParsableCode(code: PositionCode): void {
-    if (!Position.isParsableCode(code)) {
-      throw new Error(`無法解析的位置代號, 拿到了: ${code}`);
-    }
   }
 
   public static isParsableCode(code: PositionCode): boolean {
@@ -49,19 +39,10 @@ export class Position extends Vector {
   }
 
   public static stringify(position: Vector): PositionCode {
-    Position.validateIsValid(position);
-
     const [x, y] = position;
     const alphabetPart = String.fromCharCode(x + 'A'.charCodeAt(0));
     const numberPart = (y + 1).toString();
-
     return alphabetPart + numberPart;
-  }
-
-  private static validateIsValid(position: Vector): void {
-    if (!Position.isValid(position)) {
-      throw new Error(`無效位置, 拿到了: ${position}`);
-    }
   }
 
   public static isValid(position: Vector): boolean {

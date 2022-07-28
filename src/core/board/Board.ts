@@ -10,10 +10,6 @@ export class Board {
   public readonly squareList: readonly BoardSquare[];
 
   constructor(width: number, height: number = width) {
-    if (width < 0 || height < 0) {
-      throw new Error(`棋盤大小異常，拿到了: ${width}, ${height}`);
-    }
-
     this.width = width;
     this.height = height;
 
@@ -33,10 +29,6 @@ export class Board {
   }
 
   public squareAt(position: Vector): BoardSquare {
-    if (!this.squareDefinedAt(position)) {
-      throw new Error(`格子未定義在: ${Position.stringify(position)}`);
-    }
-
     const [x, y] = position;
     return this.squares[x]![y]!;
   }
