@@ -1,5 +1,5 @@
-import { PositionCoordinate } from '../coordinates/PositionCoordinate';
-import { Coordinate } from '../coordinates/Coordinate';
+import { Position } from '../vectors/Position';
+import { Vector } from '../vectors/Vector';
 import { BoardSquare } from './BoardSquare';
 
 export class Board<TPiece = any> {
@@ -18,22 +18,22 @@ export class Board<TPiece = any> {
 
     this.squares = Array<null[]>(this.width)
       .fill(Array(this.height).fill(null))
-      .map((squares, x) => squares.map((_, y) => new BoardSquare<TPiece>(new PositionCoordinate(x, y), this)));
+      .map((squares, x) => squares.map((_, y) => new BoardSquare<TPiece>(new Position(x, y), this)));
 
     this.squareList = Array(this.width * this.height)
       .fill(null)
-      .map<Coordinate>((_, index) => [index % this.width, Math.floor(index / this.width)])
+      .map<Vector>((_, index) => [index % this.width, Math.floor(index / this.width)])
       .map(([x, y]) => this.squares[x]![y]!);
   }
 
-  public squareDefinedAt(position: Coordinate): boolean {
+  public squareDefinedAt(position: Vector): boolean {
     const [x, y] = position;
     return x > -1 && y > -1 && x < this.width && y < this.height;
   }
 
-  public squareAt(position: Coordinate): BoardSquare<TPiece> {
+  public squareAt(position: Vector): BoardSquare<TPiece> {
     if (!this.squareDefinedAt(position)) {
-      throw new Error(`格子未定義在: ${PositionCoordinate.stringify(position)}`);
+      throw new Error(`格子未定義在: ${Position.stringify(position)}`);
     }
 
     const [x, y] = position;

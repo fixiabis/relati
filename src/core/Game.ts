@@ -1,11 +1,11 @@
 import { Board } from './board/Board';
 import { BoardSquare } from './board/BoardSquare';
-import { DirectionCoordinate } from './coordinates/DirectionCoordinate';
-import { Position, PositionCoordinate } from './coordinates/PositionCoordinate';
+import { Direction } from './vectors/Direction';
+import { PositionCode, Position } from './vectors/Position';
 import { Piece, PieceSymbol } from './Piece';
 import { Player } from './Player';
 
-const NearbyDirections = ['F', 'B', 'L', 'R', 'FL', 'FR', 'BL', 'BR'].map(DirectionCoordinate.parse);
+const NearbyDirections = ['F', 'B', 'L', 'R', 'FL', 'FR', 'BL', 'BR'].map(Direction.parse);
 
 export interface GameInit {
   board: Board<Piece>;
@@ -30,11 +30,11 @@ export class Game {
     this.ended = init.ended || false;
   }
 
-  public placePiece(pieceSymbol: PieceSymbol, position: Position) {
+  public placePiece(pieceSymbol: PieceSymbol, positionCode: PositionCode) {
     this.validateIsPieceSymbolOfActivePlayer(pieceSymbol);
 
-    const positionCoordinate = PositionCoordinate.parse(position);
-    const square = this.board.squareAt(positionCoordinate);
+    const position = Position.parse(positionCode);
+    const square = this.board.squareAt(position);
 
     this.placePieceOnSquare(pieceSymbol, square);
     this.nextPlayerTurnOrEnd();

@@ -1,38 +1,34 @@
-import { PositionCoordinate } from '../coordinates/PositionCoordinate';
-import { Coordinate } from '../coordinates/Coordinate';
-import { DirectionCoordinate } from '../coordinates/DirectionCoordinate';
+import { Position } from '../vectors/Position';
+import { Vector } from '../vectors/Vector';
+import { Direction } from '../vectors/Direction';
 import { Board } from './Board';
 
 export class BoardSquare<TPiece = any> {
-  public readonly position: PositionCoordinate;
+  public readonly position: Position;
   public readonly board: Board<TPiece>;
   private _piece!: TPiece | null;
 
-  constructor(coordinate: PositionCoordinate, board: Board<TPiece>) {
-    this.position = coordinate;
+  constructor(position: Position, board: Board<TPiece>) {
+    this.position = position;
     this.board = board;
     this.piece = null;
   }
 
-  public squareDefinedTo(direction: Coordinate): boolean {
-    return this.board.squareDefinedAt(this.position.to(direction));
+  public squareDefinedTo(direction: Vector): boolean {
+    return this.position.validTo(direction) && this.board.squareDefinedAt(this.position.to(direction));
   }
 
-  public squareTo(direction: Coordinate): BoardSquare<TPiece> {
+  public squareTo(direction: Vector): BoardSquare<TPiece> {
     try {
       return this.board.squareAt(this.position.to(direction));
     } catch {
-      throw new Error(
-        `格子未定義從: ${PositionCoordinate.stringify(this.position)}, 朝向: ${DirectionCoordinate.stringify(
-          direction
-        )}`
-      );
+      throw new Error(`格子未定義從: ${Position.stringify(this.position)}, 朝向: ${Direction.stringify(direction)}`);
     }
   }
 
   public placePiece(piece: TPiece): void {
     if (this.piece) {
-      throw new Error(`格子已被放置棋子: ${PositionCoordinate.stringify(this.position)}`);
+      throw new Error(`格子已被放置棋子: ${Position.stringify(this.position)}`);
     }
 
     this.piece = piece;
