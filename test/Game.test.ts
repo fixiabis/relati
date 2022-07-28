@@ -285,4 +285,27 @@ describe('2 名玩家在流行模式的殘局', () => {
       expect(game.winner?.pieceSymbol).toBe('X');
     });
   });
+
+  describe('假設玩家交錯的下子，欲將盤面呈現類似西洋棋盤的樣式，輪到玩家O，且剩一步', () => {
+    beforeEach(() => {
+      const positions = [
+        ['A1', 'B1', 'B2', 'A2', 'A3', 'B3', 'B4', 'A4', 'A5', 'B5', 'B6', 'A6', 'A7', 'B7', 'A8', 'B8', 'B9', 'A9'],
+        ['C9', 'C8', 'C7', 'C6', 'C5', 'C4', 'C3', 'C2', 'C1'],
+        ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9'],
+        ['E9', 'E8', 'E7', 'E6', 'E5', 'E4', 'E3', 'E2', 'E1'],
+        ['F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9'],
+        ['G9', 'G8', 'G7', 'G6', 'G5', 'G4', 'G3', 'G2', 'G1'],
+        ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9'],
+        ['I9', 'I8', 'I7', 'I6', 'I5', 'I4', 'I3', 'I2'],
+      ].flat();
+
+      positions.forEach((position) => game.placePiece(game.activePlayer.pieceSymbol, position));
+    });
+
+    test('當玩家O下子在I1時，遊戲結束，沒有贏家', () => {
+      game.placePiece('O', 'I1');
+      expect(game.ended).toBe(true);
+      expect(game.winner).toBeNull();
+    });
+  });
 });
