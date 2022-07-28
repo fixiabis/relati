@@ -4,11 +4,11 @@ import { Direction } from './vectors/Direction';
 import { PositionCode, Position } from './vectors/Position';
 import { Piece, PieceSymbol } from './Piece';
 import { Player } from './Player';
-
-const NearbyDirections = ['F', 'B', 'L', 'R', 'FL', 'FR', 'BL', 'BR'].map(Direction.parse);
+import { GameMode } from './modes/GameMode';
 
 export interface GameInit {
-  board: Board<Piece>;
+  mode: GameMode;
+  board?: Board<Piece>;
   ended?: boolean;
   winner?: Player | null;
   activePlayer?: Player;
@@ -16,6 +16,7 @@ export interface GameInit {
 
 export class Game {
   public readonly players: readonly Player[];
+  public readonly mode: GameMode;
   public readonly board: Board<Piece>;
   public ended: boolean;
   public winner: Player | null;
@@ -24,7 +25,8 @@ export class Game {
 
   constructor(players: Player[], init: GameInit) {
     this.players = players;
-    this.board = init.board;
+    this.mode = init.mode;
+    this.board = init.board || init.mode.createBoard(players.length);
     this.activePlayer = init.activePlayer || players[0]!;
     this.winner = init.winner || null;
     this.ended = init.ended || false;
@@ -36,7 +38,7 @@ export class Game {
     const position = Position.parse(positionCode);
     const square = this.board.squareAt(position);
 
-    this.placePieceOnSquare(pieceSymbol, square);
+    this.mode.placePieceOnSquare(this, pieceSymbol, square);
     this.nextPlayerTurnOrEnd();
   }
 
@@ -44,25 +46,6 @@ export class Game {
     if (pieceSymbol !== this.activePlayer.pieceSymbol) {
       throw new Error('符號非該玩家的回合');
     }
-  }
-
-  private placePieceOnSquare(pieceSymbol: PieceSymbol, square: BoardSquare): void {
-    if (this.allPlayersHavePlaced && !this.anySimilarPieceNearby(square, pieceSymbol)) {
-      throw new Error('無法聯繫到附近的符號');
-    }
-
-    const piece = new Piece(pieceSymbol, square);
-    square.placePiece(piece);
-  }
-
-  private anySimilarPieceNearby(square: BoardSquare, pieceSymbol: PieceSymbol): boolean {
-    return this.findNearbyPieces(square).some((nearbyPiece) => nearbyPiece.symbol === pieceSymbol);
-  }
-
-  private findNearbyPieces(square: BoardSquare): Piece[] {
-    return NearbyDirections.filter((direction) => square.squareDefinedTo(direction))
-      .map((direction) => square.squareTo(direction).piece)
-      .filter(Boolean);
   }
 
   private nextPlayerTurnOrEnd(): void {
@@ -90,11 +73,7 @@ export class Game {
   }
 
   private playerCanPlacePiece(player: Player): boolean {
-    return this.board.squareList.some((square) => this.squareCanPlace(square, player.pieceSymbol));
-  }
-
-  private squareCanPlace(square: BoardSquare, pieceSymbol: PieceSymbol): boolean {
-    return square.piece === null && (!this.allPlayersHavePlaced || this.anySimilarPieceNearby(square, pieceSymbol));
+    return this.board.squareList.some((square) => this.mode.squareCanPlace(this, square, player.pieceSymbol));
   }
 
   public get allPlayersHavePlaced(): boolean {

@@ -1,20 +1,26 @@
 import { Board } from '../src/core/board/Board';
 import { Game } from '../src/core/Game';
+import { Classic } from '../src/core/modes/Classic';
 import { Player } from '../src/core/Player';
 import { Position } from '../src/core/vectors/Position';
 
 const P = Position.ofCode;
 
-describe('2 名玩家在 5x5 棋盤上的開局', () => {
+describe('2 名玩家在經典模式的開局', () => {
   let game: Game;
 
   beforeEach(() => {
     const players = [new Player('O'), new Player('X')];
-    const board = new Board(5, 5);
-    game = new Game(players, { board });
+    const mode = new Classic();
+    game = new Game(players, { mode });
   });
 
   describe('假設在這個情境下', () => {
+    test('棋盤大小應該要是 5x5', () => {
+      expect(game.board.width).toBe(5);
+      expect(game.board.height).toBe(5);
+    });
+
     test('當玩家O下子在C3時，C3應該要有棋子O，並且輪到玩家X', () => {
       game.placePiece('O', 'C3');
       expect(game.board.squareAt(P`C3`).piece?.symbol).toBe('O');
@@ -89,13 +95,13 @@ describe('2 名玩家在 5x5 棋盤上的開局', () => {
   });
 });
 
-describe('2 名玩家在 5x5 棋盤上的殘局', () => {
+describe('2 名玩家在經典模式的殘局', () => {
   let game: Game;
 
   beforeEach(() => {
     const players = [new Player('O'), new Player('X')];
-    const board = new Board(5, 5);
-    game = new Game(players, { board });
+    const mode = new Classic();
+    game = new Game(players, { mode });
   });
 
   describe('假設玩家X一開始放在左上角，被玩家O壓制，幾步後呈現兩條，輪到玩家X，且剩一步', () => {
@@ -144,13 +150,20 @@ describe('2 名玩家在 5x5 棋盤上的殘局', () => {
   });
 });
 
-describe('3 名玩家在 7x7 棋盤上的開局', () => {
+describe('3 名玩家在經典模式的開局', () => {
   let game: Game;
 
   beforeEach(() => {
     const players = [new Player('O'), new Player('X'), new Player('D')];
-    const board = new Board(7, 7);
-    game = new Game(players, { board });
+    const mode = new Classic();
+    game = new Game(players, { mode });
+  });
+
+  describe('假設在這個情境下', () => {
+    test('棋盤大小應該要是 7x7', () => {
+      expect(game.board.width).toBe(7);
+      expect(game.board.height).toBe(7);
+    });
   });
 
   describe('假設玩家O放D4，玩家X放E4', () => {
