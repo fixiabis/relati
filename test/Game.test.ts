@@ -61,7 +61,7 @@ describe('2 名玩家在經典模式的開局', () => {
 
     test('當玩家O下子在D2時，D2應該要有棋子O', () => {
       game.placePiece('O', 'D2');
-      expect(game.board.squareAt(P`C3`).piece?.symbol).toBe('O');
+      expect(game.board.squareAt(P`D2`).piece?.symbol).toBe('O');
     });
 
     test('當玩家X下子在D2時，會因為不是玩家X的回合而出錯', () => {
@@ -202,6 +202,87 @@ describe('2 名玩家在流行模式的開局', () => {
 
     test('當玩家O下子在Z8時，會因為格子不存在而出錯', () => {
       expect(() => game.placePiece('O', 'Z8')).toThrow();
+    });
+  });
+
+  describe('假設玩家O放E5，玩家X放F5', () => {
+    beforeEach(() => {
+      game.placePiece('O', 'E5');
+      game.placePiece('X', 'F5');
+    });
+
+    test('當玩家O下子在C3時，C3應該要有棋子O', () => {
+      game.placePiece('O', 'C3');
+      expect(game.board.squareAt(P`C3`).piece?.symbol).toBe('O');
+    });
+
+    test('當玩家X下子在E3時，會因為不是玩家X的回合而出錯', () => {
+      expect(() => game.placePiece('X', 'E3')).toThrow();
+    });
+
+    test('當玩家O下子在D1時，會因為附近沒有符號，無法聯繫而出錯', () => {
+      expect(() => game.placePiece('O', 'D1')).toThrow();
+    });
+  });
+
+  describe('假設玩家O放E5，玩家X放F5，玩家O放C3', () => {
+    beforeEach(() => {
+      game.placePiece('O', 'E5');
+      game.placePiece('X', 'F5');
+      game.placePiece('O', 'C3');
+    });
+
+    test('當玩家X下子在D4時，D4應該要有棋子X，且C3的棋子O會失效', () => {
+      game.placePiece('X', 'D4');
+      expect(game.board.squareAt(P`D4`).piece?.symbol).toBe('X');
+      expect(game.board.squareAt(P`C3`).piece?.disabled).toBe(true);
+    });
+
+    test('當玩家X下子在E5時，會因為已經有棋子而出錯', () => {
+      expect(() => game.placePiece('X', 'E5')).toThrow();
+    });
+
+    test('當玩家X下子在C1時，會因為附近沒有符號，無法聯繫而出錯', () => {
+      expect(() => game.placePiece('X', 'C1')).toThrow();
+    });
+  });
+
+  describe('假設玩家O放E5，玩家X放F5，玩家O放C3，玩家X放D4', () => {
+    beforeEach(() => {
+      game.placePiece('O', 'E5');
+      game.placePiece('X', 'F5');
+      game.placePiece('O', 'C3');
+      game.placePiece('X', 'D4');
+    });
+
+    test('當玩家O下子在C5時，C5應該要有棋子O，且C3的棋子O會恢復', () => {
+      game.placePiece('O', 'C5');
+      expect(game.board.squareAt(P`C5`).piece?.symbol).toBe('O');
+      expect(game.board.squareAt(P`C3`).piece?.disabled).toBe(false);
+    });
+  });
+});
+
+describe('2 名玩家在流行模式的殘局', () => {
+  beforeEach(() => {
+    const players = [new Player('O'), new Player('X')];
+    const mode = new ModernMode();
+    game = new Game(players, { mode });
+  });
+
+  describe('假設玩家O發瘋，從角落開始，而且只用遠程的連線，下了三子，現在輪到玩家X', () => {
+    beforeEach(() => {
+      const positions = ['A1', 'B1', 'C3', 'B2', 'A3'];
+      positions.forEach((position) => game.placePiece(game.activePlayer.pieceSymbol, position));
+    });
+
+    test('當玩家X下子在A2時，A2應該要有棋子X，且C3和A3的棋子O會失效，遊戲結束，贏家為玩家X', () => {
+      game.placePiece('X', 'A2');
+      expect(game.board.squareAt(P`A2`).piece?.symbol).toBe('X');
+      expect(game.board.squareAt(P`C3`).piece?.disabled).toBe(true);
+      expect(game.board.squareAt(P`A3`).piece?.disabled).toBe(true);
+      expect(game.ended).toBe(true);
+      expect(game.winner?.pieceSymbol).toBe('X');
     });
   });
 });
