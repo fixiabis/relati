@@ -22,7 +22,7 @@ export class ModernMode extends GameMode {
     const relationPaths = this.createRelationPaths(square);
 
     if (game.allPlayersHavePlaced && !this.anySimilarPieceRelated(relationPaths, pieceSymbol)) {
-      throw new Error('無法聯繫到附近的符號');
+      throw new Error(`格子${square.position}無法聯繫到附近的符號`);
     }
 
     const piece = new Piece(pieceSymbol, square, { isRoot: !game.allPlayersHavePlaced, relationPaths });

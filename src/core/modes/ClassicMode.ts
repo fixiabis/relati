@@ -14,7 +14,7 @@ export class ClassicMode extends GameMode {
 
   public placePieceOnSquare(game: Game, pieceSymbol: PieceSymbol, square: BoardSquare): void {
     if (game.allPlayersHavePlaced && !this.anySimilarPieceNearby(square, pieceSymbol)) {
-      throw new Error('無法聯繫到附近的符號');
+      throw new Error(`格子${square.position}無法聯繫到附近的符號`);
     }
 
     const piece = new Piece(pieceSymbol, square);
