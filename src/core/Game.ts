@@ -1,14 +1,12 @@
 import { Board } from './board/Board';
-import { BoardSquare } from './board/BoardSquare';
-import { Direction } from './vectors/Direction';
 import { PositionCode, Position } from './vectors/Position';
-import { Piece, PieceSymbol } from './Piece';
+import { PieceSymbol } from './Piece';
 import { Player } from './Player';
 import { GameMode } from './modes/GameMode';
 
 export interface GameInit {
   mode: GameMode;
-  board?: Board<Piece>;
+  board?: Board;
   ended?: boolean;
   winner?: Player | null;
   activePlayer?: Player;
@@ -17,7 +15,7 @@ export interface GameInit {
 export class Game {
   public readonly players: readonly Player[];
   public readonly mode: GameMode;
-  public readonly board: Board<Piece>;
+  public readonly board: Board;
   public ended: boolean;
   public winner: Player | null;
   public activePlayer: Player;

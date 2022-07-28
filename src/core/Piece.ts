@@ -6,9 +6,9 @@ export class Piece {
   public static readonly AllSymbols = ['O', 'X', 'D', 'R', 'A', 'H'] as const;
 
   public readonly symbol: PieceSymbol;
-  public readonly square: BoardSquare<Piece>;
+  public readonly square: BoardSquare;
 
-  constructor(symbol: PieceSymbol, square: BoardSquare<Piece>) {
+  constructor(symbol: PieceSymbol, square: BoardSquare) {
     this.symbol = symbol;
     this.square = square;
   }

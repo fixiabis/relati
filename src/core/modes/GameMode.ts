@@ -4,7 +4,7 @@ import { Game } from '../Game';
 import { Piece, PieceSymbol } from '../Piece';
 
 export abstract class GameMode {
-  public abstract createBoard(numberOfPlayers: number): Board<Piece>;
+  public abstract createBoard(numberOfPlayers: number): Board;
 
   public abstract placePieceOnSquare(game: Game, pieceSymbol: PieceSymbol, square: BoardSquare): void;
 

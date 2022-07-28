@@ -2,13 +2,14 @@ import { Position } from '../vectors/Position';
 import { Vector } from '../vectors/Vector';
 import { Direction } from '../vectors/Direction';
 import { Board } from './Board';
+import { Piece } from '../Piece';
 
-export class BoardSquare<TPiece = any> {
+export class BoardSquare {
   public readonly position: Position;
-  public readonly board: Board<TPiece>;
-  private _piece!: TPiece | null;
+  public readonly board: Board;
+  private _piece!: Piece | null;
 
-  constructor(position: Position, board: Board<TPiece>) {
+  constructor(position: Position, board: Board) {
     this.position = position;
     this.board = board;
     this.piece = null;
@@ -18,7 +19,7 @@ export class BoardSquare<TPiece = any> {
     return this.position.validTo(direction) && this.board.squareDefinedAt(this.position.to(direction));
   }
 
-  public squareTo(direction: Vector): BoardSquare<TPiece> {
+  public squareTo(direction: Vector): BoardSquare {
     if (!this.squareDefinedTo(direction)) {
       throw new Error(`格子未定義從: ${Position.stringify(this.position)}, 朝向: ${Direction.stringify(direction)}`);
     }
@@ -26,15 +27,15 @@ export class BoardSquare<TPiece = any> {
     return this.board.squareAt(this.position.to(direction));
   }
 
-  public placePiece(piece: TPiece): void {
+  public placePiece(piece: Piece): void {
     this.piece = piece;
   }
 
-  public get piece(): TPiece | null {
+  public get piece(): Piece | null {
     return this._piece;
   }
 
-  private set piece(value: TPiece | null) {
+  private set piece(value: Piece | null) {
     if (this._piece) {
       throw new Error(`格子已被放置棋子: ${Position.stringify(this.position)}`);
     }

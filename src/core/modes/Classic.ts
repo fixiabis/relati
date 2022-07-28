@@ -8,11 +8,11 @@ import { GameMode } from './GameMode';
 export class Classic extends GameMode {
   public static readonly NearbyDirections = ['F', 'B', 'L', 'R', 'FL', 'FR', 'BL', 'BR'].map(Direction.parse);
 
-  public createBoard(numberOfPlayers: number): Board<Piece> {
+  public createBoard(numberOfPlayers: number): Board {
     return new Board(numberOfPlayers * 2 + 1);
   }
 
-  public placePieceOnSquare(game: Game, pieceSymbol: PieceSymbol, square: BoardSquare<any>): void {
+  public placePieceOnSquare(game: Game, pieceSymbol: PieceSymbol, square: BoardSquare): void {
     if (game.allPlayersHavePlaced && !this.anySimilarPieceNearby(square, pieceSymbol)) {
       throw new Error('無法聯繫到附近的符號');
     }
@@ -27,7 +27,7 @@ export class Classic extends GameMode {
 
   private findNearbyPieces(square: BoardSquare): Piece[] {
     return Classic.NearbyDirections.filter((direction) => square.squareDefinedTo(direction))
-      .map((direction) => square.squareTo(direction).piece)
+      .map((direction) => square.squareTo(direction).piece!)
       .filter(Boolean);
   }
 
