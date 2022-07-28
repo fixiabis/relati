@@ -13,7 +13,7 @@ export class Classic extends GameMode {
   }
 
   public placePieceOnSquare(game: Game, pieceSymbol: PieceSymbol, square: BoardSquare<any>): void {
-    if (game.allPlayersHavePlaced && !anySimilarPieceNearby(square, pieceSymbol)) {
+    if (game.allPlayersHavePlaced && !this.anySimilarPieceNearby(square, pieceSymbol)) {
       throw new Error('無法聯繫到附近的符號');
     }
 
@@ -21,17 +21,17 @@ export class Classic extends GameMode {
     square.placePiece(piece);
   }
 
-  public squareCanPlace(game: Game, square: BoardSquare, pieceSymbol: PieceSymbol): boolean {
-    return square.piece === null && (!game.allPlayersHavePlaced || anySimilarPieceNearby(square, pieceSymbol));
+  private anySimilarPieceNearby(square: BoardSquare, pieceSymbol: PieceSymbol): boolean {
+    return this.findNearbyPieces(square).some((nearbyPiece) => nearbyPiece.symbol === pieceSymbol);
   }
-}
 
-function anySimilarPieceNearby(square: BoardSquare, pieceSymbol: PieceSymbol): boolean {
-  return findNearbyPieces(square).some((nearbyPiece) => nearbyPiece.symbol === pieceSymbol);
-}
+  private findNearbyPieces(square: BoardSquare): Piece[] {
+    return Classic.NearbyDirections.filter((direction) => square.squareDefinedTo(direction))
+      .map((direction) => square.squareTo(direction).piece)
+      .filter(Boolean);
+  }
 
-function findNearbyPieces(square: BoardSquare): Piece[] {
-  return Classic.NearbyDirections.filter((direction) => square.squareDefinedTo(direction))
-    .map((direction) => square.squareTo(direction).piece)
-    .filter(Boolean);
+  public squareCanPlace(game: Game, square: BoardSquare, pieceSymbol: PieceSymbol): boolean {
+    return square.piece === null && (!game.allPlayersHavePlaced || this.anySimilarPieceNearby(square, pieceSymbol));
+  }
 }
