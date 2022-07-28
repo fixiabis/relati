@@ -26,6 +26,10 @@ export class BoardSquare {
     this.piece = piece;
   }
 
+  public toString(): string {
+    return this.piece?.toString() || '   ';
+  }
+
   public get piece(): Piece | null {
     return this._piece;
   }

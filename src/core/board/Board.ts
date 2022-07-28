@@ -33,6 +33,13 @@ export class Board {
     return this.squares[x]![y]!;
   }
 
+  public toString(): string {
+    return Array<null[]>(this.height)
+      .fill(Array(this.width).fill(null))
+      .map((squares, y) => squares.map((_, x) => this.squares[x]![y]!).join('|'))
+      .join('\n');
+  }
+
   public get pieces(): readonly Piece[] {
     return this.squareList.map((square) => square.piece!).filter(Boolean);
   }
