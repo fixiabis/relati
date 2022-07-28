@@ -1,17 +1,17 @@
-import { Board } from '../src/core/board/Board';
 import { Game } from '../src/core/Game';
-import { Classic } from '../src/core/modes/Classic';
+import { ClassicMode } from '../src/core/modes/ClassicMode';
+import { ModernMode } from '../src/core/modes/ModernMode';
 import { Player } from '../src/core/Player';
 import { Position } from '../src/core/vectors/Position';
 
 const P = Position.ofCode;
 
-describe('2 名玩家在經典模式的開局', () => {
-  let game: Game;
+let game: Game;
 
+describe('2 名玩家在經典模式的開局', () => {
   beforeEach(() => {
     const players = [new Player('O'), new Player('X')];
-    const mode = new Classic();
+    const mode = new ClassicMode();
     game = new Game(players, { mode });
   });
 
@@ -96,11 +96,9 @@ describe('2 名玩家在經典模式的開局', () => {
 });
 
 describe('2 名玩家在經典模式的殘局', () => {
-  let game: Game;
-
   beforeEach(() => {
     const players = [new Player('O'), new Player('X')];
-    const mode = new Classic();
+    const mode = new ClassicMode();
     game = new Game(players, { mode });
   });
 
@@ -151,11 +149,9 @@ describe('2 名玩家在經典模式的殘局', () => {
 });
 
 describe('3 名玩家在經典模式的開局', () => {
-  let game: Game;
-
   beforeEach(() => {
     const players = [new Player('O'), new Player('X'), new Player('D')];
-    const mode = new Classic();
+    const mode = new ClassicMode();
     game = new Game(players, { mode });
   });
 
@@ -177,6 +173,35 @@ describe('3 名玩家在經典模式的開局', () => {
       expect(game.board.squareAt(P`E5`).piece?.symbol).toBe('D');
       expect(game.activePlayer.pieceSymbol).toBe('O');
       expect(game.allPlayersHavePlaced).toBe(true);
+    });
+  });
+});
+
+describe('2 名玩家在流行模式的開局', () => {
+  beforeEach(() => {
+    const players = [new Player('O'), new Player('X')];
+    const mode = new ModernMode();
+    game = new Game(players, { mode });
+  });
+
+  describe('假設在這個情境下', () => {
+    test('棋盤大小應該要是 9x9', () => {
+      expect(game.board.width).toBe(9);
+      expect(game.board.height).toBe(9);
+    });
+
+    test('當玩家O下子在E5時，E5應該要有棋子O，並且輪到玩家X', () => {
+      game.placePiece('O', 'E5');
+      expect(game.board.squareAt(P`E5`).piece?.symbol).toBe('O');
+      expect(game.activePlayer.pieceSymbol).toBe('X');
+    });
+
+    test('當玩家O下子在s-7時，會因為座標無法解析而出錯', () => {
+      expect(() => game.placePiece('O', 's-7')).toThrow();
+    });
+
+    test('當玩家O下子在Z8時，會因為格子不存在而出錯', () => {
+      expect(() => game.placePiece('O', 'Z8')).toThrow();
     });
   });
 });

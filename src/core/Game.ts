@@ -1,6 +1,6 @@
 import { Board } from './board/Board';
 import { PositionCode, Position } from './vectors/Position';
-import { PieceSymbol } from './Piece';
+import { Piece, PieceSymbol } from './Piece';
 import { Player } from './Player';
 import { GameMode } from './modes/GameMode';
 
@@ -19,7 +19,8 @@ export class Game {
   public ended: boolean;
   public winner: Player | null;
   public activePlayer: Player;
-  private _allPlayerHavePlaced!: boolean;
+  private _rootPieces?: Partial<Record<PieceSymbol, Piece>>;
+  private _allPlayerHavePlaced?: boolean;
 
   constructor(players: Player[], init: GameInit) {
     this.players = players;
@@ -80,5 +81,31 @@ export class Game {
 
   public playerHasPlaced(player: Player): boolean {
     return this.board.pieces.some((piece) => piece.symbol === player.pieceSymbol);
+  }
+
+  public get rootPieces(): Partial<Record<PieceSymbol, Piece>> {
+    if (this._rootPieces) {
+      return this._rootPieces;
+    }
+
+    const rootPieces = this.findRootPieces();
+
+    if (Object.keys(rootPieces).length === this.players.length) {
+      this._rootPieces = rootPieces;
+    }
+
+    return this._rootPieces || rootPieces;
+  }
+
+  private findRootPieces(): Partial<Record<PieceSymbol, Piece>> {
+    const rootPieces = {} as Partial<Record<PieceSymbol, Piece>>;
+
+    for (const square of this.board.squareList) {
+      if (square.piece?.isRoot) {
+        rootPieces[square.piece.symbol] = square.piece;
+      }
+    }
+
+    return rootPieces;
   }
 }

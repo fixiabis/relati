@@ -5,7 +5,7 @@ import { Piece, PieceSymbol } from '../Piece';
 import { Direction } from '../vectors/Direction';
 import { GameMode } from './GameMode';
 
-export class Classic extends GameMode {
+export class ClassicMode extends GameMode {
   public static readonly NearbyDirections = ['F', 'B', 'L', 'R', 'FL', 'FR', 'BL', 'BR'].map(Direction.parse);
 
   public createBoard(numberOfPlayers: number): Board {
@@ -26,12 +26,12 @@ export class Classic extends GameMode {
   }
 
   private findNearbyPieces(square: BoardSquare): Piece[] {
-    return Classic.NearbyDirections.filter((direction) => square.squareDefinedTo(direction))
+    return ClassicMode.NearbyDirections.filter((direction) => square.squareDefinedTo(direction))
       .map((direction) => square.squareTo(direction).piece!)
       .filter(Boolean);
   }
 
   public squareCanPlace(game: Game, square: BoardSquare, pieceSymbol: PieceSymbol): boolean {
-    return square.piece === null && (!game.allPlayersHavePlaced || this.anySimilarPieceNearby(square, pieceSymbol));
+    return !square.piece && (!game.allPlayersHavePlaced || this.anySimilarPieceNearby(square, pieceSymbol));
   }
 }
