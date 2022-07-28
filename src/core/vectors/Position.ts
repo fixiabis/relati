@@ -8,6 +8,7 @@ export class Position extends Vector {
   public readonly code: PositionCode;
 
   constructor(x: number, y: number, code?: string) {
+    Position.validateIsValid([x, y]);
     super(x, y);
     this.code = code || Position.stringify([x, y]);
   }
@@ -21,7 +22,7 @@ export class Position extends Vector {
   public validTo(direction: Vector): boolean {
     const [x, y] = this;
     const [dx, dy] = direction;
-    return Position.isValidPosition([x + dx, y + dy]);
+    return Position.isValid([x + dx, y + dy]);
   }
 
   public override toString(): PositionCode {
@@ -29,7 +30,7 @@ export class Position extends Vector {
   }
 
   public static parse(code: PositionCode): Position {
-    Position.validateCanParse(code);
+    Position.validateIsParsableCode(code);
 
     const x = code.charCodeAt(0) - 'A'.charCodeAt(0);
     const y = parseInt(code.slice(1)) - 1;
@@ -37,9 +38,9 @@ export class Position extends Vector {
     return new Position(x, y, code);
   }
 
-  private static validateCanParse(code: PositionCode): void {
+  private static validateIsParsableCode(code: PositionCode): void {
     if (!Position.isParsableCode(code)) {
-      throw new Error(`無法解析位置, 拿到了: ${code}`);
+      throw new Error(`無法解析的位置代號, 拿到了: ${code}`);
     }
   }
 
@@ -48,7 +49,7 @@ export class Position extends Vector {
   }
 
   public static stringify(position: Vector): PositionCode {
-    Position.validateCanStringify(position);
+    Position.validateIsValid(position);
 
     const [x, y] = position;
     const alphabetPart = String.fromCharCode(x + 'A'.charCodeAt(0));
@@ -57,18 +58,18 @@ export class Position extends Vector {
     return alphabetPart + numberPart;
   }
 
-  private static validateCanStringify(position: Vector): void {
-    if (!Position.isValidPosition(position)) {
-      throw new Error(`無法將位置字串化, 拿到了: ${position}`);
+  private static validateIsValid(position: Vector): void {
+    if (!Position.isValid(position)) {
+      throw new Error(`無效位置, 拿到了: ${position}`);
     }
   }
 
-  public static isValidPosition(position: Vector): boolean {
+  public static isValid(position: Vector): boolean {
     const [x, y] = position;
     return !isNaN(x) && x > -1 && x < 26 && !isNaN(y) && y > -1 && y < 26;
   }
 
-  public static of(strings: TemplateStringsArray): Position {
+  public static ofCode(strings: TemplateStringsArray): Position {
     return Position.parse(strings.join(''));
   }
 }

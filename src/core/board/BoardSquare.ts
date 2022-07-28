@@ -19,18 +19,14 @@ export class BoardSquare<TPiece = any> {
   }
 
   public squareTo(direction: Vector): BoardSquare<TPiece> {
-    try {
-      return this.board.squareAt(this.position.to(direction));
-    } catch {
+    if (!this.squareDefinedTo(direction)) {
       throw new Error(`格子未定義從: ${Position.stringify(this.position)}, 朝向: ${Direction.stringify(direction)}`);
     }
+
+    return this.board.squareAt(this.position.to(direction));
   }
 
   public placePiece(piece: TPiece): void {
-    if (this.piece) {
-      throw new Error(`格子已被放置棋子: ${Position.stringify(this.position)}`);
-    }
-
     this.piece = piece;
   }
 
@@ -39,6 +35,10 @@ export class BoardSquare<TPiece = any> {
   }
 
   private set piece(value: TPiece | null) {
+    if (this._piece) {
+      throw new Error(`格子已被放置棋子: ${Position.stringify(this.position)}`);
+    }
+
     this._piece = value;
   }
 }

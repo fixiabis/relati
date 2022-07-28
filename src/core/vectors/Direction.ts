@@ -11,6 +11,7 @@ export class Direction extends Vector {
   public readonly code: DirectionCode;
 
   constructor(dx: number, dy: number, code?: string) {
+    Direction.validateIsValid([dx, dy]);
     super(dx, dy);
     this.code = code || Direction.stringify([dx, dy]);
   }
@@ -20,7 +21,7 @@ export class Direction extends Vector {
   }
 
   public static parse(code: DirectionCode): Direction {
-    Direction.validateCanParse(code);
+    Direction.validateIsParsableCode(code);
 
     const numberOf = { F: 0, B: 0, L: 0, R: 0 };
 
@@ -32,9 +33,9 @@ export class Direction extends Vector {
     return new Direction(dx, dy, code);
   }
 
-  private static validateCanParse(code: DirectionCode): void {
+  private static validateIsParsableCode(code: DirectionCode): void {
     if (!Direction.isParsableCode(code)) {
-      throw new Error(`無法解析方位, 拿到了: ${code}`);
+      throw new Error(`無法解析的方位代號, 拿到了: ${code}`);
     }
   }
 
@@ -43,7 +44,7 @@ export class Direction extends Vector {
   }
 
   public static stringify(direction: Vector): DirectionCode {
-    Direction.validateCanStringify(direction);
+    Direction.validateIsValid(direction);
 
     const [dx, dy] = direction;
     const partFB = dy > 0 ? 'B' : 'F';
@@ -52,18 +53,18 @@ export class Direction extends Vector {
     return partFB.repeat(Math.abs(dy)) + partLR.repeat(Math.abs(dx));
   }
 
-  private static validateCanStringify(direction: Vector): void {
-    if (!Direction.isValidDirection(direction)) {
-      throw new Error(`無法將方位字串化, 拿到了: ${direction}`);
+  private static validateIsValid(direction: Vector): void {
+    if (!Direction.isValid(direction)) {
+      throw new Error(`無效方位, 拿到了: ${direction}`);
     }
   }
 
-  public static isValidDirection(direction: Vector): boolean {
+  public static isValid(direction: Vector): boolean {
     const [dx, dy] = direction;
     return !isNaN(dx) && isFinite(dx) && !isNaN(dy) && isFinite(dy);
   }
 
-  public static of(strings: TemplateStringsArray): Direction {
+  public static ofCode(strings: TemplateStringsArray): Direction {
     return Direction.parse(strings.join(''));
   }
 }
