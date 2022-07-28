@@ -3,7 +3,7 @@ import { Game } from '../Game';
 import { PieceSymbol } from '../Piece';
 import { GameMode } from './GameMode';
 
-export class ExtendedMode extends GameMode {
+export class MultiMoveMode extends GameMode {
   private readonly mode: GameMode;
 
   constructor(mode: GameMode) {
@@ -22,7 +22,7 @@ export class ExtendedMode extends GameMode {
 
     const disabledPiecesStatsAfter = this.countDisabledPieces(game);
 
-    const disabledPiecesAnalysis = this.analyzeStats(game, disabledPiecesStatsBefore, disabledPiecesStatsAfter);
+    const disabledPiecesAnalysis = this.analyzeStats(game, disabledPiecesStatsAfter, disabledPiecesStatsBefore);
 
     const activePlayerDisabledPiecesDecreased = Number(disabledPiecesAnalysis[game.activePlayer.pieceSymbol]! < 0);
 
@@ -35,6 +35,10 @@ export class ExtendedMode extends GameMode {
   }
 
   public override abandonRemainingMoves(game: Game): void {
+    if (!game.hasMoveInTurn) {
+      throw new Error('這回合還未動過，無法放棄剩餘步數');
+    }
+
     game.activePlayer.movesRemaining = 1;
   }
 
@@ -51,11 +55,15 @@ export class ExtendedMode extends GameMode {
 
   private analyzeStats(
     game: Game,
-    statsBefore: Partial<Record<PieceSymbol, number>>,
-    statsAfter: Partial<Record<PieceSymbol, number>>
+    statsAfter: Partial<Record<PieceSymbol, number>>,
+    statsBefore: Partial<Record<PieceSymbol, number>>
   ): Partial<Record<PieceSymbol, number>> {
-    const disabledPiecesAnalysis = {} as Partial<Record<PieceSymbol, number>>;
-    game.players.forEach((player) => statsAfter[player.pieceSymbol]! - statsBefore[player.pieceSymbol]!);
-    return disabledPiecesAnalysis;
+    const analysis = {} as Partial<Record<PieceSymbol, number>>;
+
+    game.players.forEach((player) => {
+      analysis[player.pieceSymbol] = statsAfter[player.pieceSymbol]! - statsBefore[player.pieceSymbol]!;
+    });
+
+    return analysis;
   }
 }

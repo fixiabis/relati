@@ -38,6 +38,10 @@ export class Piece {
       return `[${this.symbol}]`;
     }
 
+    if (this.disabled) {
+      return `-${this.symbol}-`;
+    }
+
     return ` ${this.symbol} `;
   }
 }

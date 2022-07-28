@@ -1,6 +1,7 @@
 import { Game } from '../src/core/Game';
 import { ClassicMode } from '../src/core/modes/ClassicMode';
 import { ModernMode } from '../src/core/modes/ModernMode';
+import { MultiMoveMode } from '../src/core/modes/MultiMoveMode';
 import { Player } from '../src/core/Player';
 import { Position } from '../src/core/vectors/Position';
 
@@ -306,6 +307,107 @@ describe('2 名玩家在流行模式的殘局', () => {
       game.placePiece('O', 'I1');
       expect(game.ended).toBe(true);
       expect(game.winner).toBeNull();
+    });
+  });
+});
+
+describe('2 名玩家在可連續動作的流行模式下的開局', () => {
+  beforeEach(() => {
+    const players = [new Player('O'), new Player('X')];
+    const mode = new MultiMoveMode(new ModernMode());
+    game = new Game(players, { mode });
+  });
+
+  describe('假設在這個情境下', () => {
+    test('棋盤大小應該要是 9x9', () => {
+      expect(game.board.width).toBe(9);
+      expect(game.board.height).toBe(9);
+    });
+
+    test('當玩家O下子在E5時，E5應該要有棋子O，並且輪到玩家X', () => {
+      game.placePiece('O', 'E5');
+      expect(game.board.squareAt(P`E5`).piece?.symbol).toBe('O');
+      expect(game.activePlayer.pieceSymbol).toBe('X');
+    });
+
+    test('當玩家O下子在s-7時，會因為座標無法解析而出錯', () => {
+      expect(() => game.placePiece('O', 's-7')).toThrow();
+    });
+
+    test('當玩家O下子在Z8時，會因為格子不存在而出錯', () => {
+      expect(() => game.placePiece('O', 'Z8')).toThrow();
+    });
+  });
+
+  describe('假設玩家O放E5，玩家X放F5', () => {
+    beforeEach(() => {
+      game.placePiece('O', 'E5');
+      game.placePiece('X', 'F5');
+    });
+
+    test('當玩家O下子在C3時，C3應該要有棋子O', () => {
+      game.placePiece('O', 'C3');
+      expect(game.board.squareAt(P`C3`).piece?.symbol).toBe('O');
+    });
+
+    test('當玩家X下子在E3時，會因為不是玩家X的回合而出錯', () => {
+      expect(() => game.placePiece('X', 'E3')).toThrow();
+    });
+
+    test('當玩家O下子在D1時，會因為附近沒有符號，無法聯繫而出錯', () => {
+      expect(() => game.placePiece('O', 'D1')).toThrow();
+    });
+  });
+
+  describe('假設玩家O放E5，玩家X放F5，玩家O放C3', () => {
+    beforeEach(() => {
+      game.placePiece('O', 'E5');
+      game.placePiece('X', 'F5');
+      game.placePiece('O', 'C3');
+    });
+
+    test('當玩家X下子在D4時，D4應該要有棋子X，且C3的棋子O會失效，玩家X還有一步可以動', () => {
+      game.placePiece('X', 'D4');
+      expect(game.board.squareAt(P`D4`).piece?.symbol).toBe('X');
+      expect(game.board.squareAt(P`C3`).piece?.disabled).toBe(true);
+      expect(game.activePlayer.pieceSymbol).toBe('X');
+      expect(game.activePlayer.movesRemaining).toBe(1);
+    });
+
+    test('當玩家X下子在E5時，會因為已經有棋子而出錯', () => {
+      expect(() => game.placePiece('X', 'E5')).toThrow();
+    });
+
+    test('當玩家X下子在C1時，會因為附近沒有符號，無法聯繫而出錯', () => {
+      expect(() => game.placePiece('X', 'C1')).toThrow();
+    });
+
+    test('當玩家X放棄剩下的動作時，會因為這回合沒有動作而出錯', () => {
+      expect(() => game.abandonRemainingMoves('X')).toThrow();
+    });
+  });
+
+  describe('假設玩家O放E5，玩家X放F5，玩家O放C3，玩家X放D4', () => {
+    beforeEach(() => {
+      game.placePiece('O', 'E5');
+      game.placePiece('X', 'F5');
+      game.placePiece('O', 'C3');
+      game.placePiece('X', 'D4');
+    });
+
+    test('當玩家O下子在C5時，會因為不是玩家O的回合而出錯', () => {
+      expect(() => game.placePiece('O', 'C5')).toThrow();
+    });
+
+    test('當玩家X下子在D5時，D5應該要有棋子X，並且輪到玩家O', () => {
+      game.placePiece('X', 'D5');
+      expect(game.board.squareAt(P`D5`).piece?.symbol).toBe('X');
+      expect(game.activePlayer.pieceSymbol).toBe('O');
+    });
+
+    test('當玩家X放棄剩下的動作時，應該輪到玩家O', () => {
+      game.abandonRemainingMoves('X');
+      expect(game.activePlayer.pieceSymbol).toBe('O');
     });
   });
 });

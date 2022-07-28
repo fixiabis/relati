@@ -11,12 +11,14 @@ export interface GameInit {
   ended?: boolean;
   winner?: Player | null;
   activePlayer?: Player;
+  movedInTurn?: boolean;
 }
 
 export class Game {
   public readonly players: readonly Player[];
   public readonly mode: GameMode;
   public readonly board: Board;
+  public hasMoveInTurn: boolean;
   public ended: boolean;
   public winner: Player | null;
   private _activePlayer!: Player;
@@ -30,6 +32,7 @@ export class Game {
     this.activePlayer = init.activePlayer || players[0]!;
     this.winner = init.winner || null;
     this.ended = init.ended || false;
+    this.hasMoveInTurn = init.movedInTurn || false;
   }
 
   public placePiece(pieceSymbol: PieceSymbol, positionCode: PositionCode) {
@@ -77,10 +80,12 @@ export class Game {
   }
 
   private endMove() {
+    this.hasMoveInTurn = true;
     this.activePlayer.movesRemaining--;
 
     if (!this.activePlayer.movesRemaining) {
       this.nextPlayerTurnOrEnd();
+      this.hasMoveInTurn = false;
     }
   }
 
