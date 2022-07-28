@@ -1,4 +1,3 @@
-import { Board } from '../board/Board';
 import { BoardSquare } from '../board/BoardSquare';
 import { Game } from '../Game';
 import { Piece, PieceSymbol } from '../Piece';
@@ -14,8 +13,8 @@ export class ModernMode extends GameMode {
     this.directionPaths = directionPaths;
   }
 
-  public createBoard(numberOfPlayers: number): Board {
-    return new Board(numberOfPlayers * 4 + 1);
+  public calcBoardSize(numberOfPlayers: number): [width: number, height?: number] {
+    return [numberOfPlayers * 4 + 1];
   }
 
   public placePieceOnSquare(game: Game, pieceSymbol: PieceSymbol, square: BoardSquare): void {
@@ -50,7 +49,9 @@ export class ModernMode extends GameMode {
   }
 
   private anySimilarPieceRelated(relationPaths: RelationPath[], pieceSymbol: PieceSymbol): boolean {
-    return relationPaths.some((path) => !path.blocked && path.targetPiece?.symbol === pieceSymbol && !path.targetPiece.disabled);
+    return relationPaths.some(
+      (path) => !path.blocked && path.targetPiece?.symbol === pieceSymbol && !path.targetPiece.disabled
+    );
   }
 
   public squareCanPlace(game: Game, square: BoardSquare, pieceSymbol: PieceSymbol): boolean {

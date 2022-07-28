@@ -1,4 +1,3 @@
-import { Board } from '../board/Board';
 import { BoardSquare } from '../board/BoardSquare';
 import { Game } from '../Game';
 import { Piece, PieceSymbol } from '../Piece';
@@ -8,8 +7,8 @@ import { GameMode } from './GameMode';
 export class ClassicMode extends GameMode {
   public static readonly NearbyDirections = ['F', 'B', 'L', 'R', 'FL', 'FR', 'BL', 'BR'].map(Direction.parse);
 
-  public createBoard(numberOfPlayers: number): Board {
-    return new Board(numberOfPlayers * 2 + 1);
+  public calcBoardSize(numberOfPlayers: number): [width: number, height?: number] {
+    return [numberOfPlayers * 2 + 1];
   }
 
   public placePieceOnSquare(game: Game, pieceSymbol: PieceSymbol, square: BoardSquare): void {

@@ -19,14 +19,14 @@ export class Game {
   public readonly board: Board;
   public ended: boolean;
   public winner: Player | null;
-  public activePlayer: Player;
+  private _activePlayer!: Player;
   private _rootPieces?: Partial<Record<PieceSymbol, Piece>>;
   private _allPlayerHavePlaced?: boolean;
 
   constructor(players: Player[], init: GameInit) {
     this.players = players;
     this.mode = init.mode;
-    this.board = init.board || init.mode.createBoard(players.length);
+    this.board = init.board || new Board(...init.mode.calcBoardSize(players.length));
     this.activePlayer = init.activePlayer || players[0]!;
     this.winner = init.winner || null;
     this.ended = init.ended || false;
@@ -39,16 +39,14 @@ export class Game {
     const square = this.boardSquareAt(position);
 
     this.mode.placePieceOnSquare(this, pieceSymbol, square);
-    this.nextPlayerTurnOrEnd();
+    this.endMove();
   }
 
   private validateCanPlacePiece(pieceSymbol: PieceSymbol, positionCode: PositionCode): void {
-    if (pieceSymbol !== this.activePlayer.pieceSymbol) {
-      throw new Error('非玩家回合的符號');
-    }
+    this.validateCanMove(pieceSymbol);
 
     if (!Position.isParsableCode(positionCode)) {
-      throw new Error('無法解析的座標');
+      throw new Error('無法解析的位置');
     }
   }
 
@@ -64,6 +62,26 @@ export class Game {
     }
 
     return square;
+  }
+
+  public abandonRemainingMoves(pieceSymbol: PieceSymbol): void {
+    this.validateCanMove(pieceSymbol);
+    this.mode.abandonRemainingMoves(this);
+    this.endMove();
+  }
+
+  private validateCanMove(pieceSymbol: PieceSymbol): void {
+    if (pieceSymbol !== this.activePlayer.pieceSymbol) {
+      throw new Error('非玩家回合的符號');
+    }
+  }
+
+  private endMove() {
+    this.activePlayer.movesRemaining--;
+
+    if (!this.activePlayer.movesRemaining) {
+      this.nextPlayerTurnOrEnd();
+    }
   }
 
   private nextPlayerTurnOrEnd(): void {
@@ -122,5 +140,14 @@ export class Game {
     }
 
     return rootPieces;
+  }
+
+  public get activePlayer(): Player {
+    return this._activePlayer;
+  }
+
+  public set activePlayer(player: Player) {
+    player.movesRemaining = 1;
+    this._activePlayer = player;
   }
 }

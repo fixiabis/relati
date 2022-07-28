@@ -34,7 +34,7 @@ export class BoardSquare {
     return this._piece;
   }
 
-  private set piece(value: Piece | null) {
-    this._piece = value;
+  private set piece(piece: Piece | null) {
+    this._piece = piece;
   }
 }
