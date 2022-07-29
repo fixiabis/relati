@@ -11,7 +11,7 @@ export interface GameInit {
   ended?: boolean;
   winner?: Player | null;
   activePlayer?: Player;
-  movedInTurn?: boolean;
+  hasMoveInTurn?: boolean;
 }
 
 export class Game {
@@ -32,7 +32,7 @@ export class Game {
     this.activePlayer = init.activePlayer || players[0]!;
     this.winner = init.winner || null;
     this.ended = init.ended || false;
-    this.hasMoveInTurn = init.movedInTurn || false;
+    this.hasMoveInTurn = init.hasMoveInTurn || false;
   }
 
   public placePiece(pieceSymbol: PieceSymbol, positionCode: PositionCode) {

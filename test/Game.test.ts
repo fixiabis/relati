@@ -1,7 +1,7 @@
 import { Game } from '../src/core/Game';
 import { ClassicMode } from '../src/core/modes/ClassicMode';
 import { ModernMode } from '../src/core/modes/ModernMode';
-import { MultiMoveMode } from '../src/core/modes/MultiMoveMode';
+import { ExtraMoveMode } from '../src/core/modes/ExtraMoveMode';
 import { Player } from '../src/core/Player';
 import { Position } from '../src/core/vectors/Position';
 
@@ -311,10 +311,10 @@ describe('2 名玩家在流行模式的殘局', () => {
   });
 });
 
-describe('2 名玩家在可連續動作的流行模式下的開局', () => {
+describe('2 名玩家在有額外動作的流行模式下的開局', () => {
   beforeEach(() => {
     const players = [new Player('O'), new Player('X')];
-    const mode = new MultiMoveMode(new ModernMode());
+    const mode = new ExtraMoveMode(new ModernMode());
     game = new Game(players, { mode });
   });
 

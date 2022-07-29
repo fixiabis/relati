@@ -3,7 +3,7 @@ import { Game } from '../Game';
 import { PieceSymbol } from '../Piece';
 import { GameMode } from './GameMode';
 
-export class MultiMoveMode extends GameMode {
+export class ExtraMoveMode extends GameMode {
   private readonly mode: GameMode;
 
   constructor(mode: GameMode) {
