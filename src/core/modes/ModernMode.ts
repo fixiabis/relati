@@ -27,17 +27,13 @@ export class ModernMode extends GameMode {
     const piece = new Piece(pieceSymbol, square, { isRoot: !game.allPlayersHavePlaced, relationPaths });
     square.placePiece(piece);
 
-    if (piece.isRoot) {
-      game.activePlayer.rootPiece = piece;
-    }
-
     this.checkAllPiecesDisability(game);
   }
 
   private checkAllPiecesDisability(game: Game): void {
-    const enabledPieces = Object.values(game.rootPieces);
-
     game.board.pieces.forEach((piece) => (piece.disabled = !piece.isRoot));
+
+    const enabledPieces = game.board.pieces.filter((piece) => !piece.disabled);
 
     for (const enabledPiece of enabledPieces) {
       const relatedPieces = enabledPiece.relatedPieces.filter((piece) => !enabledPieces.includes(piece));

@@ -21,7 +21,6 @@ export class Game {
   public readonly activePlayer: ActivePlayer;
   public ended: boolean;
   public winner: Player | null;
-  private _rootPieces?: Partial<Record<PieceSymbol, Piece>>;
   private _allPlayerHavePlaced?: boolean;
 
   constructor(players: Player[], init: GameInit) {
@@ -119,27 +118,5 @@ export class Game {
 
   public playerHasPlaced(player: Player): boolean {
     return this.board.pieces.some((piece) => piece.symbol === player.pieceSymbol);
-  }
-
-  public get rootPieces(): Partial<Record<PieceSymbol, Piece>> {
-    const rootPieces = this._rootPieces || this.findRootPieces();
-
-    if (!this._rootPieces && this.players.every((player) => player.rootPiece)) {
-      this._rootPieces = rootPieces;
-    }
-
-    return rootPieces;
-  }
-
-  private findRootPieces(): Partial<Record<PieceSymbol, Piece>> {
-    const rootPieces = {} as Partial<Record<PieceSymbol, Piece>>;
-
-    for (const player of this.players) {
-      if (player.rootPiece) {
-        rootPieces[player.pieceSymbol] = player.rootPiece;
-      }
-    }
-
-    return rootPieces;
   }
 }
