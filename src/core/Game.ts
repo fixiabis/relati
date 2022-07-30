@@ -124,7 +124,7 @@ export class Game {
   public get rootPieces(): Partial<Record<PieceSymbol, Piece>> {
     const rootPieces = this._rootPieces || this.findRootPieces();
 
-    if (!this._rootPieces && Object.keys(rootPieces).length === this.players.length) {
+    if (!this._rootPieces && this.players.every((player) => player.rootPiece)) {
       this._rootPieces = rootPieces;
     }
 
@@ -134,9 +134,9 @@ export class Game {
   private findRootPieces(): Partial<Record<PieceSymbol, Piece>> {
     const rootPieces = {} as Partial<Record<PieceSymbol, Piece>>;
 
-    for (const square of this.board.squareList) {
-      if (square.piece?.isRoot) {
-        rootPieces[square.piece.symbol] = square.piece;
+    for (const player of this.players) {
+      if (player.rootPiece) {
+        rootPieces[player.pieceSymbol] = player.rootPiece;
       }
     }
 

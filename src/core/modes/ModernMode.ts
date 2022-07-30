@@ -26,6 +26,11 @@ export class ModernMode extends GameMode {
 
     const piece = new Piece(pieceSymbol, square, { isRoot: !game.allPlayersHavePlaced, relationPaths });
     square.placePiece(piece);
+
+    if (piece.isRoot) {
+      game.activePlayer.rootPiece = piece;
+    }
+
     this.checkAllPiecesDisability(game);
   }
 

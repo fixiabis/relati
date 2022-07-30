@@ -1,4 +1,4 @@
-import { PieceSymbol } from '../Piece';
+import { Piece, PieceSymbol } from '../Piece';
 import { Player } from './Player';
 
 export class ActivePlayer implements Player {
@@ -29,5 +29,13 @@ export class ActivePlayer implements Player {
 
   public get pieceSymbol(): PieceSymbol {
     return this.player.pieceSymbol;
+  }
+
+  public get rootPiece(): Piece | null {
+    return this.player.rootPiece;
+  }
+
+  public set rootPiece(rootPiece: Piece | null) {
+    this.player.rootPiece = rootPiece;
   }
 }
