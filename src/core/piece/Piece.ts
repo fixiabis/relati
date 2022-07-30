@@ -1,5 +1,5 @@
-import { BoardSquare } from './board/BoardSquare';
-import { RelationPath } from './modes/RelationPath';
+import { BoardSquare } from '../board/BoardSquare';
+import { RelationPath } from './RelationPath';
 
 export type PieceSymbol = typeof Piece.AllSymbols[number];
 

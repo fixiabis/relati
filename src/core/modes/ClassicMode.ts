@@ -1,6 +1,6 @@
 import { BoardSquare } from '../board/BoardSquare';
 import { Game } from '../Game';
-import { Piece, PieceSymbol } from '../Piece';
+import { Piece, PieceSymbol } from '../piece/Piece';
 import { Direction } from '../primitives/Direction';
 import { GameMode } from './GameMode';
 

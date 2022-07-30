@@ -1,7 +1,7 @@
 import { Board } from './board/Board';
 import { BoardSquare } from './board/BoardSquare';
 import { GameMode } from './modes/GameMode';
-import { Piece, PieceSymbol } from './Piece';
+import { Piece, PieceSymbol } from './piece/Piece';
 import { ActivePlayer } from './players/ActivePlayer';
 import { Player } from './players/Player';
 import { Position, PositionCode } from './primitives/Position';

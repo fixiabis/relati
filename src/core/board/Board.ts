@@ -1,4 +1,4 @@
-import { Piece } from '../Piece';
+import { Piece } from '../piece/Piece';
 import { Position } from '../primitives/Position';
 import { Vector } from '../primitives/Vector';
 import { BoardSquare } from './BoardSquare';

@@ -1,9 +1,9 @@
 import { BoardSquare } from '../board/BoardSquare';
 import { Game } from '../Game';
-import { Piece, PieceSymbol } from '../Piece';
+import { Piece, PieceSymbol } from '../piece/Piece';
 import { DirectionPaths } from './DirectionPaths';
 import { GameMode } from './GameMode';
-import { RelationPath } from './RelationPath';
+import { RelationPath } from '../piece/RelationPath';
 
 export class ModernMode extends GameMode {
   private readonly directionPaths: DirectionPaths;

@@ -1,6 +1,6 @@
 import { BoardSquare } from '../board/BoardSquare';
 import { Game } from '../Game';
-import { PieceSymbol } from '../Piece';
+import { PieceSymbol } from '../piece/Piece';
 import { GameMode } from './GameMode';
 
 export class ExtraMoveMode extends GameMode {

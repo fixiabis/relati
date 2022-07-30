@@ -1,4 +1,4 @@
-import { PieceSymbol } from '../Piece';
+import { PieceSymbol } from '../piece/Piece';
 
 export class Player {
   public readonly pieceSymbol: PieceSymbol;

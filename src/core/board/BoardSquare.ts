@@ -1,7 +1,7 @@
 import { Position } from '../primitives/Position';
 import { Vector } from '../primitives/Vector';
 import { Board } from './Board';
-import { Piece } from '../Piece';
+import { Piece } from '../piece/Piece';
 
 export class BoardSquare {
   public readonly position: Position;

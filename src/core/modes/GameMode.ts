@@ -1,6 +1,6 @@
 import { BoardSquare } from '../board/BoardSquare';
 import { Game } from '../Game';
-import { PieceSymbol } from '../Piece';
+import { PieceSymbol } from '../piece/Piece';
 
 export abstract class GameMode {
   public abstract calcBoardSize(numberOfPlayers: number): [width: number, height?: number];

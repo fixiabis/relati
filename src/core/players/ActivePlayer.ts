@@ -1,4 +1,4 @@
-import { PieceSymbol } from '../Piece';
+import { PieceSymbol } from '../piece/Piece';
 import { Player } from './Player';
 
 export class ActivePlayer implements Player {
