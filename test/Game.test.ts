@@ -2,7 +2,7 @@ import { Game } from '../src/core/Game';
 import { ClassicMode } from '../src/core/modes/ClassicMode';
 import { ModernMode } from '../src/core/modes/ModernMode';
 import { ExtraMoveMode } from '../src/core/modes/ExtraMoveMode';
-import { Player } from '../src/core/Player';
+import { Player } from '../src/core/players/Player';
 import { Position } from '../src/core/vectors/Position';
 
 const P = Position.ofCode;

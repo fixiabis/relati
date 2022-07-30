@@ -35,7 +35,7 @@ export class ExtraMoveMode extends GameMode {
   }
 
   public override abandonRemainingMoves(game: Game): void {
-    if (!game.hasMoveInTurn) {
+    if (!game.activePlayer.movedInTurn) {
       throw new Error('這回合還未動過，無法放棄剩餘步數');
     }
 
@@ -46,8 +46,8 @@ export class ExtraMoveMode extends GameMode {
     return this.mode.squareCanPlace(game, square, pieceSymbol);
   }
 
-  private countDisabledPieces(game: Game): Partial<Record<PieceSymbol, number>> {
-    const disabledPiecesStats = {} as Partial<Record<PieceSymbol, number>>;
+  private countDisabledPieces(game: Game): Record<PieceSymbol, number> {
+    const disabledPiecesStats = {} as Record<PieceSymbol, number>;
     game.players.forEach((player) => (disabledPiecesStats[player.pieceSymbol] = 0));
     game.board.pieces.forEach((piece) => (disabledPiecesStats[piece.symbol]! += Number(piece.disabled)));
     return disabledPiecesStats;
@@ -55,10 +55,10 @@ export class ExtraMoveMode extends GameMode {
 
   private analyzeStats(
     game: Game,
-    statsAfter: Partial<Record<PieceSymbol, number>>,
-    statsBefore: Partial<Record<PieceSymbol, number>>
-  ): Partial<Record<PieceSymbol, number>> {
-    const analysis = {} as Partial<Record<PieceSymbol, number>>;
+    statsAfter: Record<PieceSymbol, number>,
+    statsBefore: Record<PieceSymbol, number>
+  ): Record<PieceSymbol, number> {
+    const analysis = {} as Record<PieceSymbol, number>;
 
     game.players.forEach((player) => {
       analysis[player.pieceSymbol] = statsAfter[player.pieceSymbol]! - statsBefore[player.pieceSymbol]!;

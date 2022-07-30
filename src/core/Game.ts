@@ -2,7 +2,8 @@ import { Board } from './board/Board';
 import { BoardSquare } from './board/BoardSquare';
 import { GameMode } from './modes/GameMode';
 import { Piece, PieceSymbol } from './Piece';
-import { Player } from './Player';
+import { ActivePlayer } from './players/ActivePlayer';
+import { Player } from './players/Player';
 import { Position, PositionCode } from './vectors/Position';
 
 export interface GameInit {
@@ -10,18 +11,16 @@ export interface GameInit {
   board?: Board;
   ended?: boolean;
   winner?: Player | null;
-  activePlayer?: Player;
-  hasMoveInTurn?: boolean;
+  activePlayer?: ActivePlayer;
 }
 
 export class Game {
   public readonly players: readonly Player[];
   public readonly mode: GameMode;
   public readonly board: Board;
-  public hasMoveInTurn: boolean;
+  public readonly activePlayer: ActivePlayer;
   public ended: boolean;
   public winner: Player | null;
-  private _activePlayer!: Player;
   private _rootPieces?: Partial<Record<PieceSymbol, Piece>>;
   private _allPlayerHavePlaced?: boolean;
 
@@ -29,10 +28,9 @@ export class Game {
     this.players = players;
     this.mode = init.mode;
     this.board = init.board || new Board(...init.mode.calcBoardSize(players.length));
-    this.activePlayer = init.activePlayer || players[0]!;
+    this.activePlayer = init.activePlayer || new ActivePlayer(players[0]!);
     this.winner = init.winner || null;
     this.ended = init.ended || false;
-    this.hasMoveInTurn = init.hasMoveInTurn || false;
   }
 
   public placePiece(pieceSymbol: PieceSymbol, positionCode: PositionCode) {
@@ -79,13 +77,11 @@ export class Game {
     }
   }
 
-  private endMove() {
-    this.hasMoveInTurn = true;
-    this.activePlayer.movesRemaining--;
+  private endMove(): void {
+    this.activePlayer.endMove();
 
     if (!this.activePlayer.movesRemaining) {
       this.nextPlayerTurnOrEnd();
-      this.hasMoveInTurn = false;
     }
   }
 
@@ -93,7 +89,7 @@ export class Game {
     const nextPlayer = this.findNextPlayer();
 
     if (nextPlayer) {
-      this.activePlayer = nextPlayer;
+      this.activePlayer.turnTo(nextPlayer);
       return;
     }
 
@@ -109,7 +105,7 @@ export class Game {
   }
 
   private get playersAfterActive(): Player[] {
-    const activePlayerIndex = this.players.indexOf(this.activePlayer);
+    const activePlayerIndex = Piece.AllSymbols.indexOf(this.activePlayer.pieceSymbol);
     return this.players.slice(activePlayerIndex + 1).concat(this.players.slice(0, activePlayerIndex));
   }
 
@@ -145,14 +141,5 @@ export class Game {
     }
 
     return rootPieces;
-  }
-
-  public get activePlayer(): Player {
-    return this._activePlayer;
-  }
-
-  public set activePlayer(player: Player) {
-    player.movesRemaining = 1;
-    this._activePlayer = player;
   }
 }
