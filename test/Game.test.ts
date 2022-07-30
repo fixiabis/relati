@@ -1,9 +1,6 @@
 import { Game } from '../src/core/Game';
-import { ClassicMode } from '../src/core/modes/ClassicMode';
-import { ModernMode } from '../src/core/modes/ModernMode';
-import { ExtraMoveMode } from '../src/core/modes/ExtraMoveMode';
-import { Player } from '../src/core/players/Player';
 import { Position } from '../src/core/primitives/Position';
+import Relati from '../src/core';
 
 const P = Position.ofCode;
 
@@ -11,9 +8,7 @@ let game: Game;
 
 describe('2 名玩家在經典模式的開局', () => {
   beforeEach(() => {
-    const players = [new Player('O'), new Player('X')];
-    const mode = new ClassicMode();
-    game = new Game(mode, players);
+    game = Relati.createClassicGame(2);
   });
 
   describe('假設在這個情境下', () => {
@@ -98,9 +93,7 @@ describe('2 名玩家在經典模式的開局', () => {
 
 describe('2 名玩家在經典模式的殘局', () => {
   beforeEach(() => {
-    const players = [new Player('O'), new Player('X')];
-    const mode = new ClassicMode();
-    game = new Game(mode, players);
+    game = Relati.createClassicGame(2);
   });
 
   describe('假設玩家X一開始放在左上角，被玩家O壓制，幾步後呈現兩條，輪到玩家X，且剩一步', () => {
@@ -151,9 +144,7 @@ describe('2 名玩家在經典模式的殘局', () => {
 
 describe('3 名玩家在經典模式的開局', () => {
   beforeEach(() => {
-    const players = [new Player('O'), new Player('X'), new Player('D')];
-    const mode = new ClassicMode();
-    game = new Game(mode, players);
+    game = Relati.createClassicGame(3);
   });
 
   describe('假設在這個情境下', () => {
@@ -180,9 +171,7 @@ describe('3 名玩家在經典模式的開局', () => {
 
 describe('2 名玩家在流行模式的開局', () => {
   beforeEach(() => {
-    const players = [new Player('O'), new Player('X')];
-    const mode = new ModernMode();
-    game = new Game(mode, players);
+    game = Relati.createModernGame(2);
   });
 
   describe('假設在這個情境下', () => {
@@ -266,9 +255,7 @@ describe('2 名玩家在流行模式的開局', () => {
 
 describe('2 名玩家在流行模式的殘局', () => {
   beforeEach(() => {
-    const players = [new Player('O'), new Player('X')];
-    const mode = new ModernMode();
-    game = new Game(mode, players);
+    game = Relati.createModernGame(2);
   });
 
   describe('假設玩家O發瘋，從角落開始，而且只用遠程的連線，下了三子，現在輪到玩家X', () => {
@@ -313,9 +300,7 @@ describe('2 名玩家在流行模式的殘局', () => {
 
 describe('2 名玩家在有額外動作的流行模式下的開局', () => {
   beforeEach(() => {
-    const players = [new Player('O'), new Player('X')];
-    const mode = new ExtraMoveMode(new ModernMode());
-    game = new Game(mode, players);
+    game = Relati.createModernGame(2, true);
   });
 
   describe('假設在這個情境下', () => {

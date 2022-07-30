@@ -6,7 +6,7 @@ export class RelationPath {
   public readonly otherSquares: readonly BoardSquare[];
 
   public get blocked(): boolean {
-    return this.otherSquares.some((square) => square.piece);
+    return this.otherSquares.some((square) => square.piece && !square.piece.dead);
   }
 
   public get targetPiece(): Piece | null {

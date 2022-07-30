@@ -1,6 +1,6 @@
 import { BoardSquare } from '../board/BoardSquare';
 import { Game } from '../Game';
-import { Piece, PieceSymbol } from '../piece/Piece';
+import { Piece, PieceInit, PieceSymbol } from '../piece/Piece';
 import { DirectionPaths } from './DirectionPaths';
 import { GameMode } from './GameMode';
 import { RelationPath } from '../piece/RelationPath';
@@ -24,10 +24,14 @@ export class ModernMode extends GameMode {
       throw new Error(`格子${square.position}無法聯繫到附近的符號`);
     }
 
-    const piece = new Piece(pieceSymbol, square, { isRoot: !game.allPlayersHavePlaced, relationPaths });
+    const piece = this.createPiece(pieceSymbol, square, { isRoot: !game.allPlayersHavePlaced, relationPaths });
     square.placePiece(piece);
 
     this.checkAllPiecesDisability(game);
+  }
+
+  protected createPiece(pieceSymbol: PieceSymbol, square: BoardSquare, pieceInit: PieceInit): Piece {
+    return new Piece(pieceSymbol, square, pieceInit);
   }
 
   private checkAllPiecesDisability(game: Game): void {

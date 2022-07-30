@@ -1,5 +1,6 @@
 import { BoardSquare } from '../board/BoardSquare';
 import { RelationPath } from './RelationPath';
+import { PieceRole } from './roles/PieceRole';
 
 export type PieceSymbol = typeof Piece.AllSymbols[number];
 
@@ -8,6 +9,7 @@ export interface PieceInit {
   isRoot?: boolean;
   disabled?: boolean;
   dead?: boolean;
+  role?: PieceRole;
 }
 
 export class Piece {
@@ -19,6 +21,7 @@ export class Piece {
   public readonly isRoot: boolean;
   public disabled: boolean;
   public dead: boolean;
+  public role: PieceRole | null;
 
   constructor(symbol: PieceSymbol, square: BoardSquare, init: PieceInit = {}) {
     this.symbol = symbol;
@@ -27,12 +30,14 @@ export class Piece {
     this.isRoot = init.isRoot || false;
     this.disabled = init.disabled || false;
     this.dead = init.dead || false;
+    this.role = init.role || null;
   }
 
   public get relatedPieces(): readonly Piece[] {
     return this.relationPaths
-      .filter((relationPath) => !relationPath.blocked && relationPath.targetPiece?.symbol === this.symbol)
-      .map((relationPath) => relationPath.targetPiece!)
+      .filter((relationPath) => !relationPath.blocked)
+      .map((relationPath) => relationPath.targetPiece)
+      .filter((piece): piece is Piece => (piece?.symbol === this.symbol && !piece.dead) as boolean)
       .filter((piece, index, pieces) => pieces.indexOf(piece) === index); // 多個路徑可以對應到同個位置，需要過濾重複;
   }
 
