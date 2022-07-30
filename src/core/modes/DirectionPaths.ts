@@ -1,5 +1,5 @@
 import { ClassicMode } from './ClassicMode';
-import { Direction } from '../vectors/Direction';
+import { Direction } from '../primitives/Direction';
 
 export type DirectionPath = readonly Direction[]
 

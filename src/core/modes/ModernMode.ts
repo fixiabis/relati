@@ -36,7 +36,7 @@ export class ModernMode extends GameMode {
     const enabledPieces = game.board.pieces.filter((piece) => !piece.disabled);
 
     for (const enabledPiece of enabledPieces) {
-      const relatedPieces = enabledPiece.relatedPieces.filter((piece) => !enabledPieces.includes(piece));
+      const relatedPieces = enabledPiece.relatedPieces.filter((piece) => piece.disabled);
       relatedPieces.forEach((piece) => (piece.disabled = false));
       enabledPieces.push(...relatedPieces);
     }

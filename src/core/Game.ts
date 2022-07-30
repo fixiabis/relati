@@ -4,10 +4,9 @@ import { GameMode } from './modes/GameMode';
 import { Piece, PieceSymbol } from './Piece';
 import { ActivePlayer } from './players/ActivePlayer';
 import { Player } from './players/Player';
-import { Position, PositionCode } from './vectors/Position';
+import { Position, PositionCode } from './primitives/Position';
 
 export interface GameInit {
-  mode: GameMode;
   board?: Board;
   ended?: boolean;
   winner?: Player | null;
@@ -15,18 +14,18 @@ export interface GameInit {
 }
 
 export class Game {
-  public readonly players: readonly Player[];
   public readonly mode: GameMode;
+  public readonly players: readonly Player[];
   public readonly board: Board;
   public readonly activePlayer: ActivePlayer;
   public ended: boolean;
   public winner: Player | null;
   private _allPlayerHavePlaced?: boolean;
 
-  constructor(players: Player[], init: GameInit) {
+  constructor(mode: GameMode, players: Player[], init: GameInit = {}) {
+    this.mode = mode;
     this.players = players;
-    this.mode = init.mode;
-    this.board = init.board || new Board(...init.mode.calcBoardSize(players.length));
+    this.board = init.board || new Board(...mode.calcBoardSize(players.length));
     this.activePlayer = init.activePlayer || new ActivePlayer(players[0]!);
     this.winner = init.winner || null;
     this.ended = init.ended || false;

@@ -1,7 +1,7 @@
 import { BoardSquare } from '../board/BoardSquare';
 import { Game } from '../Game';
 import { Piece, PieceSymbol } from '../Piece';
-import { Direction } from '../vectors/Direction';
+import { Direction } from '../primitives/Direction';
 import { GameMode } from './GameMode';
 
 export class ClassicMode extends GameMode {

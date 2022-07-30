@@ -1,5 +1,5 @@
-import { Position } from '../vectors/Position';
-import { Vector } from '../vectors/Vector';
+import { Position } from '../primitives/Position';
+import { Vector } from '../primitives/Vector';
 import { Board } from './Board';
 import { Piece } from '../Piece';
 
