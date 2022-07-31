@@ -3,11 +3,11 @@ import { Position } from '../primitives/Position';
 import { Vector } from '../primitives/Vector';
 import { BoardSquare } from './BoardSquare';
 
-export class Board {
+export class Board<TPiece extends Piece = Piece> {
   public readonly width: number;
   public readonly height: number;
-  public readonly squares: readonly (readonly BoardSquare[])[];
-  public readonly squareList: readonly BoardSquare[];
+  public readonly squares: readonly (readonly BoardSquare<TPiece>[])[];
+  public readonly squareList: readonly BoardSquare<TPiece>[];
 
   constructor(width: number, height: number = width) {
     this.width = width;
@@ -15,7 +15,7 @@ export class Board {
 
     this.squares = Array<null[]>(this.width)
       .fill(Array(this.height).fill(null))
-      .map((squares, x) => squares.map((_, y) => new BoardSquare(new Position(x, y), this)));
+      .map((squares, x) => squares.map((_, y) => new BoardSquare<TPiece>(new Position(x, y), this)));
 
     this.squareList = Array(this.width * this.height)
       .fill(null)
@@ -28,7 +28,7 @@ export class Board {
     return x > -1 && y > -1 && x < this.width && y < this.height;
   }
 
-  public squareAt(position: Vector): BoardSquare {
+  public squareAt(position: Vector): BoardSquare<TPiece> {
     const [x, y] = position;
     return this.squares[x]![y]!;
   }
@@ -40,7 +40,7 @@ export class Board {
       .join('\n');
   }
 
-  public get pieces(): readonly Piece[] {
+  public get pieces(): readonly TPiece[] {
     return this.squareList.map((square) => square.piece!).filter(Boolean);
   }
 }
