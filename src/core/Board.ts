@@ -1,9 +1,8 @@
-import { Piece } from '../Piece';
-import { Position } from '../primitives/Position';
-import { Vector } from '../primitives/Vector';
+import { Position } from './Position';
+import { Vector } from './Vector';
 import { BoardSquare } from './BoardSquare';
 
-export class Board<TPiece extends Piece> {
+export class Board<TPiece extends {}> {
   public readonly width: number;
   public readonly height: number;
   public readonly squares: readonly (readonly BoardSquare<TPiece>[])[];
