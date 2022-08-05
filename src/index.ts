@@ -1,6 +1,7 @@
 import { ClassicGame } from "./classic-game/Game";
 import { Piece } from "./core/Piece";
 import { Player } from "./core/Player";
+import { ModernGame } from "./modern-game/Game";
 
 namespace Relati {
   function createPlayers(numberOfPlayers: number): Player[] {
@@ -11,7 +12,9 @@ namespace Relati {
     return new ClassicGame(createPlayers(numberOfPlayers));
   }
 
-  export function createModernGame(numberOfPlayers: number) {}
+  export function createModernGame(numberOfPlayers: number) {
+    return new ModernGame(createPlayers(numberOfPlayers));
+  }
 }
 
 export default Relati;
