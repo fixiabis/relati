@@ -1,6 +1,6 @@
-import { Position } from './Position';
-import { Vector } from './Vector';
-import { Board } from './Board';
+import { Position } from "./Position";
+import { Vector } from "./Vector";
+import { Board, ReadonlyBoard } from "./Board";
 
 export class BoardSquare<TPiece extends {}> {
   public readonly position: Position;
@@ -26,7 +26,7 @@ export class BoardSquare<TPiece extends {}> {
   }
 
   public toString(): string {
-    return this.piece?.toString() || '   ';
+    return this.piece?.toString() || "   ";
   }
 
   public get piece(): TPiece | null {
@@ -36,4 +36,10 @@ export class BoardSquare<TPiece extends {}> {
   private set piece(piece: TPiece | null) {
     this._piece = piece;
   }
+}
+
+export interface ReadonlyBoardSquare<TPiece extends {}> extends BoardSquare<TPiece> {
+  readonly board: ReadonlyBoard<Readonly<TPiece>>;
+  readonly piece: Readonly<TPiece>;
+  squareTo(direction: Vector): ReadonlyBoardSquare<Readonly<TPiece>>;
 }

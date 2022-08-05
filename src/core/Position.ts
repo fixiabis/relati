@@ -1,4 +1,4 @@
-import { Vector } from './Vector';
+import { Vector } from "./Vector";
 
 export type PositionCode = string;
 
@@ -29,7 +29,7 @@ export class Position extends Vector {
   }
 
   public static parse(code: PositionCode): Position {
-    const x = code.charCodeAt(0) - 'A'.charCodeAt(0);
+    const x = code.charCodeAt(0) - "A".charCodeAt(0);
     const y = parseInt(code.slice(1)) - 1;
     return new Position(x, y, code);
   }
@@ -40,7 +40,7 @@ export class Position extends Vector {
 
   public static stringify(position: Vector): PositionCode {
     const [x, y] = position;
-    const alphabetPart = String.fromCharCode(x + 'A'.charCodeAt(0));
+    const alphabetPart = String.fromCharCode(x + "A".charCodeAt(0));
     const numberPart = (y + 1).toString();
     return alphabetPart + numberPart;
   }
@@ -51,6 +51,6 @@ export class Position extends Vector {
   }
 
   public static ofCode(strings: TemplateStringsArray): Position {
-    return Position.parse(strings.join(''));
+    return Position.parse(strings.join(""));
   }
 }
