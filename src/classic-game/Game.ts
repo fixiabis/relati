@@ -1,4 +1,4 @@
-import { Board, ReadonlyBoard } from "../core/Board";
+import { Board } from "../core/Board";
 import { BoardSquare } from "../core/BoardSquare";
 import { Direction } from "../core/Direction";
 import { Piece, PieceSymbol } from "../core/Piece";
@@ -16,12 +16,18 @@ export class ClassicGame {
   public static readonly NearbyDirections = ["F", "B", "L", "R", "FL", "FR", "BL", "BR"].map(Direction.parse);
 
   public readonly players: readonly Player[];
-  private state: ClassicGameState;
+  public readonly board: Board<Piece>;
+  public activePlayer: Player;
+  public winner: Player | null;
+  public ended: boolean;
   private _allPlayersHavePiece?: boolean;
 
-  constructor(players: Player[], state?: ClassicGameState) {
+  constructor(players: Player[], state: Partial<ClassicGameState> = {}) {
     this.players = players;
-    this.state = state || ClassicGame.createInitialState(players);
+    this.board = state.board || new Board(players.length * 2 + 1);
+    this.activePlayer = state.activePlayer || players[0]!;
+    this.winner = state.winner || null;
+    this.ended = state.ended || false;
   }
 
   public placePiece(pieceSymbol: PieceSymbol, positionCode: PositionCode): void {
@@ -48,11 +54,11 @@ export class ClassicGame {
   }
 
   private boardSquareAt(position: Position): BoardSquare<Piece> {
-    if (!this.state.board.squareDefinedAt(position)) {
+    if (!this.board.squareDefinedAt(position)) {
       throw new Error("不存在的格子");
     }
 
-    return this.state.board.squareAt(position);
+    return this.board.squareAt(position);
   }
 
   private placePieceOnSquare(square: BoardSquare<Piece>, piece: Piece): void {
@@ -71,7 +77,7 @@ export class ClassicGame {
     const nextPlayer = this.findNextPlayer();
 
     if (nextPlayer) {
-      this.state.activePlayer = nextPlayer;
+      this.activePlayer = nextPlayer;
       return;
     }
 
@@ -88,15 +94,15 @@ export class ClassicGame {
   }
 
   private playerCanPlacePiece(player: Player): boolean {
-    return this.state.board.squareList.some((square) => this.squareCanPlace(square, player.pieceSymbol));
+    return this.board.squareList.some((square) => this.squareCanPlace(square, player.pieceSymbol));
   }
 
   private end(): void {
     if (this.playerCanPlacePiece(this.activePlayer)) {
-      this.state.winner = this.activePlayer;
+      this.winner = this.activePlayer;
     }
 
-    this.state.ended = true;
+    this.ended = true;
   }
 
   private squareCanPlace(square: BoardSquare<Piece>, pieceSymbol: PieceSymbol): boolean {
@@ -113,36 +119,11 @@ export class ClassicGame {
       .filter(Boolean);
   }
 
-  public get board(): ReadonlyBoard<Piece> {
-    return this.state.board as ReadonlyBoard<Piece>;
-  }
-
-  public get activePlayer(): Readonly<Player> {
-    return this.state.activePlayer;
-  }
-
-  public get winner(): Readonly<Player> | null {
-    return this.state.winner;
-  }
-
-  public get ended(): boolean {
-    return this.state.ended;
-  }
-
   public get allPlayersHavePiece(): boolean {
     return (this._allPlayersHavePiece ||= this.players.every((player) => this.playerHasPlaced(player)));
   }
 
   private playerHasPlaced(player: Player): boolean {
     return this.board.pieces.some((piece) => piece.symbol === player.pieceSymbol);
-  }
-
-  private static createInitialState(players: Player[]): ClassicGameState {
-    return {
-      board: new Board<Piece>(players.length * 2 + 1),
-      activePlayer: players[0]!,
-      winner: null,
-      ended: false,
-    };
   }
 }

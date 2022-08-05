@@ -1,6 +1,6 @@
 import { Position } from "./Position";
 import { Vector } from "./Vector";
-import { BoardSquare, ReadonlyBoardSquare } from "./BoardSquare";
+import { BoardSquare } from "./BoardSquare";
 
 export class Board<TPiece extends {}> {
   public readonly width: number;
@@ -42,11 +42,4 @@ export class Board<TPiece extends {}> {
   public get pieces(): readonly TPiece[] {
     return this.squareList.map((square) => square.piece!).filter(Boolean);
   }
-}
-
-export interface ReadonlyBoard<TPiece extends {}> extends Board<TPiece> {
-  readonly squares: readonly (readonly ReadonlyBoardSquare<Readonly<TPiece>>[])[];
-  readonly squareList: readonly ReadonlyBoardSquare<Readonly<TPiece>>[];
-  squareAt(position: Vector): ReadonlyBoardSquare<Readonly<TPiece>>;
-  get pieces(): readonly Readonly<TPiece>[];
 }
