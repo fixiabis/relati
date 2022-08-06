@@ -31,7 +31,7 @@ export class Board<TPiece extends {}> {
   public toString(): string {
     return Array<null[]>(this.height)
       .fill(Array(this.width).fill(null))
-      .map((squares, y) => squares.map((_, x) => this.squareAt([x, y])).join("|"))
+      .map((squares, y) => squares.map((_, x) => this.squares[x * this.width + y]).join("|"))
       .join("\n");
   }
 

@@ -24,6 +24,22 @@ export class Piece {
     this.squarePaths = init.squarePaths || [];
   }
 
+  public get relatedPieces(): readonly Piece[] {
+    return this.availableSquarePaths
+      .map((availableSquarePath) => availableSquarePath.endingSquare.piece!)
+      .filter(Boolean)
+      .filter((maybeSimilarPiece) => maybeSimilarPiece.symbol === this.symbol)
+      .filter((similarPiece) => !similarPiece.disabled)
+      .filter((piece, index, pieces) => pieces.indexOf(piece) === index); // 可能會對應到同個格子，需要過濾重複的棋子
+  }
+
+  private get availableSquarePaths(): readonly BoardSquarePath<Piece>[] {
+    const isAvailableSquarePath = (squarePath: BoardSquarePath<Piece>) =>
+      squarePath.passingSquares.every((square) => !square.piece);
+
+    return this.squarePaths.filter(isAvailableSquarePath);
+  }
+
   public toString(): string {
     return " " + this.symbol + " ";
   }
