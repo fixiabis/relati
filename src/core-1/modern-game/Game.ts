@@ -1,10 +1,10 @@
-import { Board } from "../core-1/Board";
-import { BoardSquare } from "../core-1/BoardSquare";
-import { DirectionPaths } from "../core-1/DirectionPaths";
-import { Game, GameInit } from "../core-1/Game";
-import { PieceSymbol } from "../core-1/Piece";
-import { Player } from "../core-1/Player";
-import { RelationPath } from "../core-1/RelationPath";
+import { Board } from "../Board";
+import { BoardSquare } from "../BoardSquare";
+import { DirectionPaths } from "../DirectionPaths";
+import { Game, GameInit } from "../Game";
+import { PieceSymbol } from "../Piece";
+import { Player } from "../Player";
+import { RelationPath } from "../RelationPath";
 import { ModernPiece } from "./Piece";
 
 export interface ModernGameInit<TPiece extends ModernPiece, TPlayer extends Player> extends GameInit<TPiece, TPlayer> {

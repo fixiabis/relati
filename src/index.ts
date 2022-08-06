@@ -1,7 +1,7 @@
-import { ClassicGame } from "./classic-game/Game";
+import { ClassicGame } from "./core-1/classic-game/Game";
 import { Piece } from "./core-1/Piece";
 import { Player } from "./core-1/Player";
-import { ModernGame } from "./modern-game/Game";
+import { ModernGame } from "./core-1/modern-game/Game";
 
 namespace Relati {
   function createPlayers(numberOfPlayers: number): Player[] {

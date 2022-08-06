@@ -4,22 +4,22 @@ import { Piece, PieceSymbol } from "./Piece";
 import { Player } from "./Player";
 import { Position, PositionCode } from "./Position";
 
-export interface GameInit<TPiece extends Piece, TPlayer extends Player> {
-  board?: Board<TPiece>;
-  activePlayer?: TPlayer;
-  winner?: TPlayer | null;
+export interface GameInit {
+  board?: Board<Piece>;
+  activePlayer?: Player;
+  winner?: Player | null;
   ended?: boolean;
 }
 
-export class Game<TPiece extends Piece, TPlayer extends Player> {
-  public readonly players: readonly TPlayer[];
-  public readonly board: Board<TPiece>;
-  public activePlayer: TPlayer;
-  public winner: TPlayer | null;
+export class Game {
+  public readonly players: readonly Player[];
+  public readonly board: Board<Piece>;
+  public activePlayer: Player;
+  public winner: Player | null;
   public ended: boolean;
   private _allPlayersHavePiece?: boolean;
 
-  constructor(players: TPlayer[], init: GameInit<TPiece, TPlayer> = {}) {
+  constructor(players: Player[], init: GameInit = {}) {
     this.players = players;
     this.board = init.board || this.createBoard(players);
     this.activePlayer = init.activePlayer || players[0]!;
@@ -27,8 +27,8 @@ export class Game<TPiece extends Piece, TPlayer extends Player> {
     this.ended = init.ended || false;
   }
 
-  protected createBoard(players: TPlayer[]): Board<TPiece> {
-    return new Board<TPiece>(players.length * 2 + 1);
+  protected createBoard(players: Player[]): Board<Piece> {
+    return new Board<Piece>(players.length * 2 + 1);
   }
 
   public placePiece(pieceSymbol: PieceSymbol, positionCode: PositionCode): void {
@@ -54,7 +54,7 @@ export class Game<TPiece extends Piece, TPlayer extends Player> {
     return Position.parse(positionCode);
   }
 
-  private boardSquareAt(position: Position): BoardSquare<TPiece> {
+  private boardSquareAt(position: Position): BoardSquare<Piece> {
     if (!this.board.squareDefinedAt(position)) {
       throw new Error("不存在的格子");
     }
@@ -62,14 +62,14 @@ export class Game<TPiece extends Piece, TPlayer extends Player> {
     return this.board.squareAt(position);
   }
 
-  protected validateCanPlacePieceOnSquare(square: BoardSquare<TPiece>): void {
+  protected validateCanPlacePieceOnSquare(square: BoardSquare<Piece>): void {
     if (square.piece) {
       throw new Error(`格子${square.position}已有棋子`);
     }
   }
 
-  protected placePieceOnSquare(square: BoardSquare<TPiece>, pieceSymbol: PieceSymbol): void {
-    const piece = new Piece(pieceSymbol, square) as TPiece;
+  protected placePieceOnSquare(square: BoardSquare<Piece>, pieceSymbol: PieceSymbol): void {
+    const piece = new Piece(pieceSymbol, square) as Piece;
     square.placePiece(piece);
   }
 
@@ -84,16 +84,16 @@ export class Game<TPiece extends Piece, TPlayer extends Player> {
     this.end();
   }
 
-  private findNextPlayer(): TPlayer | null {
-    return this.playersAfterActive.find((who) => this.playerCanPlacePiece(who)) || null;
+  private findNextPlayer(): Player | null {
+    return this.playersAfterActive.find((who) => !who.defeated && this.playerCanPlacePiece(who)) || null;
   }
 
-  private get playersAfterActive(): TPlayer[] {
+  private get playersAfterActive(): Player[] {
     const activePlayerIndex = Piece.AllSymbols.indexOf(this.activePlayer.pieceSymbol);
     return this.players.slice(activePlayerIndex + 1).concat(this.players.slice(0, activePlayerIndex));
   }
 
-  private playerCanPlacePiece(player: TPlayer): boolean {
+  private playerCanPlacePiece(player: Player): boolean {
     return this.board.squares.some((square) => this.squareCanPlace(square, player.pieceSymbol));
   }
 
@@ -105,7 +105,7 @@ export class Game<TPiece extends Piece, TPlayer extends Player> {
     this.ended = true;
   }
 
-  protected squareCanPlace(square: BoardSquare<TPiece>, _pieceSymbol: PieceSymbol): boolean {
+  protected squareCanPlace(square: BoardSquare<Piece>, _pieceSymbol: PieceSymbol): boolean {
     return !square.piece;
   }
 
@@ -113,7 +113,7 @@ export class Game<TPiece extends Piece, TPlayer extends Player> {
     return (this._allPlayersHavePiece ||= this.players.every((player) => this.playerHasPlaced(player)));
   }
 
-  private playerHasPlaced(player: TPlayer): boolean {
+  private playerHasPlaced(player: Player): boolean {
     return this.board.pieces.some((piece) => piece.symbol === player.pieceSymbol);
   }
 }

@@ -1,6 +1,6 @@
-import { BoardSquare } from "../core-1/BoardSquare";
-import { Piece, PieceSymbol } from "../core-1/Piece";
-import { RelationPath } from "../core-1/RelationPath";
+import { BoardSquare } from "../BoardSquare";
+import { Piece, PieceSymbol } from "../Piece";
+import { RelationPath } from "../RelationPath";
 
 export interface ModernPieceInit {
   relationPaths?: RelationPath<ModernPiece>[];
