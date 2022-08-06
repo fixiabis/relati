@@ -13,12 +13,12 @@ export class BoardSquare<TPiece extends {}> {
     this.piece = null;
   }
 
-  public squareTo(direction: Vector): BoardSquare<TPiece> {
-    return this.board.squareAt(this.position.to(direction));
-  }
-
   public squareDefinedTo(direction: Vector): boolean {
     return this.board.squareDefinedAt(this.position.to(direction));
+  }
+
+  public squareTo(direction: Vector): BoardSquare<TPiece> {
+    return this.board.squareAt(this.position.to(direction));
   }
 
   public placePiece(piece: TPiece): void {

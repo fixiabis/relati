@@ -1,6 +1,6 @@
 import { ClassicGame } from "./classic-game/Game";
-import { Piece } from "./core/Piece";
-import { Player } from "./core/Player";
+import { Piece } from "./core-1/Piece";
+import { Player } from "./core-1/Player";
 import { ModernGame } from "./modern-game/Game";
 
 namespace Relati {

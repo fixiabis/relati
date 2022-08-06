@@ -1,9 +1,9 @@
-import { Board } from "../core/Board";
-import { BoardSquare } from "../core/BoardSquare";
-import { Direction } from "../core/Direction";
-import { Game } from "../core/Game";
-import { Piece, PieceSymbol } from "../core/Piece";
-import { Player } from "../core/Player";
+import { Board } from "../core-1/Board";
+import { BoardSquare } from "../core-1/BoardSquare";
+import { Direction } from "../core-1/Direction";
+import { Game } from "../core-1/Game";
+import { Piece, PieceSymbol } from "../core-1/Piece";
+import { Player } from "../core-1/Player";
 
 export class ClassicGame extends Game<Piece, Player> {
   public static readonly NearbyDirections = ["F", "B", "L", "R", "FL", "FR", "BL", "BR"].map(Direction.parse);

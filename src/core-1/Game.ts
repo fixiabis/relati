@@ -1,8 +1,8 @@
-import { Board } from "../core/Board";
-import { BoardSquare } from "../core/BoardSquare";
-import { Piece, PieceSymbol } from "../core/Piece";
-import { Player } from "../core/Player";
-import { Position, PositionCode } from "../core/Position";
+import { Board } from "./Board";
+import { BoardSquare } from "./BoardSquare";
+import { Piece, PieceSymbol } from "./Piece";
+import { Player } from "./Player";
+import { Position, PositionCode } from "./Position";
 
 export interface GameInit<TPiece extends Piece, TPlayer extends Player> {
   board?: Board<TPiece>;

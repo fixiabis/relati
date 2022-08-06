@@ -1,5 +1,5 @@
 import Relati from "../src";
-import { Position } from "../src/core/Position";
+import { Position } from "../src/core-1/Position";
 
 const P = Position.ofCode;
 
