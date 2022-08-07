@@ -11,16 +11,7 @@ export interface GameInit {
   ended?: boolean;
 }
 
-export interface Game {
-  readonly players: readonly Player[];
-  readonly board: Board<Piece>;
-  activePlayer: Player;
-  winner: Player | null;
-  ended: boolean;
-  allPlayersHavePiece: boolean;
-}
-
-export class BaseGame implements Game {
+export class Game {
   public readonly players: readonly Player[];
   public readonly board: Board<Piece>;
   public activePlayer: Player;
