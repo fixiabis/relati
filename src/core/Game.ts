@@ -11,7 +11,16 @@ export interface GameInit {
   ended?: boolean;
 }
 
-export class Game {
+export interface Game {
+  readonly players: readonly Player[];
+  readonly board: Board<Piece>;
+  activePlayer: Player;
+  winner: Player | null;
+  ended: boolean;
+  allPlayersHavePiece: boolean;
+}
+
+export class BaseGame implements Game {
   public readonly players: readonly Player[];
   public readonly board: Board<Piece>;
   public activePlayer: Player;
@@ -27,7 +36,7 @@ export class Game {
     this.ended = init.ended || false;
   }
 
-  protected createBoard(players: Player[]): Board<Piece> {
+  private createBoard(players: Player[]): Board<Piece> {
     return new Board<Piece>(players.length * 2 + 1);
   }
 
@@ -62,13 +71,13 @@ export class Game {
     return this.board.squareAt(position);
   }
 
-  protected validateCanPlacePieceOnSquare(square: BoardSquare<Piece>): void {
+  private validateCanPlacePieceOnSquare(square: BoardSquare<Piece>): void {
     if (square.piece) {
       throw new Error(`格子${square.position}已有棋子`);
     }
   }
 
-  protected placePieceOnSquare(square: BoardSquare<Piece>, pieceSymbol: PieceSymbol): void {
+  private placePieceOnSquare(square: BoardSquare<Piece>, pieceSymbol: PieceSymbol): void {
     const piece = new Piece(pieceSymbol, square) as Piece;
     square.placePiece(piece);
   }
@@ -105,7 +114,7 @@ export class Game {
     this.ended = true;
   }
 
-  protected squareCanPlace(square: BoardSquare<Piece>, _pieceSymbol: PieceSymbol): boolean {
+  private squareCanPlace(square: BoardSquare<Piece>, _pieceSymbol: PieceSymbol): boolean {
     return !square.piece;
   }
 

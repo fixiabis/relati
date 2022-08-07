@@ -53,4 +53,8 @@ export class Position extends Vector {
   public static ofCode(strings: TemplateStringsArray): Position {
     return Position.parse(strings.join(""));
   }
+
+  public static of(position: Vector): Position {
+    return new Position(...position);
+  }
 }

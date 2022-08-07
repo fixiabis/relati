@@ -13,14 +13,20 @@ export class Board<TPiece extends {}> {
 
     this.squares = Array(this.width * this.height)
       .fill(null)
-      .map<Vector>((_, index) => [index % this.width, Math.floor(index / this.width)])
-      .map(([x, y]) => new BoardSquare<TPiece>(new Position(x, y), this));
+      .map((_, index) => new BoardSquare<TPiece>(this.indexToPosition(index), this));
+  }
+
+  private indexToPosition(index: number): Position {
+    return Position.of([index % this.width, Math.floor(index / this.width)]);
   }
 
   public squareAt(position: Vector): BoardSquare<TPiece> {
+    return this.squares[this.positionToIndex(position)]!;
+  }
+
+  private positionToIndex(position: Vector): number {
     const [x, y] = position;
-    const squareIndex = x * this.width + y;
-    return this.squares[squareIndex]!;
+    return x * this.width + y;
   }
 
   public squareDefinedAt(position: Vector): boolean {

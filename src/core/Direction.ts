@@ -49,4 +49,8 @@ export class Direction extends Vector {
   public static ofCode(strings: TemplateStringsArray): Direction {
     return Direction.parse(strings.join(""));
   }
+
+  public static of(direction: Vector): Direction {
+    return new Direction(...direction);
+  }
 }
