@@ -1,11 +1,11 @@
 import { DirectionException } from "../exceptions/positional";
-import { Vector } from "./Vector";
+import { Vector2 } from "./Vector2";
 
 export type DirectionCode = string & { isDirectionCode: true };
 
 export type DirectionType = typeof Direction.AllTypes[number];
 
-export class Direction extends Vector {
+export class Direction extends Vector2 {
   public static readonly AllTypes = ["F", "B", "L", "R"] as const;
   public static readonly CodeRegExp = /^(F|B|L|R)*$/;
 
@@ -36,7 +36,7 @@ export class Direction extends Vector {
     return new Direction(dx, dy);
   }
 
-  public stringify(direction: Vector): DirectionCode {
+  public stringify(direction: Vector2): DirectionCode {
     if (!Direction.isValid(direction)) {
       throw new DirectionException("Invalid direction");
     }
@@ -44,12 +44,12 @@ export class Direction extends Vector {
     return Direction.stringifyDirectly(direction);
   }
 
-  public static isValid(direction: Vector): boolean {
+  public static isValid(direction: Vector2): boolean {
     const [dx, dy] = direction;
     return !isNaN(dx) && isFinite(dx) && !isNaN(dy) && isFinite(dy);
   }
 
-  public static stringifyDirectly(direction: Vector): DirectionCode {
+  public static stringifyDirectly(direction: Vector2): DirectionCode {
     const [dx, dy] = direction;
     const partFB = dy > 0 ? "B" : "F";
     const partLR = dx > 0 ? "R" : "L";

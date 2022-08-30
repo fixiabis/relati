@@ -1,6 +1,6 @@
 import { BoardSquareException } from "../exceptions/board";
 import { Position } from "../positional/Position";
-import { Vector } from "../positional/Vector";
+import { Vector2 } from "../positional/Vector2";
 import { Board } from "./Board";
 
 export class BoardSquare<TPiece extends {}> {
@@ -14,7 +14,7 @@ export class BoardSquare<TPiece extends {}> {
     this.piece = null;
   }
 
-  public squareTo(direction: Vector): BoardSquare<TPiece> {
+  public squareTo(direction: Vector2): BoardSquare<TPiece> {
     if (!this.squareDefinedTo(direction)) {
       throw new BoardSquareException(`Square at "${this.position}" not defined to "${direction}"`);
     }
@@ -22,11 +22,11 @@ export class BoardSquare<TPiece extends {}> {
     return this.squareToDirectly(direction);
   }
 
-  public squareDefinedTo(direction: Vector): boolean {
+  public squareDefinedTo(direction: Vector2): boolean {
     return this.board.squareDefinedAt(this.position.toDirectly(direction));
   }
 
-  public squareToDirectly(direction: Vector): BoardSquare<TPiece> {
+  public squareToDirectly(direction: Vector2): BoardSquare<TPiece> {
     return this.board.squareAt(this.position.toDirectly(direction));
   }
 
