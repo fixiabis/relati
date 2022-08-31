@@ -4,7 +4,6 @@ import { PieceRelation } from "./PieceRelation";
 export interface PieceInit {
   isRoot?: boolean;
   relations?: PieceRelation[];
-  receivedRelations?: PieceRelation[];
   primaryRelation?: PieceRelation | null;
 }
 
@@ -14,28 +13,22 @@ export class Piece {
   public readonly square: BoardSquare<Piece>;
   public readonly isRoot: boolean;
   public readonly relations: PieceRelation[];
-  public receivedRelations: PieceRelation[];
-  public primaryRelation: PieceRelation | null;
+  public receivedRelation: PieceRelation | null;
 
   constructor(symbol: PieceSymbol, square: BoardSquare<Piece>, init: PieceInit = {}) {
     this.symbol = symbol;
     this.square = square;
     this.isRoot = init.isRoot || false;
     this.relations = init.relations || [];
-    this.receivedRelations = init.receivedRelations || [];
-    this.primaryRelation = init.primaryRelation || null;
+    this.receivedRelation = init.primaryRelation || null;
   }
 
   public get disabled(): boolean {
-    return this.primaryRelation === null;
+    return this.receivedRelation === null;
   }
 
   public receiveRelation(relation: PieceRelation): void {
-    if (!this.receivedRelations.includes(relation)) {
-      this.receivedRelations.push(relation);
-    }
-
-    this.primaryRelation = relation;
+    this.receivedRelation = relation;
   }
 }
 

@@ -23,7 +23,7 @@ export class Game {
   public activePlayer: Player;
   public winner: Player | null;
   public ended: boolean;
-  private _allRootsPlaced: boolean;
+  private _allPlayersHaveRoot: boolean;
 
   constructor(players: Player[], board: Board<Piece>, directionPaths: DirectionPaths, init: GameInit = {}) {
     this.players = players;
@@ -33,7 +33,7 @@ export class Game {
     this.activePlayer = init.activePlayer || players[0]!;
     this.winner = init.winner || null;
     this.ended = init.ended || false;
-    this._allRootsPlaced = this.allPlayersHavePiece;
+    this._allPlayersHaveRoot = this.allPlayersHaveRoot;
   }
 
   private findRoots(board: Board<Piece>): Partial<Record<PieceSymbol, RootPiece>> {
@@ -47,7 +47,7 @@ export class Game {
     return roots;
   }
 
-  public executeTurnByPlacePiece(pieceSymbol: PieceSymbol, positionCode: string): void {
+  public placePieceOnTurn(pieceSymbol: PieceSymbol, positionCode: string): void {
     const position = Position.parse(positionCode);
     const square = this.board.squareAt(position);
     this.shouldPieceSymbolOfActivePlayer(pieceSymbol);
@@ -97,7 +97,7 @@ export class Game {
   }
 
   private createPiece(pieceSymbol: PieceSymbol, square: BoardSquare<Piece>): Piece {
-    const PieceType = this.allPlayersHavePiece ? Piece : RootPiece;
+    const PieceType = this.allPlayersHaveRoot ? Piece : RootPiece;
     const relations = this.createRelations(square);
     return new PieceType(pieceSymbol, square, { relations });
   }
@@ -114,7 +114,7 @@ export class Game {
 
   private handleRelations(): void {
     this.board.pieces.forEach((piece) => {
-      piece.primaryRelation = null;
+      piece.receivedRelation = null;
     });
 
     const roots = this.players.map((player) => this.roots[player.pieceSymbol]);
@@ -186,7 +186,7 @@ export class Game {
     }
   }
 
-  public get allPlayersHavePiece(): boolean {
-    return (this._allRootsPlaced ||= this.players.every((player) => this.roots[player.pieceSymbol]));
+  public get allPlayersHaveRoot(): boolean {
+    return (this._allPlayersHaveRoot ||= this.players.every((player) => this.roots[player.pieceSymbol]));
   }
 }
