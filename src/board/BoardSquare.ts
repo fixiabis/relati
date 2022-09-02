@@ -19,15 +19,15 @@ export class BoardSquare<TPiece extends {}> {
       throw new BoardSquareException(`Square at "${this.position}" not defined to "${direction}"`);
     }
 
-    return this.squareToDirectly(direction);
+    return this._squareTo(direction);
   }
 
   public squareDefinedTo(direction: Vector2): boolean {
-    return this.board.squareDefinedAt(this.position.toDirectly(direction));
+    return this.board.squareDefinedAt(this.position._to(direction));
   }
 
-  public squareToDirectly(direction: Vector2): BoardSquare<TPiece> {
-    return this.board.squareAt(this.position.toDirectly(direction));
+  public _squareTo(direction: Vector2): BoardSquare<TPiece> {
+    return this.board._squareAt(this.position._to(direction));
   }
 
   public placePiece(piece: TPiece): void {

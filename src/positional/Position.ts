@@ -11,7 +11,7 @@ export class Position extends Vector2 {
       throw new PositionException(`To invalid position by "${direction}" at "${this}"`);
     }
 
-    return this.toDirectly(direction);
+    return this._to(direction);
   }
 
   public validTo(direction: Vector2): boolean {
@@ -20,14 +20,14 @@ export class Position extends Vector2 {
     return Position.isValid([x + dx, y + dy]);
   }
 
-  public toDirectly(direction: Vector2): Position {
+  public _to(direction: Vector2): Position {
     const [x, y] = this;
     const [dx, dy] = direction;
     return new Position(x + dx, y + dy);
   }
 
   public override toString(): PositionCode {
-    return Position.stringifyDirectly(this);
+    return Position._stringify(this);
   }
 
   public static parse(code: string): Position {
@@ -35,14 +35,14 @@ export class Position extends Vector2 {
       throw new PositionException("Code unparsable");
     }
 
-    return this.parseDirectly(code);
+    return this._parse(code);
   }
 
   public static isParsableCode(code: string): code is PositionCode {
     return Position.CodeRegExp.test(code);
   }
 
-  public static parseDirectly(code: PositionCode): Position {
+  public static _parse(code: PositionCode): Position {
     const x = code.charCodeAt(0) - "A".charCodeAt(0);
     const y = parseInt(code.slice(1)) - 1;
     return new Position(x, y);
@@ -53,7 +53,7 @@ export class Position extends Vector2 {
       throw new PositionException("Invalid position");
     }
 
-    return this.stringifyDirectly(position);
+    return this._stringify(position);
   }
 
   public static isValid(position: Vector2): boolean {
@@ -61,7 +61,7 @@ export class Position extends Vector2 {
     return !isNaN(x) && x > -1 && x < 26 && !isNaN(y) && y > -1 && y < 26;
   }
 
-  public static stringifyDirectly(position: Vector2): PositionCode {
+  public static _stringify(position: Vector2): PositionCode {
     const [x, y] = position;
     const alphabetPart = String.fromCharCode(x + "A".charCodeAt(0));
     const numberPart = (y + 1).toString();
@@ -73,10 +73,10 @@ export class Position extends Vector2 {
       throw new PositionException("Invalid position");
     }
 
-    return Position.ofDirectly(position);
+    return Position._of(position);
   }
 
-  public static ofDirectly(position: Vector2): Position {
+  public static _of(position: Vector2): Position {
     return new Position(...position);
   }
 }

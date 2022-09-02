@@ -31,7 +31,7 @@ export class Board<TPiece extends {}> {
       throw new BoardException(`Square not defined at ${position}`);
     }
 
-    return this.squareAtDirectly(position);
+    return this._squareAt(position);
   }
 
   public squareDefinedAt(position: Vector2): boolean {
@@ -39,7 +39,7 @@ export class Board<TPiece extends {}> {
     return x > -1 && y > -1 && x < this.width && y < this.height;
   }
 
-  public squareAtDirectly(position: Vector2): BoardSquare<TPiece> {
+  public _squareAt(position: Vector2): BoardSquare<TPiece> {
     return this.squares[this.positionToIndex(position)]!;
   }
 
@@ -51,7 +51,7 @@ export class Board<TPiece extends {}> {
   public toString(): string {
     return Array<null[]>(this.height)
       .fill(Array(this.width).fill(null))
-      .map((squares, y) => squares.map((_, x) => this.squares[x * this.width + y]).join("|"))
+      .map((squares, y) => squares.map((_, x) => this.squares[this.positionToIndex([x, y])]).join("|"))
       .join("\n");
   }
 

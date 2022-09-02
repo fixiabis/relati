@@ -10,7 +10,7 @@ export class Direction extends Vector2 {
   public static readonly CodeRegExp = /^(F|B|L|R)*$/;
 
   public override toString(): DirectionCode {
-    return Direction.stringifyDirectly(this);
+    return Direction._stringify(this);
   }
 
   public static parse(code: string): Direction {
@@ -18,14 +18,14 @@ export class Direction extends Vector2 {
       throw new DirectionException("Code unparsable");
     }
 
-    return Direction.parseDirectly(code);
+    return Direction._parse(code);
   }
 
   public static isParsableCode(code: string): code is DirectionCode {
     return Direction.CodeRegExp.test(code);
   }
 
-  public static parseDirectly(code: DirectionCode): Direction {
+  public static _parse(code: DirectionCode): Direction {
     const numberOf = { F: 0, B: 0, L: 0, R: 0 };
 
     code.split("").forEach((code) => numberOf[code as DirectionType]++);
@@ -41,7 +41,7 @@ export class Direction extends Vector2 {
       throw new DirectionException("Invalid direction");
     }
 
-    return Direction.stringifyDirectly(direction);
+    return Direction._stringify(direction);
   }
 
   public static isValid(direction: Vector2): boolean {
@@ -49,7 +49,7 @@ export class Direction extends Vector2 {
     return !isNaN(dx) && isFinite(dx) && !isNaN(dy) && isFinite(dy);
   }
 
-  public static stringifyDirectly(direction: Vector2): DirectionCode {
+  public static _stringify(direction: Vector2): DirectionCode {
     const [dx, dy] = direction;
     const partFB = dy > 0 ? "B" : "F";
     const partLR = dx > 0 ? "R" : "L";

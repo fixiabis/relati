@@ -4,7 +4,7 @@ import { PieceRelation } from "./PieceRelation";
 export interface PieceInit {
   isRoot?: boolean;
   relations?: PieceRelation[];
-  primaryRelation?: PieceRelation | null;
+  receivedRelation?: PieceRelation | null;
 }
 
 export class Piece {
@@ -20,7 +20,7 @@ export class Piece {
     this.square = square;
     this.isRoot = init.isRoot || false;
     this.relations = init.relations || [];
-    this.receivedRelation = init.primaryRelation || null;
+    this.receivedRelation = init.receivedRelation || null;
   }
 
   public get disabled(): boolean {
@@ -29,6 +29,20 @@ export class Piece {
 
   public receiveRelation(relation: PieceRelation): void {
     this.receivedRelation = relation;
+  }
+
+  public sendRelations(): void {
+    for (const relation of this.familiarRelations) {
+      if (relation.receiver!.disabled) {
+        relation.receiver!.receiveRelation(relation);
+      }
+    }
+  }
+
+  private get familiarRelations(): PieceRelation[] {
+    return this.relations
+      .filter((relation) => !relation.blocked)
+      .filter((relation) => relation.receiver?.symbol === this.symbol);
   }
 }
 

@@ -71,7 +71,7 @@ export class Game {
       throw new GameException(`Square at "${square.position}" has been taken`);
     }
 
-    this.placePieceDirectly(pieceSymbol, square);
+    this._placePiece(pieceSymbol, square);
   }
 
   private canPlacePiece(pieceSymbol: PieceSymbol, square: BoardSquare<Piece>): boolean {
@@ -85,7 +85,7 @@ export class Game {
     );
   }
 
-  private placePieceDirectly(pieceSymbol: PieceSymbol, square: BoardSquare<Piece>): void {
+  private _placePiece(pieceSymbol: PieceSymbol, square: BoardSquare<Piece>): void {
     const piece = this.createPiece(pieceSymbol, square);
     square.placePiece(piece);
 
@@ -93,7 +93,9 @@ export class Game {
       this.roots[piece.symbol] = piece as RootPiece;
     }
 
-    this.handleRelations();
+    if (this.allPlayersHaveRoot) {
+      this.handleRelations();
+    }
   }
 
   private createPiece(pieceSymbol: PieceSymbol, square: BoardSquare<Piece>): Piece {
@@ -105,7 +107,7 @@ export class Game {
   private createRelations(square: BoardSquare<Piece>): PieceRelation[] {
     const relations = this.directionPaths
       .filter(([endingDirection]) => square.squareDefinedTo(endingDirection!))
-      .map((directions) => directions.map((direction) => square.squareToDirectly(direction)))
+      .map((directions) => directions.map((direction) => square._squareTo(direction)))
       .map(([endingSquare, ...passingSquares]) => new BoardSquarePath(square, endingSquare!, passingSquares))
       .map((squarePath) => new PieceRelation(squarePath));
 
@@ -113,15 +115,21 @@ export class Game {
   }
 
   private handleRelations(): void {
-    this.board.pieces.forEach((piece) => {
+    const senders = this.players.map((player) => this.roots[player.pieceSymbol]) as Piece[];
+
+    for (const piece of this.board.pieces) {
       piece.receivedRelation = null;
-    });
+    }
 
-    const roots = this.players.map((player) => this.roots[player.pieceSymbol]);
+    for (const sender of senders) {
+      sender.sendRelations();
 
-    roots.forEach((root) => {
-      root?.sendRelation();
-    });
+      const receivers = sender.relations
+        .filter((relation) => relation.receiver?.receivedRelation?.sender === sender)
+        .map((relation) => relation.receiver!);
+
+      senders.push(...receivers);
+    }
   }
 
   private eliminatePlayers(): void {

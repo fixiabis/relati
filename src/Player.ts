@@ -6,7 +6,7 @@ export interface PlayerInit {
 }
 
 export class Player {
-  public pieceSymbol: PieceSymbol;
+  public readonly pieceSymbol: PieceSymbol;
   public abstained: boolean;
   public eliminated: boolean;
 
