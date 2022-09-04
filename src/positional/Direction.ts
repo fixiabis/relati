@@ -36,7 +36,7 @@ export class Direction extends Vector2 {
     return new Direction(dx, dy);
   }
 
-  public stringify(direction: Vector2): DirectionCode {
+  public static stringify(direction: Vector2): DirectionCode {
     if (!Direction.canStringify(direction)) {
       throw new DirectionException("Invalid direction");
     }
