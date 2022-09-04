@@ -1,22 +1,30 @@
-import { BoardSquarePath } from "../board/BoardSquarePath";
+import { BoardSquare } from "../board/BoardSquare";
 import { Piece } from "./Piece";
 
 export class PieceRelation {
-  public readonly squarePath: BoardSquarePath<Piece>;
+  public readonly endingSquare: BoardSquare<Piece>;
+  public readonly passingSquares: BoardSquare<Piece>[];
+  public readonly startingSquare: BoardSquare<Piece>;
 
-  constructor(squarePath: BoardSquarePath<Piece>) {
-    this.squarePath = squarePath;
+  constructor(
+    endingSquare: BoardSquare<Piece>,
+    passingSquares: BoardSquare<Piece>[],
+    startingSquare: BoardSquare<Piece>
+  ) {
+    this.endingSquare = endingSquare;
+    this.passingSquares = passingSquares;
+    this.startingSquare = startingSquare;
   }
 
   public get sender(): Piece | null {
-    return this.squarePath.startingSquare.piece;
+    return this.startingSquare.piece;
   }
 
   public get receiver(): Piece | null {
-    return this.squarePath.endingSquare.piece;
+    return this.endingSquare.piece;
   }
 
   public get blocked(): boolean {
-    return this.squarePath.passingSquares.some((square) => square.piece);
+    return this.passingSquares.some((square) => square.piece);
   }
 }

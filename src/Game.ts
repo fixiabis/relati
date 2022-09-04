@@ -1,6 +1,5 @@
 import { Board } from "./board/Board";
 import { BoardSquare } from "./board/BoardSquare";
-import { BoardSquarePath } from "./board/BoardSquarePath";
 import { GameException } from "./exceptions/game";
 import { DirectionPaths } from "./DirectionPaths";
 import { Piece, PieceSymbol } from "./piece/Piece";
@@ -80,7 +79,7 @@ export class Game {
     return (
       !this.roots[pieceSymbol] ||
       similarPieces.some((piece) =>
-        piece.relations.some((relation) => !relation.blocked && relation.squarePath.endingSquare === square)
+        piece.relations.some((relation) => !relation.blocked && relation.endingSquare === square)
       )
     );
   }
@@ -108,8 +107,7 @@ export class Game {
     const relations = this.directionPaths
       .filter(([endingDirection]) => square.squareDefinedTo(endingDirection!))
       .map((directions) => directions.map((direction) => square._squareTo(direction)))
-      .map(([endingSquare, ...passingSquares]) => new BoardSquarePath(square, endingSquare!, passingSquares))
-      .map((squarePath) => new PieceRelation(squarePath));
+      .map(([endingSquare, ...passingSquares]) => new PieceRelation(endingSquare!, passingSquares, square));
 
     return relations;
   }
