@@ -14,14 +14,14 @@ export class Direction extends Vector2 {
   }
 
   public static parse(code: string): Direction {
-    if (!Direction.isParsableCode(code)) {
+    if (!Direction.canParse(code)) {
       throw new DirectionException("Code unparsable");
     }
 
     return Direction._parse(code);
   }
 
-  public static isParsableCode(code: string): code is DirectionCode {
+  public static canParse(code: string): code is DirectionCode {
     return Direction.CodeRegExp.test(code);
   }
 
@@ -37,14 +37,14 @@ export class Direction extends Vector2 {
   }
 
   public stringify(direction: Vector2): DirectionCode {
-    if (!Direction.isValid(direction)) {
+    if (!Direction.canStringify(direction)) {
       throw new DirectionException("Invalid direction");
     }
 
     return Direction._stringify(direction);
   }
 
-  public static isValid(direction: Vector2): boolean {
+  public static canStringify(direction: Vector2): boolean {
     const [dx, dy] = direction;
     return !isNaN(dx) && isFinite(dx) && !isNaN(dy) && isFinite(dy);
   }

@@ -17,7 +17,7 @@ export class Position extends Vector2 {
   public validTo(direction: Vector2): boolean {
     const [x, y] = this;
     const [dx, dy] = direction;
-    return Position.isValid([x + dx, y + dy]);
+    return Position.canStringify([x + dx, y + dy]);
   }
 
   public _to(direction: Vector2): Position {
@@ -31,14 +31,14 @@ export class Position extends Vector2 {
   }
 
   public static parse(code: string): Position {
-    if (!Position.isParsableCode(code)) {
+    if (!Position.canParse(code)) {
       throw new PositionException("Code unparsable");
     }
 
     return this._parse(code);
   }
 
-  public static isParsableCode(code: string): code is PositionCode {
+  public static canParse(code: string): code is PositionCode {
     return Position.CodeRegExp.test(code);
   }
 
@@ -49,14 +49,14 @@ export class Position extends Vector2 {
   }
 
   public static stringify(position: Vector2): PositionCode {
-    if (!Position.isValid(position)) {
+    if (!Position.canStringify(position)) {
       throw new PositionException("Invalid position");
     }
 
     return this._stringify(position);
   }
 
-  public static isValid(position: Vector2): boolean {
+  public static canStringify(position: Vector2): boolean {
     const [x, y] = position;
     return !isNaN(x) && x > -1 && x < 26 && !isNaN(y) && y > -1 && y < 26;
   }
@@ -69,14 +69,6 @@ export class Position extends Vector2 {
   }
 
   public static of(position: Vector2): Position {
-    if (!Position.isValid(position)) {
-      throw new PositionException("Invalid position");
-    }
-
-    return Position._of(position);
-  }
-
-  public static _of(position: Vector2): Position {
     return new Position(...position);
   }
 }
