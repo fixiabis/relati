@@ -52,13 +52,13 @@
   <tr>
     <th>Bunker</th>
     <td align="center">
-      <img src="../assets/svg/role-marks/player-1.svg#bunker" width="30" height="30" alt="Player 1's bunker mark" />
+      <img src="../assets/svg/role-marks/player-1.svg#shield" width="30" height="30" alt="Player 1's shield mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/role-marks/player-1.svg#disabled-bunker" width="30" height="30" alt="Player 1's disabled bunker mark" />
+      <img src="../assets/svg/role-marks/player-1.svg#disabled-shield" width="30" height="30" alt="Player 1's disabled shield mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/role-marks/player-1.svg#destroyed-bunker" width="30" height="30" alt="Player 1's destroyed bunker mark" />
+      <img src="../assets/svg/role-marks/player-1.svg#destroyed-shield" width="30" height="30" alt="Player 1's destroyed shield mark" />
     </td>
   </tr>
   <tr>
@@ -134,13 +134,13 @@
   <tr>
     <th>Bunker</th>
     <td align="center">
-      <img src="../assets/svg/role-marks/player-2.svg#bunker" width="30" height="30" alt="Player 2's bunker mark" />
+      <img src="../assets/svg/role-marks/player-2.svg#shield" width="30" height="30" alt="Player 2's shield mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/role-marks/player-2.svg#disabled-bunker" width="30" height="30" alt="Player 2's disabled bunker mark" />
+      <img src="../assets/svg/role-marks/player-2.svg#disabled-shield" width="30" height="30" alt="Player 2's disabled shield mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/role-marks/player-2.svg#destroyed-bunker" width="30" height="30" alt="Player 2's destroyed bunker mark" />
+      <img src="../assets/svg/role-marks/player-2.svg#destroyed-shield" width="30" height="30" alt="Player 2's destroyed shield mark" />
     </td>
   </tr>
   <tr>
