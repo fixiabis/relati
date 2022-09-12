@@ -68,7 +68,7 @@
       h -1
     " stroke-width="0.6" fill="none" />
 
-    <path id="shield-path" d="
+    <path id="defender-path" d="
       M 0 0
       m 1 1
 
@@ -101,7 +101,7 @@
       
     " stroke-width="0.6" fill="none" />
 
-    <path id="killer-path" d="
+    <path id="assassin-path" d="
       M 0 0
       m 1 1
 
@@ -137,15 +137,15 @@
     <use xlink:href="#sniper-path" id="disabled-sniper" class="mark" stroke="rgb(128, 128, 128)" />
     <use xlink:href="#sniper-path" id="destroyed-sniper" class="mark" stroke="rgba(128, 128, 128, 0.4)" />
     <use xlink:href="#sniper-path" id="sniper" class="mark" />
-    <use xlink:href="#shield-path" id="disabled-shield" class="mark" stroke="rgb(128, 128, 128)" />
-    <use xlink:href="#shield-path" id="destroyed-shield" class="mark" stroke="rgba(128, 128, 128, 0.4)" />
-    <use xlink:href="#shield-path" id="shield" class="mark" />
+    <use xlink:href="#defender-path" id="disabled-defender" class="mark" stroke="rgb(128, 128, 128)" />
+    <use xlink:href="#defender-path" id="destroyed-defender" class="mark" stroke="rgba(128, 128, 128, 0.4)" />
+    <use xlink:href="#defender-path" id="defender" class="mark" />
     <use xlink:href="#bomber-path" id="disabled-bomber" class="mark" stroke="rgb(128, 128, 128)" />
     <use xlink:href="#bomber-path" id="destroyed-bomber" class="mark" stroke="rgba(128, 128, 128, 0.4)" />
     <use xlink:href="#bomber-path" id="bomber" class="mark" />
-    <use xlink:href="#killer-path" id="disabled-killer" class="mark" stroke="rgb(128, 128, 128)" />
-    <use xlink:href="#killer-path" id="destroyed-killer" class="mark" stroke="rgba(128, 128, 128, 0.4)" />
-    <use xlink:href="#killer-path" id="killer" class="mark" />
+    <use xlink:href="#assassin-path" id="disabled-assassin" class="mark" stroke="rgb(128, 128, 128)" />
+    <use xlink:href="#assassin-path" id="destroyed-assassin" class="mark" stroke="rgba(128, 128, 128, 0.4)" />
+    <use xlink:href="#assassin-path" id="assassin" class="mark" />
     <use xlink:href="#clergy-path" id="disabled-clergy" class="mark" stroke="rgb(128, 128, 128)" />
     <use xlink:href="#clergy-path" id="destroyed-clergy" class="mark" stroke="rgba(128, 128, 128, 0.4)" />
     <use xlink:href="#clergy-path" id="clergy" class="mark" />

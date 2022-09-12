@@ -50,15 +50,15 @@
     </td>
   </tr>
   <tr>
-    <th>Bunker</th>
+    <th>Defender</th>
     <td align="center">
-      <img src="../assets/svg/role-marks/player-1.svg#shield" width="30" height="30" alt="Player 1's shield mark" />
+      <img src="../assets/svg/role-marks/player-1.svg#defender" width="30" height="30" alt="Player 1's defender mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/role-marks/player-1.svg#disabled-shield" width="30" height="30" alt="Player 1's disabled shield mark" />
+      <img src="../assets/svg/role-marks/player-1.svg#disabled-defender" width="30" height="30" alt="Player 1's disabled defender mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/role-marks/player-1.svg#destroyed-shield" width="30" height="30" alt="Player 1's destroyed shield mark" />
+      <img src="../assets/svg/role-marks/player-1.svg#destroyed-defender" width="30" height="30" alt="Player 1's destroyed defender mark" />
     </td>
   </tr>
   <tr>
@@ -74,15 +74,15 @@
     </td>
   </tr>
   <tr>
-    <th>Killer</th>
+    <th>Assassin</th>
     <td align="center">
-      <img src="../assets/svg/role-marks/player-1.svg#killer" width="30" height="30" alt="Player 1's killer mark" />
+      <img src="../assets/svg/role-marks/player-1.svg#assassin" width="30" height="30" alt="Player 1's assassin mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/role-marks/player-1.svg#disabled-killer" width="30" height="30" alt="Player 1's disabled killer mark" />
+      <img src="../assets/svg/role-marks/player-1.svg#disabled-assassin" width="30" height="30" alt="Player 1's disabled assassin mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/role-marks/player-1.svg#destroyed-killer" width="30" height="30" alt="Player 1's destroyed killer mark" />
+      <img src="../assets/svg/role-marks/player-1.svg#destroyed-assassin" width="30" height="30" alt="Player 1's destroyed assassin mark" />
     </td>
   </tr>
   <tr>
@@ -132,15 +132,15 @@
     </td>
   </tr>
   <tr>
-    <th>Bunker</th>
+    <th>Defender</th>
     <td align="center">
-      <img src="../assets/svg/role-marks/player-2.svg#shield" width="30" height="30" alt="Player 2's shield mark" />
+      <img src="../assets/svg/role-marks/player-2.svg#defender" width="30" height="30" alt="Player 2's defender mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/role-marks/player-2.svg#disabled-shield" width="30" height="30" alt="Player 2's disabled shield mark" />
+      <img src="../assets/svg/role-marks/player-2.svg#disabled-defender" width="30" height="30" alt="Player 2's disabled defender mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/role-marks/player-2.svg#destroyed-shield" width="30" height="30" alt="Player 2's destroyed shield mark" />
+      <img src="../assets/svg/role-marks/player-2.svg#destroyed-defender" width="30" height="30" alt="Player 2's destroyed defender mark" />
     </td>
   </tr>
   <tr>
@@ -156,15 +156,15 @@
     </td>
   </tr>
   <tr>
-    <th>Killer</th>
+    <th>Assassin</th>
     <td align="center">
-      <img src="../assets/svg/role-marks/player-2.svg#killer" width="30" height="30" alt="Player 2's killer mark" />
+      <img src="../assets/svg/role-marks/player-2.svg#assassin" width="30" height="30" alt="Player 2's assassin mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/role-marks/player-2.svg#disabled-killer" width="30" height="30" alt="Player 2's disabled killer mark" />
+      <img src="../assets/svg/role-marks/player-2.svg#disabled-assassin" width="30" height="30" alt="Player 2's disabled assassin mark" />
     </td>
     <td align="center">
-      <img src="../assets/svg/role-marks/player-2.svg#destroyed-killer" width="30" height="30" alt="Player 2's destroyed killer mark" />
+      <img src="../assets/svg/role-marks/player-2.svg#destroyed-assassin" width="30" height="30" alt="Player 2's destroyed assassin mark" />
     </td>
   </tr>
   <tr>
