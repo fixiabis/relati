@@ -1,0 +1,192 @@
+<svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <path id="o-root-path" d="
+      M 0 0
+      m 25 25
+
+      m  0 -11.25
+        a 11.25 11.25 0 0 1 0 22.5
+        a 11.25 11.25 0 0 1 0 -22.5
+      m  0 11.25
+
+      m  0 -18.75
+        a 18.75 18.75 0 0 1 0 37.5
+        a 18.75 18.75 0 0 1 0 -37.5
+    " />
+
+    <path id="o-node-path" d="
+      M 0 0
+      m 25 25
+
+      m  0 -15
+        a 15 15 0 0 1 0 30
+        a 15 15 0 0 1 0 -30
+    " />
+
+    <path id="x-root-path" d="
+      M 0 0
+      m 10 10
+
+      m -0.3 0
+        m -2.5 2.5
+          l 12.5 12.5
+          l -12.5 12.5
+        m 2.5 -27.5
+      m 0.3 0
+
+      m 0 -0.3
+        m 2.5 -2.5
+          l 12.5 12.5
+          l 12.5 -12.5
+        m -27.5 2.5
+      m 0 0.3
+
+      m 30 30
+
+      m 0.3 0
+        m 2.5 -2.5
+          l -12.5 -12.5
+          l 12.5 -12.5
+        m -2.5 27.5
+      m -0.3 0
+
+      m 0 03
+        m -2.5 2.5
+          l -12.5 -12.5
+          l -12.5 12.5
+    " />
+
+    <path id="x-node-path" d="
+      M 0 0
+      m 10 10
+
+      l 30 30
+      m 0 -30
+      l -30 30
+    " />
+
+    <path id="d-root-path" d="
+      M 0 0
+      m 25 25
+      
+      m 0 -15
+        m 0 -2.5
+          l 20 32.5
+          l -40 0
+          z
+        m 0 2.5
+      m 0 15
+
+      m 0 -12.5
+        m 0 7.5
+          l 7.5 12.5
+          l -15 0
+          z
+    " />
+
+    <path id="d-node-path" d="
+      M 0 0
+      m 25 25
+
+      m 0 -12.5
+        l 15 25
+        l -30 0
+        z
+    " />
+
+    <path id="r-root-path" d="
+      M 0 0
+      m 10 10
+      
+      m -2.5 -2.5
+        l 0 35
+        l 35 0
+        l 0 -35
+        z
+      m 2.5 2.5
+
+      m 5 5
+        l 0 20
+        l 20 0
+        l 0 -20
+        z
+    " />
+
+    <path id="r-node-path" d="
+      M 0 0
+      m 10 10
+
+      l 0 30
+      l 30 0
+      l 0 -30
+      z
+    " />
+  </defs>
+
+  <use xlink:href="#o-root-path" id="o-destroyed-root" class="o destroyed root mark" />
+  <use xlink:href="#o-root-path" id="o-root" class="o root mark" />
+  <use xlink:href="#o-node-path" id="o-disabled-node" class="o disabled node mark" />
+  <use xlink:href="#o-node-path" id="o-destroyed-node" class="o destroyed node mark" />
+  <use xlink:href="#o-node-path" id="o-node" class="o node mark" />
+
+  <use xlink:href="#x-root-path" id="x-destroyed-root" class="x destroyed root mark" />
+  <use xlink:href="#x-root-path" id="x-root" class="x root mark" />
+  <use xlink:href="#x-node-path" id="x-disabled-node" class="x disabled node mark" />
+  <use xlink:href="#x-node-path" id="x-destroyed-node" class="x destroyed node mark" />
+  <use xlink:href="#x-node-path" id="x-node" class="x node mark" />
+
+  <use xlink:href="#d-root-path" id="d-destroyed-root" class="d destroyed root mark" />
+  <use xlink:href="#d-root-path" id="d-root" class="d root mark" />
+  <use xlink:href="#d-node-path" id="d-disabled-node" class="d disabled node mark" />
+  <use xlink:href="#d-node-path" id="d-destroyed-node" class="d destroyed node mark" />
+  <use xlink:href="#d-node-path" id="d-node" class="d node mark" />
+
+  <use xlink:href="#r-root-path" id="r-destroyed-root" class="r destroyed root mark" />
+  <use xlink:href="#r-root-path" id="r-root" class="r root mark" />
+  <use xlink:href="#r-node-path" id="r-disabled-node" class="r disabled node mark" />
+  <use xlink:href="#r-node-path" id="r-destroyed-node" class="r destroyed node mark" />
+  <use xlink:href="#r-node-path" id="r-node" class="r node mark" />
+
+  <style>
+    .mark:not(:target) {
+      display: none;
+    }
+
+    .mark {
+      fill: none;
+    }
+
+    .root.mark {
+      stroke-width: 2.5;
+    }
+
+    .node.mark {
+      stroke-width: 6;
+    }
+
+    .o.mark {
+      stroke: rgb(220, 20, 60)
+    }
+
+    .x.mark {
+      stroke: rgb(65, 105, 225);
+    }
+
+    .d.mark {
+      stroke: rgb(255, 140, 0);
+    }
+
+    .r.mark {
+      stroke: rgb(46, 139, 87);
+    }
+
+    .disabled.mark {
+      stroke: rgb(128, 128, 128);
+    }
+
+    .destroyed.mark {
+      stroke: rgba(128, 128, 128, 0.4);
+    }
+  </style>
+</svg>
