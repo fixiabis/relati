@@ -1,7 +1,6 @@
-<svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"
-  xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <path id="o-root-path" d="
+    <path id="o-root-shape" d="
       M 0 0
       m 25 25
 
@@ -15,7 +14,7 @@
         a 18.75 18.75 0 0 1 0 -37.5
     " />
 
-    <path id="o-node-path" d="
+    <path id="o-node-shape" d="
       M 0 0
       m 25 25
 
@@ -24,7 +23,7 @@
         a 15 15 0 0 1 0 -30
     " />
 
-    <path id="x-root-path" d="
+    <path id="x-root-shape" d="
       M 0 0
       m 10 10
 
@@ -50,7 +49,7 @@
         l -12.5 12.5
     " />
 
-    <path id="x-node-path" d="
+    <path id="x-node-shape" d="
       M 0 0
       m 10 10
 
@@ -59,7 +58,7 @@
       l -30 30
     " />
 
-    <path id="d-root-path" d="
+    <path id="d-root-shape" d="
       M 0 0
       m 25 25
       
@@ -75,7 +74,7 @@
         z
     " />
 
-    <path id="d-node-path" d="
+    <path id="d-node-shape" d="
       M 0 0
       m 25 25
 
@@ -85,7 +84,7 @@
         z
     " />
 
-    <path id="r-root-path" d="
+    <path id="r-root-shape" d="
       M 0 0
       m 10 10
       
@@ -103,7 +102,7 @@
         z
     " />
 
-    <path id="r-node-path" d="
+    <path id="r-node-shape" d="
       M 0 0
       m 10 10
 
@@ -114,29 +113,29 @@
     " />
   </defs>
 
-  <use xlink:href="#o-root-path" id="o-destroyed-root" class="o destroyed root mark" />
-  <use xlink:href="#o-root-path" id="o-root" class="o root mark" />
-  <use xlink:href="#o-node-path" id="o-disabled-node" class="o disabled node mark" />
-  <use xlink:href="#o-node-path" id="o-destroyed-node" class="o destroyed node mark" />
-  <use xlink:href="#o-node-path" id="o-node" class="o node mark" />
+  <use href="#o-root-shape" id="o-destroyed-root" class="o destroyed root mark" />
+  <use href="#o-root-shape" id="o-root" class="o root mark" />
+  <use href="#o-node-shape" id="o-disabled-node" class="o disabled node mark" />
+  <use href="#o-node-shape" id="o-destroyed-node" class="o destroyed node mark" />
+  <use href="#o-node-shape" id="o-node" class="o node mark" />
 
-  <use xlink:href="#x-root-path" id="x-destroyed-root" class="x destroyed root mark" />
-  <use xlink:href="#x-root-path" id="x-root" class="x root mark" />
-  <use xlink:href="#x-node-path" id="x-disabled-node" class="x disabled node mark" />
-  <use xlink:href="#x-node-path" id="x-destroyed-node" class="x destroyed node mark" />
-  <use xlink:href="#x-node-path" id="x-node" class="x node mark" />
+  <use href="#x-root-shape" id="x-destroyed-root" class="x destroyed root mark" />
+  <use href="#x-root-shape" id="x-root" class="x root mark" />
+  <use href="#x-node-shape" id="x-disabled-node" class="x disabled node mark" />
+  <use href="#x-node-shape" id="x-destroyed-node" class="x destroyed node mark" />
+  <use href="#x-node-shape" id="x-node" class="x node mark" />
 
-  <use xlink:href="#d-root-path" id="d-destroyed-root" class="d destroyed root mark" />
-  <use xlink:href="#d-root-path" id="d-root" class="d root mark" />
-  <use xlink:href="#d-node-path" id="d-disabled-node" class="d disabled node mark" />
-  <use xlink:href="#d-node-path" id="d-destroyed-node" class="d destroyed node mark" />
-  <use xlink:href="#d-node-path" id="d-node" class="d node mark" />
+  <use href="#d-root-shape" id="d-destroyed-root" class="d destroyed root mark" />
+  <use href="#d-root-shape" id="d-root" class="d root mark" />
+  <use href="#d-node-shape" id="d-disabled-node" class="d disabled node mark" />
+  <use href="#d-node-shape" id="d-destroyed-node" class="d destroyed node mark" />
+  <use href="#d-node-shape" id="d-node" class="d node mark" />
 
-  <use xlink:href="#r-root-path" id="r-destroyed-root" class="r destroyed root mark" />
-  <use xlink:href="#r-root-path" id="r-root" class="r root mark" />
-  <use xlink:href="#r-node-path" id="r-disabled-node" class="r disabled node mark" />
-  <use xlink:href="#r-node-path" id="r-destroyed-node" class="r destroyed node mark" />
-  <use xlink:href="#r-node-path" id="r-node" class="r node mark" />
+  <use href="#r-root-shape" id="r-destroyed-root" class="r destroyed root mark" />
+  <use href="#r-root-shape" id="r-root" class="r root mark" />
+  <use href="#r-node-shape" id="r-disabled-node" class="r disabled node mark" />
+  <use href="#r-node-shape" id="r-destroyed-node" class="r destroyed node mark" />
+  <use href="#r-node-shape" id="r-node" class="r node mark" />
 
   <style>
     .mark:not(:target) {
