@@ -1,0 +1,285 @@
+<svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path id="o-leader-shape" d="
+      M 0 0
+      m 25 25
+
+      m  0 -11.25
+        a 11.25 11.25 0 0 1 0 22.5
+        a 11.25 11.25 0 0 1 0 -22.5
+      m  0 11.25
+
+      m  0 -18.75
+        a 18.75 18.75 0 0 1 0 37.5
+        a 18.75 18.75 0 0 1 0 -37.5
+    " />
+
+    <path id="o-mortal-shape" d="
+      M 0 0
+      m 25 25
+
+      m  0 -15
+        a 15 15 0 0 1 0 30
+        a 15 15 0 0 1 0 -30
+    " />
+
+    <path id="o-sniper-shape" d="
+      M 0 0
+      m 25 25
+
+      m  0 -15
+        a 15 15 0 0 1 0 30
+        a 15 15 0 0 1 0 -30
+      m  0 15
+      
+      m 0 -22.5
+      v 15
+      m 0 7.5
+
+      m 0 22.5
+      v -15
+      m 0 -7.5
+
+      m -22.5 0
+      h 15
+      m 7.5 0
+
+      m 22.5 0
+      h -15
+    " />
+
+    <path id="o-escort-shape" d="
+      M 0 0
+      m 25 25
+
+      m  0 -15
+        a 15 15 0 0 1 0 30
+        a 15 15 0 0 1 0 -30
+      m  0 15
+      
+      m 0 -10
+      l 10 10
+      l -10 10
+      l -10 -10
+      l 10 -10
+      z
+    " />
+
+    <path id="o-bomber-shape" d="
+      M 0 0
+      m 25 25
+
+      m  0 -15
+        a 15 15 0 0 1 0 30
+        a 15 15 0 0 1 0 -30
+      m  0 15
+      
+      m  0 -3
+        a 3 3 0 0 1 0 6
+        a 3 3 0 0 1 0 -6
+      m  0 3
+
+      m  0 -6
+        a 6 6 0 0 1 0 12
+        a 6 6 0 0 1 0 -12
+      m  0 6
+    " />
+
+    <path id="o-priest-shape" d="
+      M 0 0
+      m 25 25
+
+      m  0 -15
+        a 15 15 0 0 1 0 30
+        a 15 15 0 0 1 0 -30
+      m  0 15
+      
+      m 0 -10
+      v 20
+      m -10 -10
+      h 20
+    " />
+
+    <path id="x-leader-shape" d="
+      M 0 0
+      m 10 10
+
+      m -2.8 2.5
+        l 12.5 12.5
+        l -12.5 12.5
+      m 2.8 -27.5
+
+      m 2.5 -2.8
+        l 12.5 12.5
+        l 12.5 -12.5
+      m -27.5 2.8
+
+      m 30 30
+
+      m 2.8 -2.5
+        l -12.5 -12.5
+        l 12.5 -12.5
+      m -2.8 27.5
+
+      m -2.5 2.8
+        l -12.5 -12.5
+        l -12.5 12.5
+    " />
+
+    <path id="x-mortal-shape" d="
+      M 0 0
+      m 10 10
+
+      l 30 30
+      m 0 -30
+      l -30 30
+    " />
+
+    <path id="x-sniper-shape" d="
+      M 0 0
+      m 10 10
+
+      l 30 30
+      m 0 -30
+      l -30 30
+      m 15 -15
+      
+      m 0 -22.5
+      v 10
+      m 0 12.5
+
+      m 0 22.5
+      v -10
+      m 0 -12.5
+
+      m -22.5 0
+      h 10
+      m 12.5 0
+
+      m 22.5 0
+      h -10
+    " />
+
+    <path id="x-escort-shape" d="
+      M 0 0
+      m 10 10
+
+      l 30 30
+      m 0 -30
+      l -30 30
+      m 15 -15
+
+      m 0 -15
+      l 15 15
+      l -15 15
+      l -15 -15
+      l 15 -15
+      z
+    " />
+
+    <path id="x-bomber-shape" d="
+      M 0 0
+      m 10 10
+
+      l 30 30
+      m 0 -30
+      l -30 30
+      m 15 -15
+      
+      m  0 -8
+        a 8 8 0 0 1 0 16
+        a 8 8 0 0 1 0 -16
+      m  0 8
+      
+    " />
+
+    <path id="x-priest-shape" d="
+      M 0 0
+      m 10 10
+
+      l 30 30
+      m 0 -30
+      l -30 30
+      m 15 -15
+      
+      m 0 -15
+      v 30
+      m -15 -15
+      h 30
+    " />
+  </defs>
+
+  <use href="#o-leader-shape" id="o-destroyed-leader" class="o destroyed leader mark" />
+  <use href="#o-leader-shape" id="o-leader" class="o leader mark" />
+  <use href="#o-mortal-shape" id="o-disabled-mortal" class="o disabled mortal mark" />
+  <use href="#o-mortal-shape" id="o-destroyed-mortal" class="o destroyed mortal mark" />
+  <use href="#o-mortal-shape" id="o-mortal" class="o mortal mark" />
+  <use href="#o-sniper-shape" id="o-disabled-sniper" class="o disabled sniper mark" />
+  <use href="#o-sniper-shape" id="o-destroyed-sniper" class="o destroyed sniper mark" />
+  <use href="#o-sniper-shape" id="o-sniper" class="o sniper mark" />
+  <use href="#o-escort-shape" id="o-disabled-escort" class="o disabled escort mark" />
+  <use href="#o-escort-shape" id="o-destroyed-escort" class="o destroyed escort mark" />
+  <use href="#o-escort-shape" id="o-escort" class="o escort mark" />
+  <use href="#o-bomber-shape" id="o-disabled-bomber" class="o disabled bomber mark" />
+  <use href="#o-bomber-shape" id="o-destroyed-bomber" class="o destroyed bomber mark" />
+  <use href="#o-bomber-shape" id="o-bomber" class="o bomber mark" />
+  <use href="#o-priest-shape" id="o-disabled-priest" class="o disabled priest mark" />
+  <use href="#o-priest-shape" id="o-destroyed-priest" class="o destroyed priest mark" />
+  <use href="#o-priest-shape" id="o-priest" class="o priest mark" />
+
+  <use href="#x-leader-shape" id="x-destroyed-leader" class="x destroyed leader mark" />
+  <use href="#x-leader-shape" id="x-leader" class="x leader mark" />
+  <use href="#x-mortal-shape" id="x-disabled-mortal" class="x disabled mortal mark" />
+  <use href="#x-mortal-shape" id="x-destroyed-mortal" class="x destroyed mortal mark" />
+  <use href="#x-mortal-shape" id="x-mortal" class="x mortal mark" />
+  <use href="#x-sniper-shape" id="x-disabled-sniper" class="x disabled sniper mark" />
+  <use href="#x-sniper-shape" id="x-destroyed-sniper" class="x destroyed sniper mark" />
+  <use href="#x-sniper-shape" id="x-sniper" class="x sniper mark" />
+  <use href="#x-escort-shape" id="x-disabled-escort" class="x disabled escort mark" />
+  <use href="#x-escort-shape" id="x-destroyed-escort" class="x destroyed escort mark" />
+  <use href="#x-escort-shape" id="x-escort" class="x escort mark" />
+  <use href="#x-bomber-shape" id="x-disabled-bomber" class="x disabled bomber mark" />
+  <use href="#x-bomber-shape" id="x-destroyed-bomber" class="x destroyed bomber mark" />
+  <use href="#x-bomber-shape" id="x-bomber" class="x bomber mark" />
+  <use href="#x-priest-shape" id="x-disabled-priest" class="x disabled priest mark" />
+  <use href="#x-priest-shape" id="x-destroyed-priest" class="x destroyed priest mark" />
+  <use href="#x-priest-shape" id="x-priest" class="x priest mark" />
+
+  <style>
+    .mark:not(:target) {
+      display: none;
+    }
+
+    .mark {
+      fill: none;
+    }
+
+    .leader.mark {
+      stroke-width: 2.5;
+    }
+
+    .mortal.mark,
+    .sniper.mark,
+    .escort.mark,
+    .bomber.mark,
+    .priest.mark {
+      stroke-width: 6;
+    }
+
+    .o.mark {
+      stroke: rgb(220, 20, 60)
+    }
+
+    .x.mark {
+      stroke: rgb(65, 105, 225);
+    }
+
+    .disabled.mark {
+      stroke: rgb(128, 128, 128);
+    }
+
+    .destroyed.mark {
+      stroke: rgba(128, 128, 128, 0.4);
+    }
+  </style>
+</svg>
