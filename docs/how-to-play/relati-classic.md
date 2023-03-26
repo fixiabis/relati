@@ -8,7 +8,7 @@
 
 ### 遊戲的開始
 
-1. 決定玩家順序，先攻玩家使用 `圈圈`<img width="22px" height="22px" src="../assets/mark.svg#o-node" style="vertical-align: bottom" />、後攻玩家使用 `叉叉`<img width="22px" height="22px" src="../assets/mark.svg#x-node" style="vertical-align: bottom" />。
+1. 決定玩家順序，先攻玩家使用 `圈圈 (O)`、後攻玩家使用 `叉叉 (X)`。
 2. 由先攻玩家為第一輪玩家，並進行[遊戲的一輪](#遊戲的一輪)。
 
 ### 遊戲的一輪
