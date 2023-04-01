@@ -1,17 +1,31 @@
 <svg width="150" height="150" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path id="o-node" d="
+      M 0 0
+      m 25 25
+
+      m  0 -15
+        a 15 15 0 0 1 0 30
+        a 15 15 0 0 1 0 -30
+    " stroke="rgb(220, 20, 60)" stroke-width="6" fill="none" />
+
+    <path id="o-hint" d="M 0 0 m 25 20 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 -10" fill="rgb(220, 20, 60)"></path>
+  </defs>
+
   <path d="
     M 0 50 H 150
     M 0 100 H 150
     M 50 0 V 150
     M 100 0 V 150
   " stroke="rgb(128, 128, 128)" stroke-width="4"></path>
-  <image href="./hint.svg#o" x="0" y="0"></image>
-  <image href="./hint.svg#o" x="0" y="50"></image>
-  <image href="./hint.svg#o" x="0" y="100"></image>
-  <image href="./hint.svg#o" x="50" y="0"></image>
-  <image href="./hint.svg#o" x="50" y="100"></image>
-  <image href="./hint.svg#o" x="100" y="0"></image>
-  <image href="./hint.svg#o" x="100" y="50"></image>
-  <image href="./hint.svg#o" x="100" y="100"></image>
-  <image href="./mark.svg#o-node" x="50" y="50"></image>
+
+  <use href="#o-hint" x="0" y="0" />
+  <use href="#o-hint" x="0" y="50" />
+  <use href="#o-hint" x="0" y="100" />
+  <use href="#o-hint" x="50" y="0" />
+  <use href="#o-hint" x="50" y="100" />
+  <use href="#o-hint" x="100" y="0" />
+  <use href="#o-hint" x="100" y="50" />
+  <use href="#o-hint" x="100" y="100" />
+  <use href="#o-node" x="50" y="50" />
 </svg>
