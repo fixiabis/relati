@@ -1,0 +1,28 @@
+<svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+  <path id="o" d="M 0 0 m 25 20 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 -10" class="o hint"></path>
+  <path id="x" d="M 0 0 m 25 20 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 -10" class="x hint"></path>
+  <path id="d" d="M 0 0 m 25 20 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 -10" class="d hint"></path>
+  <path id="r" d="M 0 0 m 25 20 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 -10" class="r hint"></path>
+
+  <style>
+    .hint:not(:target) {
+      display: none;
+    }
+
+    .o.hint {
+      fill: rgb(220, 20, 60);
+    }
+
+    .x.hint {
+      fill: rgb(65, 105, 225);
+    }
+
+    .d.hint {
+      fill: rgb(255, 140, 0);
+    }
+
+    .r.hint {
+      fill: rgb(46, 139, 87);
+    }
+  </style>
+</svg>

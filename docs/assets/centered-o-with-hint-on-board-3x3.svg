@@ -1,0 +1,17 @@
+<svg width="150" height="150" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+  <path d="
+    M 0 50 H 150
+    M 0 100 H 150
+    M 50 0 V 150
+    M 100 0 V 150
+  " stroke="rgb(128, 128, 128)" stroke-width="4"></path>
+  <image href="./hint.svg#o" x="0" y="0"></image>
+  <image href="./hint.svg#o" x="0" y="50"></image>
+  <image href="./hint.svg#o" x="0" y="100"></image>
+  <image href="./hint.svg#o" x="50" y="0"></image>
+  <image href="./hint.svg#o" x="50" y="100"></image>
+  <image href="./hint.svg#o" x="100" y="0"></image>
+  <image href="./hint.svg#o" x="100" y="50"></image>
+  <image href="./hint.svg#o" x="100" y="100"></image>
+  <image href="./mark.svg#o-node" x="50" y="50"></image>
+</svg>
