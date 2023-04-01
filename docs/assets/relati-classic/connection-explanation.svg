@@ -1,0 +1,41 @@
+<svg width="150" height="150" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path id="o-node" d="
+      M 0 0
+      m 25 25
+
+      m  0 -15
+        a 15 15 0 0 1 0 30
+        a 15 15 0 0 1 0 -30
+    " stroke="rgb(220, 20, 60)" stroke-width="6" fill="none" />
+  </defs>
+
+  <path d="
+    M 0 50 H 150
+    M 0 100 H 150
+    M 50 0 V 150
+    M 100 0 V 150
+  " stroke="rgb(128, 128, 128)" stroke-width="4"></path>
+
+  <g opacity="0.2" fill="none" stroke="rgb(220, 20, 60)" stroke-width="6" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M 75 75 l 0 -50"></path>
+    <path d="M 75 75 l -50 -50"></path>
+    <path d="M 75 75 l -50 0"></path>
+    <path d="M 75 75 l -50 50"></path>
+    <path d="M 75 75 l 0 50"></path>
+    <path d="M 75 75 l 50 50"></path>
+    <path d="M 75 75 l 50 0"></path>
+    <path d="M 75 75 l 50 -50"></path>
+  </g>
+
+  <use href="#o-node" x="0" y="0" />
+  <use href="#o-node" x="0" y="50" />
+  <use href="#o-node" x="0" y="100" />
+  <use href="#o-node" x="50" y="0" />
+  <use href="#o-node" x="50" y="100" />
+  <use href="#o-node" x="100" y="0" />
+  <use href="#o-node" x="100" y="50" />
+  <use href="#o-node" x="100" y="100" />
+  <use href="#o-node" x="50" y="50" />
+</svg>
