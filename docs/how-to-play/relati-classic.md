@@ -46,7 +46,7 @@
 
 以下為棋盤一角：
 
-<img src="../assets/relati-classic/connectable-position-explanation.svg" />
+<img src="../appendices/relati-classic/connectable-position-explanation.svg" />
 
 我們以圈圈玩家為例，和中心的圈圈符號相鄰的八個點 (`F`、`B`、`L`、`R`、`FL`、`FR`、`BL`、`BR`) 皆為可連線的位置。
 
@@ -68,6 +68,6 @@
 
 以下為棋盤一角：
 
-<img src="../assets/relati-classic/connection-explanation.svg" />
+<img src="../appendices/relati-classic/connection-explanation.svg" />
 
 兩枚我方符號只要垂直相鄰 (`F`、`B`)、水平相鄰 (`L`、`R`) 抑或對角線相鄰 (`FL`、`FR`、`BL`、`BR`) 皆視為連線。
