@@ -6,7 +6,12 @@
 classDiagram
   class Game {
     +ended : boolean
+    +winner : Player [0..1]
     +execute(): void
+  }
+
+  class Turn {
+    execute(): void
   }
 
   class Player {
@@ -15,6 +20,8 @@ classDiagram
   }
 
   class Board {
+    +width : number
+    +height : number
     +squareAt(position : Position): Square
   }
 
@@ -45,12 +52,13 @@ classDiagram
 
   Game "1" *-- "1" Board
   Game "1" *-- "2" Player
-  Game "1" o-- "1" Player: turnPlayer
-  Game "1" o-- "0..1" Player: winner
+  Game "1" o-- "0..25" Turn
+  Turn "1" o-- "1" Player
   Player "1" o-- "1" Mark
   Board "1" *-- "25" Square
   Square "1" *-- "0..1" Piece
   Piece "1" o-- "1" Mark
   Board ..> Position
   Square ..> Direction
+  Position ..> Direction
 ```
