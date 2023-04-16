@@ -28,7 +28,7 @@
   <use href="#o-hint" x="100" y="50" />
   <use href="#o-hint" x="100" y="100" />
   <use href="#o-node" x="50" y="50" />
-  <g font-family="monospace" font-size="12" transform="translate(-4, -5)" fill="rgb(220, 20, 60)">
+  <g font-family="monospace" font-size="12" transform="translate(-4, -5)" fill="rgba(128, 128, 128, 0.6)">
     <text x="50" y="50" text-anchor="end">FL</text>
     <text x="100" y="50" text-anchor="end">F</text>
     <text x="150" y="50" text-anchor="end">FR</text>

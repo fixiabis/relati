@@ -1,0 +1,53 @@
+<svg width="250" height="250" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path id="o-node" d="
+      M 0 0
+      m 25 25
+
+      m  0 -15
+        a 15 15 0 0 1 0 30
+        a 15 15 0 0 1 0 -30
+    " stroke="rgb(220, 20, 60)" stroke-width="6" fill="none" />
+
+    <path id="o-hint" d="M 0 0 m 25 20 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 -10" fill="rgb(220, 20, 60)"></path>
+  </defs>
+
+  <path d="
+    M 0 50 H 250
+    M 0 100 H 250
+    M 0 150 H 250
+    M 0 200 H 250
+    M 50 0 V 250
+    M 100 0 V 250
+    M 150 0 V 250
+    M 200 0 V 250
+  " stroke="rgb(128, 128, 128)" stroke-width="4"></path>
+
+  <g font-family="monospace" font-size="12" transform="translate(-4, -5)" fill="rgba(128, 128, 128, 0.6)">
+    <text x="50" y="50" text-anchor="end">A1</text>
+    <text x="50" y="100" text-anchor="end">A2</text>
+    <text x="50" y="150" text-anchor="end">A3</text>
+    <text x="50" y="200" text-anchor="end">A4</text>
+    <text x="50" y="250" text-anchor="end">A5</text>
+    <text x="100" y="50" text-anchor="end">B1</text>
+    <text x="100" y="100" text-anchor="end">B2</text>
+    <text x="100" y="150" text-anchor="end">B3</text>
+    <text x="100" y="200" text-anchor="end">B4</text>
+    <text x="100" y="250" text-anchor="end">B5</text>
+    <text x="150" y="50" text-anchor="end">C1</text>
+    <text x="150" y="100" text-anchor="end">C2</text>
+    <text x="150" y="150" text-anchor="end">C3</text>
+    <text x="150" y="200" text-anchor="end">C4</text>
+    <text x="150" y="250" text-anchor="end">C5</text>
+    <text x="200" y="50" text-anchor="end">D1</text>
+    <text x="200" y="100" text-anchor="end">D2</text>
+    <text x="200" y="150" text-anchor="end">D3</text>
+    <text x="200" y="200" text-anchor="end">D4</text>
+    <text x="200" y="250" text-anchor="end">D5</text>
+    <text x="250" y="50" text-anchor="end">E1</text>
+    <text x="250" y="100" text-anchor="end">E2</text>
+    <text x="250" y="150" text-anchor="end">E3</text>
+    <text x="250" y="200" text-anchor="end">E4</text>
+    <text x="250" y="250" text-anchor="end">E5</text>
+  </g>
+</svg>
