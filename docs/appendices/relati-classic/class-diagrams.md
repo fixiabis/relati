@@ -98,7 +98,7 @@ classDiagram
 
   class Square {
     <<value object>>
-    +squareTo(direction : Direction): Square
+    +placePiece(piece : Piece): Square
   }
 
   class Piece {
