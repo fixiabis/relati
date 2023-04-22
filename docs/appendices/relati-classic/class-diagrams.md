@@ -57,6 +57,7 @@ classDiagram
   Player "1" o-- "1" Mark
   Board "1" *-- "25" Square
   Square "1" *-- "0..1" Piece
+  Square "1" o--> "1" Position
   Piece "1" o-- "1" Mark
   Board ..> Position
   Square ..> Direction
@@ -71,13 +72,15 @@ classDiagram
     <<aggregate root>>
     +winner : Player [0..1]
     +isEnded(): boolean
-    +playerPlacePiece(player : Player, position : Position, piece : Piece): void
+    +playerPlacePiece(player : Player, piece : Piece, placeAt : Position): void
     -playerCanPlacePiece(player : Player): boolean
   }
 
   class Turn {
     <<value object>>
-    +playerPlacePiece(player : Player, position : Position, piece : Piece): Turn
+    +placeAt : Position
+    +piece : Piece
+    +playerPlacePiece(player : Player, piece : Piece, placeAt : Position): Turn
     +isEnded(): boolean
   }
 
@@ -89,7 +92,7 @@ classDiagram
     <<value object>>
     +width : number
     +height : number
-    +placePiece(position : Position, piece : Piece): Board
+    +placePiece(piece : Piece, placeAt : Position): Board
     +squareAt(position : Position): Square
   }
 
@@ -126,6 +129,7 @@ classDiagram
   Player "1" o-- "1" Mark
   Board "1" *-- "25" Square
   Square "1" *-- "0..1" Piece
+  Square "1" o--> "1" Position
   Piece "1" o-- "1" Mark
   Board ..> Position
   Square ..> Direction
