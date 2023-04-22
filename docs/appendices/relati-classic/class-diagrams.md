@@ -52,7 +52,7 @@ classDiagram
 
   Game "1" *-- "1" Board
   Game "1" *-- "2" Player
-  Game "1" o-- "0..25" Turn
+  Game "1" *-- "0..25" Turn
   Turn "1" o-- "1" Player
   Player "1" o-- "1" Mark
   Board "1" *-- "25" Square
@@ -121,7 +121,7 @@ classDiagram
 
   Game "1" *-- "1" Board
   Game "1" *-- "2" Player
-  Game "1" o-- "0..25" Turn
+  Game "1" *-- "0..25" Turn
   Turn "1" o-- "1" Player
   Player "1" o-- "1" Mark
   Board "1" *-- "25" Square
