@@ -5,13 +5,13 @@
 ```mermaid
 classDiagram
   class Game {
-    +ended : boolean
     +winner : Player [0..1]
     +execute(): void
+    +isEnded(): boolean
   }
 
   class Turn {
-    execute(): void
+    +execute(): void
   }
 
   class Player {
@@ -31,6 +31,75 @@ classDiagram
   }
 
   class Piece {
+  }
+
+  class Mark {
+    <<enumeration>>
+    O
+    X
+  }
+
+  class Position {
+    +x : number
+    +y : number
+    +to(direction : Direction): Position
+  }
+
+  class Direction {
+    +x : number
+    +y : number
+  }
+
+  Game "1" *-- "1" Board
+  Game "1" *-- "2" Player
+  Game "1" o-- "0..25" Turn
+  Turn "1" o-- "1" Player
+  Player "1" o-- "1" Mark
+  Board "1" *-- "25" Square
+  Square "1" *-- "0..1" Piece
+  Piece "1" o-- "1" Mark
+  Board ..> Position
+  Square ..> Direction
+  Position ..> Direction
+```
+
+## 領域導向設計類別圖
+
+```mermaid
+classDiagram
+  class Game {
+    <<aggregate root>>
+    +winner : Player [0..1]
+    +isEnded(): boolean
+    +playerPlacePiece(player : Player, position : Position, piece : Piece): void
+    -playerCanPlacePiece(player : Player): boolean
+  }
+
+  class Turn {
+    <<value object>>
+    +playerPlacePiece(player : Player, position : Position, piece : Piece): Turn
+    +isEnded(): boolean
+  }
+
+  class Player {
+    <<entity>>
+  }
+
+  class Board {
+    <<value object>>
+    +width : number
+    +height : number
+    +placePiece(position : Position, piece : Piece): Board
+    +squareAt(position : Position): Square
+  }
+
+  class Square {
+    <<value object>>
+    +squareTo(direction : Direction): Square
+  }
+
+  class Piece {
+    <<value object>>
   }
 
   class Mark {
