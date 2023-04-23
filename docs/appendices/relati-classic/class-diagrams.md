@@ -72,15 +72,13 @@ classDiagram
     <<aggregate root>>
     +winner : Player [0..1]
     +isEnded(): boolean
-    +playerPlacePiece(player : Player, piece : Piece, placeAt : Position): void
+    +playerPlacePiece(player : Player, piece : Piece, at : Position): void
     -playerCanPlacePiece(player : Player): boolean
   }
 
   class Turn {
     <<value object>>
-    +placeAt : Position
-    +piece : Piece
-    +playerPlacePiece(player : Player, piece : Piece, placeAt : Position): Turn
+    +playerPlacePiece(player : Player, piece : Piece, at : Position): Turn
     +isEnded(): boolean
   }
 
@@ -92,13 +90,8 @@ classDiagram
     <<value object>>
     +width : number
     +height : number
-    +placePiece(piece : Piece, placeAt : Position): Board
-    +squareAt(position : Position): Square
-  }
-
-  class Square {
-    <<value object>>
-    +placePiece(piece : Piece): Square
+    +placePiece(piece : Piece, at : Position): Board
+    +pieceAt(position : Position): Piece
   }
 
   class Piece {
@@ -122,16 +115,13 @@ classDiagram
     +y : number
   }
 
-  Game "1" *-- "1" Board
-  Game "1" *-- "2" Player
-  Game "1" *-- "0..25" Turn
-  Turn "1" o-- "1" Player
-  Player "1" o-- "1" Mark
-  Board "1" *-- "25" Square
-  Square "1" *-- "0..1" Piece
-  Square "1" o--> "1" Position
-  Piece "1" o-- "1" Mark
+  Game "1" *--> "1" Board
+  Game "1" *--> "2" Player
+  Game "1" *--> "0..25" Turn
+  Turn "1" o--> "1" Player
+  Player "1" o--> "1" Mark
+  Board "1" *--> "0..25" Piece
+  Piece "1" o--> "1" Mark
   Board ..> Position
-  Square ..> Direction
   Position ..> Direction
 ```
