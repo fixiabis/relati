@@ -8,6 +8,7 @@ classDiagram
     +winner : Player [0..1]
     +execute(): void
     +isEnded(): boolean
+    +playerCanPlacePiece(player : Player) : boolean
   }
 
   class Turn {
@@ -16,7 +17,6 @@ classDiagram
 
   class Player {
     +takeTurn(): void
-    +canPlacePiece(board : Board): boolean
   }
 
   class Board {
@@ -61,67 +61,5 @@ classDiagram
   Piece "1" o-- "1" Mark
   Board ..> Position
   Square ..> Direction
-  Position ..> Direction
-```
-
-## 領域導向設計類別圖
-
-```mermaid
-classDiagram
-  class Game {
-    <<aggregate root>>
-    +winner : Player [0..1]
-    +isEnded(): boolean
-    +playerPlacePiece(player : Player, piece : Piece, at : Position): void
-    -playerCanPlacePiece(player : Player): boolean
-  }
-
-  class Turn {
-    <<value object>>
-    +playerPlacePiece(player : Player, piece : Piece, at : Position): Turn
-    +isEnded(): boolean
-  }
-
-  class Player {
-    <<entity>>
-  }
-
-  class Board {
-    <<value object>>
-    +width : number
-    +height : number
-    +placePiece(piece : Piece, at : Position): Board
-    +pieceAt(position : Position): Piece
-  }
-
-  class Piece {
-    <<value object>>
-  }
-
-  class Mark {
-    <<enumeration>>
-    O
-    X
-  }
-
-  class Position {
-    +x : number
-    +y : number
-    +to(direction : Direction): Position
-  }
-
-  class Direction {
-    +x : number
-    +y : number
-  }
-
-  Game "1" *--> "1" Board
-  Game "1" *--> "2" Player
-  Game "1" *--> "0..25" Turn
-  Turn "1" o--> "1" Player
-  Player "1" o--> "1" Mark
-  Board "1" *--> "0..25" Piece
-  Piece "1" o--> "1" Mark
-  Board ..> Position
   Position ..> Direction
 ```
